@@ -1,20 +1,23 @@
-package walkingdevs;
+package walkingdevs.val;
+
+import walkingdevs.Problems;
+import walkingdevs.fun.Result;
 
 class ValImpl<T> implements Val<T> {
     public void fail() {
-        if (result) {
+        if (result.get()) {
             throw Problems.illegalArg(
                     String.format(FORMAT, name, value, problem)
             );
         }
     }
 
-    public T getOrFail() {
+    public T get() {
         fail();
         return value;
     }
 
-    ValImpl(T value, String name, boolean result, String problem) {
+    ValImpl(T value, String name, Result<Boolean> result, String problem) {
         this.value = value;
         this.name = name;
         this.result = result;
@@ -23,6 +26,6 @@ class ValImpl<T> implements Val<T> {
 
     private final T value;
     private final String name;
-    private final boolean result;
+    private final Result<Boolean> result;
     private final String problem;
 }

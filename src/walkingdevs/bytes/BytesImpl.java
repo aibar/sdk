@@ -1,55 +1,39 @@
 package walkingdevs.bytes;
 
-import walkingdevs.Charsets;
-import walkingdevs.Iter;
-
-import java.nio.charset.Charset;
 import java.util.Arrays;
-import java.util.Iterator;
 
 class BytesImpl implements Bytes {
-    public byte[] copy() {
-        byte[] copy = new byte[length()];
-        System.arraycopy(bytes, 0, copy, 0, bytes.length);
-        return copy;
+    public byte[] get() {
+        return Arrays.copyOf(bytes, length());
     }
 
     public int length() {
         return bytes.length;
     }
 
-    public String text() {
-        return new String(bytes, Charset.forName("UTF-8"));
-    }
-
-    public String text(Charsets charset) {
-        return new String(bytes, Charset.forName(charset.toString()));
-    }
-
-    @Override
-    public Iterator<Byte> iterator() {
-        return new BytesIterator();
+    public boolean isEmpty() {
+        return length() == 0;
     }
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(copy());
+        return Arrays.hashCode(bytes);
     }
 
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof Bytes)) {
+        if (object == null || !(object instanceof Bytes)) {
             return false;
         }
 
         Bytes other = (Bytes) object;
-        if (other.length() != length()) {
+        if (other.length() != bytes.length) {
             return false;
         }
 
-        byte[] otherBytes = other.copy();
+        byte[] otherBytes = other.get();
         for (int i = 0; i < otherBytes.length; i++) {
-            if (otherBytes[i] != copy()[i]) {
+            if (otherBytes[i] != bytes[i]) {
                 return false;
             }
         }
@@ -57,9 +41,10 @@ class BytesImpl implements Bytes {
         return true;
     }
 
+    // TODO: print first 10 bytes
     @Override
     public String toString() {
-        return Iter.mk(this).join(", ");
+        return super.toString() + " length=" + length();
     }
 
     BytesImpl(byte[] bytes) {
@@ -67,16 +52,4 @@ class BytesImpl implements Bytes {
     }
 
     private final byte[] bytes;
-
-    private class BytesIterator implements Iterator<Byte> {
-        public boolean hasNext() {
-            return i < length();
-        }
-
-        public Byte next() {
-            return copy()[i++];
-        }
-
-        private int i = 0;
-    }
 }

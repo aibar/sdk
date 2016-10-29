@@ -1,6 +1,7 @@
 package walkingdevs.http11;
 
 import walkingdevs.Problems;
+import walkingdevs.bytes.BytesBuilder;
 import walkingdevs.fun.Handler;
 import walkingdevs.stream.BufferedIs;
 
@@ -15,35 +16,23 @@ import java.net.URLConnection;
 import java.util.List;
 import java.util.Map;
 
-class RequestImpl implements Request {
-    public Response send() {
-        HttpURLConnection connection = null;
-        try {
-            connection = tryToGetConnection();
-
-            tryToSetConnectionProps(connection);
-            setHeaders(connection);
-            tryToSendBody(connection);
-
-            return Response.mk(
-                    tryToGetStatus(connection),
-                    tryToGetStatusMsg(connection),
-                    getHeaders(connection),
-                    tryToGetBody(connection)
-            );
-        } catch (Exception fail) {
-            throw Problems.weFucked(
-                    String.format("%s: We tried hard, but Failed to send the request", uri),
-                    fail
-            );
-        } finally {
-            if (connection != null) {
-                connection.disconnect();
+class ReqImpl implements Req {
+    public Resp send() {
+        BytesBuilder bytesBuilder = BytesBuilder.mk();
+        RespNoBody resp = send(bufferedIs -> {
+            for (byte[] bytes : bufferedIs) {
+                bytesBuilder.add(bytes);
             }
-        }
+        });
+        return Resp.mk(
+                resp.status(),
+                resp.statusMsg(),
+                resp.headers(),
+                RespBody.mk(bytesBuilder.get())
+        );
     }
 
-    public Response send(Handler<BufferedIs> bodyIsHandler) {
+    public RespNoBody send(Handler<BufferedIs> bufferedIsHandler) {
         HttpURLConnection connection = null;
         try {
             connection = tryToGetConnection();
@@ -52,15 +41,14 @@ class RequestImpl implements Request {
             setHeaders(connection);
             tryToSendBody(connection);
 
-            try (BufferedIs bufferedIs = BufferedIs.mk(tryToGetInputStream(connection), 8192)) {
-                bodyIsHandler.handle(bufferedIs);
+            try (InputStream is = tryToGetInputStream(connection)) {
+                bufferedIsHandler.handle(BufferedIs.mk(is));
             }
 
-            return Response.mk(
+            return RespNoBody.mk(
                     tryToGetStatus(connection),
                     tryToGetStatusMsg(connection),
-                    getHeaders(connection),
-                    Body.mkEmpty()
+                    getHeaders(connection)
             );
         } catch (Exception fail) {
             throw Problems.weFucked(
@@ -75,18 +63,18 @@ class RequestImpl implements Request {
     }
 
     // TODO: implement
-    public void sendAsync(Handler<Response> responseHandler) {
+    public void sendAsync(Handler<Resp> responseHandler) {
         throw Problems.notImplemented();
     }
 
     // TODO: implement
-    public void sendAsync(Handler<Response> responseHandler, Handler<BufferedIs> bodyIsHandler) {
+    public void sendAsync(Handler<Resp> responseHandler, Handler<BufferedIs> bodyIsHandler) {
         throw Problems.notImplemented();
     }
 
-    RequestImpl(
+    ReqImpl(
             HttpURI uri,
-            HttpMethod method,
+            Method method,
             HttpHeaders headers,
             Body body,
             int readTimeout,
@@ -101,7 +89,7 @@ class RequestImpl implements Request {
     }
 
     private final HttpURI uri;
-    private final HttpMethod method;
+    private final Method method;
     private final HttpHeaders headers;
     private final Body body;
     private final int readTimeout;
@@ -156,18 +144,6 @@ class RequestImpl implements Request {
         return headers;
     }
 
-    private Body tryToGetBody(HttpURLConnection connection) {
-        InputStream is = tryToGetInputStream(connection);
-        if (is == null) {
-            return Body.mkEmpty();
-        }
-        try (BufferedIs bufferedIs = BufferedIs.mk(is, 8192)) {
-            return Body.mk(bufferedIs.bytes().copy());
-        } catch (Exception fail) {
-            throw Problems.weFucked(fail);
-        }
-    }
-
     private InputStream tryToGetInputStream(HttpURLConnection connection) {
         if (tryToGetStatus(connection) >= HttpURLConnection.HTTP_BAD_REQUEST) {
             return connection.getErrorStream();
@@ -176,7 +152,7 @@ class RequestImpl implements Request {
                 return connection.getInputStream();
             } catch (IOException fail) {
                 throw Problems.weFucked(
-                        String.format("%s: For reasons unknown we didn't get inputStream", uri),
+                        String.format("%s: For reasons unknown we didn't get the InputStream", uri),
                         fail
                 );
             }
@@ -214,7 +190,7 @@ class RequestImpl implements Request {
         OutputStream output = null;
         try {
             output = connection.getOutputStream();
-            BufferedIs.mk(content, 8192).write(output);
+            BufferedIs.mk(content, 8192).writeTo(output);
         } catch (IOException fail) {
             throw Problems.weFucked(
                     String.format("%s: Cannot send body", uri),

@@ -1,4 +1,6 @@
-package walkingdevs;
+package walkingdevs.vals;
+
+import walkingdevs.val.Val;
 
 class ValsImpl<T> implements Vals<T> {
     public void fail() {
@@ -7,7 +9,7 @@ class ValsImpl<T> implements Vals<T> {
         }
     }
 
-    public T getOrFail() {
+    public T get() {
         fail();
         return value;
     }

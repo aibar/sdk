@@ -1,6 +1,6 @@
 package walkingdevs.http11;
 
-import walkingdevs.Val;
+import walkingdevs.val.Val;
 import walkingdevs.str.Str;
 
 class HttpURIImpl implements HttpURI {
@@ -9,7 +9,7 @@ class HttpURIImpl implements HttpURI {
     }
 
     public HttpURI host(String host) {
-        this.host = Val.isBlank(host, "host").getOrFail();
+        this.host = Val.isBlank(host, "host").get();
         return this;
     }
 
@@ -21,9 +21,9 @@ class HttpURIImpl implements HttpURI {
         this.port = Val.mk(
                 port,
                 "port",
-                port < 1 || port > 65535,
+                () -> port < 1 || port > 65535,
                 "Just Invalid"
-        ).getOrFail();
+        ).get();
         return this;
     }
 
@@ -44,7 +44,7 @@ class HttpURIImpl implements HttpURI {
     }
 
     public HttpURI query(HttpQuery query) {
-        this.query = Val.isNull(query, "query").getOrFail();
+        this.query = Val.isNull(query, "query").get();
         return this;
     }
 
@@ -53,7 +53,7 @@ class HttpURIImpl implements HttpURI {
     }
 
     public HttpURI scheme(Scheme scheme) {
-        this.scheme = Val.isNull(scheme, "scheme").getOrFail();
+        this.scheme = Val.isNull(scheme, "scheme").get();
         return this;
     }
 

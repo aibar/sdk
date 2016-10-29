@@ -1,18 +1,21 @@
 package walkingdevs.bytes;
 
-import walkingdevs.Charsets;
-
-public interface Bytes extends Iterable<Byte> {
-    byte[] copy();
+public interface Bytes {
+    // Copy
+    byte[] get();
 
     int length();
 
-    // UTF-8
-    String text();
+    boolean isEmpty();
 
-    String text(Charsets charset);
+    static Bytes mk() {
+        return mk(new byte[0]);
+    }
 
     static Bytes mk(byte[] bytes) {
+        if (bytes == null) {
+            return mk();
+        }
         return new BytesImpl(bytes);
     }
 }

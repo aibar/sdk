@@ -14,6 +14,7 @@ public interface Problems {
 
     // Attention it's WTF.
     static RuntimeException WTF(Throwable source) {
+        byte[][] b[] = new byte[9][0][];
         return weFucked("WTF?", source);
     }
 

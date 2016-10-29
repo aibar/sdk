@@ -1,5 +1,7 @@
 package walkingdevs.str;
 
+import walkingdevs.chset.Chset;
+
 import java.util.Iterator;
 
 class StrImpl implements Str {
@@ -8,32 +10,52 @@ class StrImpl implements Str {
     }
 
     public boolean isEmpty() {
-        return str == null || str.isEmpty();
+        return str.isEmpty();
     }
 
     public boolean isBlank() {
         return isEmpty() || str.trim().isEmpty();
     }
 
+    public byte[] bytes() {
+        return bytes(Chset.UTF8());
+    }
+
+    public byte[] bytes(Chset chset) {
+        if (chset == null) {
+            return bytes();
+        }
+        return str.getBytes(chset.get());
+    }
+
     @Override
     public Iterator<Character> iterator() {
-        return new StrIterator();
+        return new Iterator<Character>() {
+            public boolean hasNext() {
+                return i < str.length();
+            }
+
+            public Character next() {
+                return str.charAt(i++);
+            }
+
+            private int i = 0;
+        };
     }
 
     @Override
     public boolean equals(Object o) {
-        return str != null && str.equals(o);
+        return str.equals(o);
     }
 
     @Override
     public int hashCode() {
-        return str != null ? str.hashCode() : 0;
+        return str.hashCode();
     }
 
     @Override
     public String toString() {
-        // The correct way.
-        return str != null ? str : "";
+        return str;
     }
 
     StrImpl(String str) {
@@ -41,16 +63,4 @@ class StrImpl implements Str {
     }
 
     private final String str;
-
-    private class StrIterator implements Iterator<Character> {
-        public boolean hasNext() {
-            return i < str.length();
-        }
-
-        public Character next() {
-            return str.charAt(i++);
-        }
-
-        private int i = 0;
-    }
 }

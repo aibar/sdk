@@ -14,36 +14,56 @@ public class KeyValsTest extends Assert {
     }
 
     @Test
+    public void shouldNotAddWithSameKey() {
+        KeyVals<String, String> kvs = KeyVals.mk();
+        kvs.add(KeyVal.mk("key", "val"));
+        kvs.add(KeyVal.mk("key", "val"));
+        assertEquals(1, kvs.size());
+    }
+
+    @Test
     public void shouldDel() {
-        assertFalse(KeyVals.mk(KeyVal.mk("key", "val")).del("key").has("key"));
+        assertFalse(
+                KeyVals.mk(
+                        KeyVal.mk("key", "val")
+                ).del("key").has("key")
+        );
     }
 
     @Test
     public void shouldHas() {
-        assertTrue(KeyVals.mk(KeyVal.mk("key", "val")).has("key"));
+        assertTrue(
+                KeyVals.mk(
+                        KeyVal.mk("key", "val")
+                ).has("key")
+        );
     }
 
     @Test
     public void shouldGetSize() {
-        KeyVals<String, String> kvs = KeyVals.mk();
-        kvs.add(KeyVal.mk("key1", "val1"));
-        kvs.add(KeyVal.mk("key1", "val1"));
-        kvs.add(KeyVal.mk("key2", "val2"));
-        assertEquals(2, kvs.size());
+        assertEquals(
+                2,
+                KeyVals.mk(
+                        KeyVal.mk("key1", "val1"),
+                        KeyVal.mk("key2", "val2")
+                ).size()
+        );
     }
 
     @Test
     public void shouldMkEmpty() {
-        assertNotNull(KeyVals.mk());
+        assertTrue(KeyVals.mk().isEmpty());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldNotMkIfNullPassed() {
-        KeyVals.mk(
+    @Test
+    public void shouldNotAddNulls() {
+        KeyVals<String, String> kvs = KeyVals.mk(
                 KeyVal.mk("key1", "val1"),
                 // Oops
                 null,
                 KeyVal.mk("key2", "val2")
         );
+        assertEquals(2, kvs.size());
+        assertEquals(2, kvs.add(null).size());
     }
 }

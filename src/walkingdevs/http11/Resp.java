@@ -1,21 +1,21 @@
 package walkingdevs.http11;
 
-public interface Response {
+public interface Resp {
     int status();
 
     String statusMsg();
 
     HttpHeaders headers();
 
-    Body body();
+    RespBody body();
 
-    static Response mk(
+    static Resp mk(
             int status,
             String statusMsg,
             HttpHeaders headers,
-            Body body
+            RespBody body
     ) {
-        return new ResponseImpl(
+        return new RespImpl(
                 status,
                 statusMsg,
                 headers,

@@ -1,6 +1,6 @@
 package walkingdevs.http11;
 
-class ResponseImpl implements Response {
+class RespImpl implements Resp {
     public int status() {
         return status;
     }
@@ -13,15 +13,15 @@ class ResponseImpl implements Response {
         return headers;
     }
 
-    public Body body() {
+    public RespBody body() {
         return body;
     }
 
-    ResponseImpl(
+    RespImpl(
             int status,
             String statusMsg,
             HttpHeaders headers,
-            Body body
+            RespBody body
     ) {
         this.status = status;
         this.statusMsg = statusMsg;
@@ -32,5 +32,5 @@ class ResponseImpl implements Response {
     private final int status;
     private final String statusMsg;
     private final HttpHeaders headers;
-    private final Body body;
+    private final RespBody body;
 }

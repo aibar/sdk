@@ -1,19 +1,19 @@
 package walkingdevs.http11;
 
-import walkingdevs.Val;
+import walkingdevs.val.Val;
 
-class RequestBuilderImpl implements RequestBuilder {
+class ReqBuilderImpl implements ReqBuilder {
     public int readTimeout() {
         return readTimeout;
     }
 
-    public RequestBuilder readTimeout(int readTimeout) {
+    public ReqBuilder readTimeout(int readTimeout) {
         this.readTimeout = Val.mk(
                 readTimeout,
                 "readTimeout",
-                readTimeout < 0,
+                () -> readTimeout < 0,
                 "Cannot be negative"
-        ).getOrFail();
+        ).get();
         return this;
     }
 
@@ -21,13 +21,13 @@ class RequestBuilderImpl implements RequestBuilder {
         return connectTimeout;
     }
 
-    public RequestBuilder connectTimeout(int connectTimeout) {
+    public ReqBuilder connectTimeout(int connectTimeout) {
         this.connectTimeout = Val.mk(
                 connectTimeout,
                 "connectTimeout",
-                connectTimeout < 0,
+                () -> connectTimeout < 0,
                 "Cannot be negative"
-        ).getOrFail();
+        ).get();
         return this;
     }
 
@@ -35,12 +35,12 @@ class RequestBuilderImpl implements RequestBuilder {
         return uri;
     }
 
-    public HttpMethod method() {
+    public Method method() {
         return method;
     }
 
-    public RequestBuilder method(HttpMethod method) {
-        this.method = Val.isNull(method, "method").getOrFail();
+    public ReqBuilder method(Method method) {
+        this.method = Val.isNull(method, "method").get();
         return this;
     }
 
@@ -48,8 +48,8 @@ class RequestBuilderImpl implements RequestBuilder {
         return headers;
     }
 
-    public RequestBuilder headers(HttpHeaders headers) {
-        this.headers = Val.isNull(headers, "headers").getOrFail();
+    public ReqBuilder headers(HttpHeaders headers) {
+        this.headers = Val.isNull(headers, "headers").get();
         return this;
     }
 
@@ -57,13 +57,17 @@ class RequestBuilderImpl implements RequestBuilder {
         return body;
     }
 
-    public RequestBuilder body(Body body) {
-        this.body = Val.isNull(body, "body").getOrFail();
+    public ReqBuilder body(Body body) {
+        this.body = Val.isNull(body, "body").get();
         return this;
     }
 
-    public Request build() {
-        return Request.mk(
+    public ReqBuilder body(HttpForm form) {
+        return body(Body.mk(form));
+    }
+
+    public Req build() {
+        return Req.mk(
                 uri(),
                 method(),
                 headers(),
@@ -73,7 +77,7 @@ class RequestBuilderImpl implements RequestBuilder {
         );
     }
 
-    RequestBuilderImpl(HttpURI uri) {
+    ReqBuilderImpl(HttpURI uri) {
         this.uri = uri;
     }
 
@@ -85,7 +89,7 @@ class RequestBuilderImpl implements RequestBuilder {
     private int readTimeout = Timeout;
     private int connectTimeout = Timeout;
 
-    private HttpMethod method = HttpMethod.GET;
+    private Method method = Method.GET;
     private HttpHeaders headers = HttpHeaders.mk();
-    private Body body = Body.mkEmpty();
+    private Body body = Body.mk();
 }

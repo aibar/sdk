@@ -1,6 +1,6 @@
 package walkingdevs.http11;
 
-import walkingdevs.Val;
+import walkingdevs.val.Val;
 import walkingdevs.str.Str;
 
 import java.net.URI;
@@ -24,7 +24,7 @@ public interface HttpURI {
     String full();
 
     static HttpURI parse(String uriString) {
-        URI uri = URI.create(Val.isBlank(uriString, "uriString").getOrFail());
+        URI uri = URI.create(Val.isBlank(uriString, "uriString").get());
         HttpURI httpURI = mk();
         httpURI.scheme(Scheme.from(uri.getScheme()));
         httpURI.host(uri.getHost());
@@ -61,6 +61,10 @@ public interface HttpURI {
 
     static HttpURI mk(String host, int port) {
         return mk(host, port, Scheme.Http);
+    }
+
+    static HttpURI mkSsl(String host) {
+        return new HttpURIImpl(host, 443, Scheme.Https);
     }
 
     static HttpURI mk(String host, int port, Scheme scheme) {

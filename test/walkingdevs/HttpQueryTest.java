@@ -6,6 +6,12 @@ import walkingdevs.http11.HttpQuery;
 
 public class HttpQueryTest extends Assert {
     @Test(expected = IllegalArgumentException.class)
+    public void shouldNotParseNullQueryString() {
+        String nil = null;
+        HttpQuery.mk(nil);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
     public void shouldNotParseEmptyQueryString() {
         HttpQuery.mk("");
     }

@@ -1,4 +1,4 @@
-package walkingdevs.fun;
+package walkingdevs.data;
 
 public interface Tuple<A, B> {
     A first();

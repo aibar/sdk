@@ -1,44 +1,28 @@
 package walkingdevs.stream;
 
-import walkingdevs.bytes.Bytes;
-import walkingdevs.Problems;
+import walkingdevs.val.Val;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Iterator;
+import java.io.OutputStream;
 
 class IsImpl implements Is {
-    public Bytes bytes() {
+    public byte[] bytes() {
         return bytes;
     }
 
-    @Override
-    public Iterator<Byte> iterator() {
-        return bytes().iterator();
+    public void writeTo(OutputStream os) throws IOException {
+        Val.isNull(os, "os").get().write(bytes);
     }
 
-    @Override
-    public void close() throws Exception {
-        is.close();
-    }
-
-    IsImpl(InputStream is) {
-        this.is = is;
-
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
-        int bytesRead;
-        try {
-            while ((bytesRead = is.read(buffer)) != -1) {
-                os.write(buffer, 0, bytesRead);
-            }
-        } catch (IOException fail) {
-            throw Problems.weFucked(fail);
+    IsImpl(InputStream is, int size) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream(size);
+        for (byte[] buffer : BufferedIs.mk(is, size)) {
+            baos.write(buffer, 0, buffer.length);
         }
-        bytes = Bytes.mk(os.toByteArray());
+        bytes = baos.toByteArray();
     }
 
-    private final Bytes bytes;
-    private final InputStream is;
+    private final byte[] bytes;
 }

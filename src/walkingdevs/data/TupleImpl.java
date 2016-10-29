@@ -1,4 +1,4 @@
-package walkingdevs.fun;
+package walkingdevs.data;
 
 class TupleImpl<A, B> implements Tuple<A, B> {
     public A first() {

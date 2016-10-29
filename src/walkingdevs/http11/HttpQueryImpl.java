@@ -1,22 +1,18 @@
 package walkingdevs.http11;
 
-import walkingdevs.Iter;
+import walkingdevs.iter.Iter;
 import walkingdevs.data.KeyVals;
 
 class HttpQueryImpl implements HttpQuery {
     public String queryString() {
-        if (keyVals.size() < 1) {
+        if (kvs.isEmpty()) {
             return "";
         }
-        return Iter.mk(keyVals).join("&");
+        return Iter.mk(kvs).join("&");
     }
 
     public KeyVals<String, String> keyVals() {
-        return keyVals;
-    }
-
-    HttpQueryImpl(KeyVals<String, String> keyVals) {
-        this.keyVals = keyVals;
+        return kvs;
     }
 
     @Override
@@ -24,5 +20,9 @@ class HttpQueryImpl implements HttpQuery {
         return queryString();
     }
 
-    private final KeyVals<String, String> keyVals;
+    HttpQueryImpl(KeyVals<String, String> kvs) {
+        this.kvs = kvs;
+    }
+
+    private final KeyVals<String, String> kvs;
 }

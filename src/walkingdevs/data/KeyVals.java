@@ -1,9 +1,7 @@
 package walkingdevs.data;
 
-import walkingdevs.Val;
-
 public interface KeyVals<K, V> extends Iterable<KeyVal<K, V>> {
-    KeyVals<K, V> add(KeyVal<K, V> keyVal);
+    KeyVals<K, V> add(KeyVal<K, V> kv);
 
     KeyVals<K, V> del(K key);
 
@@ -11,18 +9,17 @@ public interface KeyVals<K, V> extends Iterable<KeyVal<K, V>> {
 
     int size();
 
-    static <K, V> KeyVals<K, V> mk() {
-        return new KeyValsImpl<>();
-    }
+    boolean isEmpty();
 
     static <K, V> KeyVals<K, V> mk(KeyVal<K, V>... from) {
-        KeyValsImpl<K, V> keyVals = new KeyValsImpl<>();
-        for (KeyVal<K, V> keyVal : from) {
-            // Don't trust JVM user, never.
-            keyVals.add(
-                    Val.isNull(keyVal, "keyVal").getOrFail()
-            );
+        KeyVals<K, V> kvs = mk();
+        for (KeyVal<K, V> kv : from) {
+            kvs.add(kv);
         }
-        return keyVals;
+        return kvs;
+    }
+
+    static <K, V> KeyVals<K, V> mk() {
+        return new KeyValsImpl<>();
     }
 }

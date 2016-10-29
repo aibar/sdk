@@ -1,11 +1,13 @@
-package walkingdevs;
+package walkingdevs.val;
 
+import walkingdevs.Problems;
+import walkingdevs.fun.Result;
 import walkingdevs.str.Str;
 
 public interface Val<T> {
     void fail();
 
-    T getOrFail();
+    T get();
 
     String FORMAT = "Arg. <%s> with value <%s>: %s";
 
@@ -22,7 +24,7 @@ public interface Val<T> {
         return mk(
                 value,
                 name,
-                value == null,
+                () -> value == null,
                 BANG
         );
     }
@@ -36,12 +38,12 @@ public interface Val<T> {
         return mk(
                 value,
                 name,
-                Str.mk(value).isBlank(),
+                () -> Str.mk(value).isBlank(),
                 BLANK
         );
     }
 
-    static <T> Val<T> mk(T value, String name, boolean result, String problem) {
+    static <T> Val<T> mk(T value, String name, Result<Boolean> result, String problem) {
         if (Str.mk(name).isBlank()) {
             throw Problems.illegalArg(
                     String.format(FORMAT, "name", name, BLANK)

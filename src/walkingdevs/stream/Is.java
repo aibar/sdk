@@ -1,16 +1,45 @@
 package walkingdevs.stream;
 
-import walkingdevs.Val;
-import walkingdevs.bytes.Bytes;
+import walkingdevs.Problems;
+import walkingdevs.val.Val;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
-public interface Is extends Iterable<Byte>, AutoCloseable {
-    Bytes bytes();
+// Keeps bytes in memory
+// For acceptable small inputs
+public interface Is {
+    // All bytes at once
+    byte[] bytes();
+
+    default boolean isEmpty() {
+        return false;
+    }
+
+    // Writes fully
+    void writeTo(OutputStream os) throws IOException;
 
     static Is mk(InputStream is) {
+        return mk(is, 8192);
+    }
+
+    static Is mk(InputStream is, int size) {
+        try {
+            if (is == null || is.available() < 1) {
+                return new IsEmptyImpl();
+            }
+        } catch (IOException fail) {
+            throw Problems.weFucked(fail);
+        }
         return new IsImpl(
-                Val.isNull(is, "is").getOrFail()
+                is,
+                Val.mk(
+                        size,
+                        "size",
+                        () -> size < 1,
+                        "Buffer size < 1"
+                ).get()
         );
     }
 }

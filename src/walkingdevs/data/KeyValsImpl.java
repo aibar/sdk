@@ -1,13 +1,15 @@
 package walkingdevs.data;
 
-import walkingdevs.Iter;
+import walkingdevs.iter.Iter;
 
 import java.util.*;
 
 // Actually a Map!
 class KeyValsImpl<K, V> implements KeyVals<K, V> {
-    public KeyVals<K, V> add(KeyVal<K, V> keyVal) {
-        map.put(keyVal.key(), keyVal.val());
+    public KeyVals<K, V> add(KeyVal<K, V> kv) {
+        if (kv != null) {
+            map.put(kv.key(), kv.val());
+        }
         return this;
     }
 
@@ -22,6 +24,10 @@ class KeyValsImpl<K, V> implements KeyVals<K, V> {
 
     public int size() {
         return map.size();
+    }
+
+    public boolean isEmpty() {
+        return map.isEmpty();
     }
 
     @Override

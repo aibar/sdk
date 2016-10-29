@@ -1,6 +1,6 @@
 package walkingdevs.http11;
 
-public enum HttpMethod {
+public enum Method {
     GET,
     POST,
     PUT,

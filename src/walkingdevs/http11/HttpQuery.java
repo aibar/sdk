@@ -1,9 +1,9 @@
 package walkingdevs.http11;
 
-import walkingdevs.Vals;
+import walkingdevs.vals.Vals;
 import walkingdevs.data.KeyVal;
 import walkingdevs.data.KeyVals;
-import walkingdevs.fun.Tuple;
+import walkingdevs.data.Tuple;
 import walkingdevs.str.Str;
 
 public interface HttpQuery {
@@ -22,15 +22,15 @@ public interface HttpQuery {
     static HttpQuery mk(String queryString) {
         Vals.mk(queryString, "queryString",
                 Tuple.mk(
-                        Str.mk(queryString).isBlank(),
+                        () -> Str.mk(queryString).isBlank(),
                         "Cannot be blank"
                 ),
                 Tuple.mk(
-                        queryString.startsWith("?"),
+                        () -> queryString.startsWith("?"),
                         "Cannot start with '?'"
                 ),
                 Tuple.mk(
-                        queryString.endsWith("#"),
+                        () -> queryString.endsWith("#"),
                         "Cannot end with '#'"
                 )
         ).fail();
