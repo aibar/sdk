@@ -1,9 +1,9 @@
 # State: Proof Of Concept!
 
-## The artifact
+## The artifact (For our lovely JDK 6, mostly because of Android)
     <groupId>walkingdevs</groupId>
     <artifactId>sdk</artifactId>
-    <version>8.0.1-SNAPSHOT</version>
+    <version>6.0.1-SNAPSHOT</version>
 
 ## Why?
 - Cut down boilerplate code and noise
@@ -14,9 +14,15 @@
 
 ## What's included
 - HTTP client
-- Byte, String, Stream utility classes
+- Byte, String, Stream ~~utility~~ classes
 
 ## TODO
 - Functional arrays
-- Json
-- HTTP server
+- JSON
+- Small mockable, embeddable HTTP server
+
+## Philosophy
+Programming isn't an Art, but it does not mean that it can be ugly.
+Man who loves programming will love to write beautiful code too.
+It's hard to write good code with JDK. I hope that this artifact will
+help someone to write a better code.
