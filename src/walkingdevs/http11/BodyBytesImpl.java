@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 class BodyBytesImpl implements Body {
+    public boolean isEmpty() {
+        return false;
+    }
+
     public void writeTo(OutputStream os) throws IOException {
         os.write(bytes);
     }

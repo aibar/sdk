@@ -1,7 +1,8 @@
 package walkingdevs.http11;
 
-import walkingdevs.val.Val;
-import walkingdevs.str.Str;
+import walkingdevs.fun.Result;
+import walkingdevs.str.MStr;
+import walkingdevs.val.MVal;
 
 class HttpURIImpl implements HttpURI {
     public String host() {
@@ -9,7 +10,7 @@ class HttpURIImpl implements HttpURI {
     }
 
     public HttpURI host(String host) {
-        this.host = Val.isBlank(host, "host").get();
+        this.host = MVal.mkIsBlank(host, "host").get();
         return this;
     }
 
@@ -17,12 +18,16 @@ class HttpURIImpl implements HttpURI {
         return port;
     }
 
-    public HttpURI port(int port) {
-        this.port = Val.mk(
-                port,
-                "port",
-                () -> port < 1 || port > 65535,
-                "Just Invalid"
+    public HttpURI port(final int port) {
+        this.port = MVal.mk(
+            port,
+            "port",
+            new Result<Boolean>() {
+                public Boolean get() {
+                    return port < 1 || port > 65535;
+                }
+            },
+            "Just Invalid"
         ).get();
         return this;
     }
@@ -32,7 +37,7 @@ class HttpURIImpl implements HttpURI {
     }
 
     public HttpURI path(String path) {
-        if (Str.mk(path).isBlank()) {
+        if (MStr.mk(path).isBlank()) {
             path = "/";
         }
         this.path = path;
@@ -44,7 +49,7 @@ class HttpURIImpl implements HttpURI {
     }
 
     public HttpURI query(HttpQuery query) {
-        this.query = Val.isNull(query, "query").get();
+        this.query = MVal.mkIsNull(query, "query").get();
         return this;
     }
 
@@ -53,7 +58,7 @@ class HttpURIImpl implements HttpURI {
     }
 
     public HttpURI scheme(Scheme scheme) {
-        this.scheme = Val.isNull(scheme, "scheme").get();
+        this.scheme = MVal.mkIsNull(scheme, "scheme").get();
         return this;
     }
 
@@ -77,5 +82,5 @@ class HttpURIImpl implements HttpURI {
     private Scheme scheme;
 
     private String path = "/";
-    private HttpQuery query = HttpQuery.mk();
+    private HttpQuery query = MHttpQuery.mk();
 }

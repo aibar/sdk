@@ -2,23 +2,23 @@ package walkingdevs;
 
 import org.junit.Assert;
 import org.junit.Test;
-import walkingdevs.data.Tuple;
+import walkingdevs.data.MTuple;
 
 // Just for 100% coverage!
 public class TupleTest extends Assert {
     @Test
     public void shouldGetFirst() {
         assertEquals(
-                "first",
-                Tuple.mk("first", "second").first()
+            "first",
+            MTuple.mk("first", "second").first()
         );
     }
 
     @Test
     public void shouldGetSecond() {
         assertEquals(
-                "second",
-                Tuple.mk("first", "second").second()
+            "second",
+            MTuple.mk("first", "second").second()
         );
     }
 }

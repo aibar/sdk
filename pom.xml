@@ -10,7 +10,7 @@
 
     <groupId>walkingdevs</groupId>
     <artifactId>sdk</artifactId>
-    <version>8.0.1-SNAPSHOT</version>
+    <version>6.0.1-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
@@ -22,5 +22,15 @@
     <build>
         <sourceDirectory>src</sourceDirectory>
         <testSourceDirectory>test</testSourceDirectory>
+
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>

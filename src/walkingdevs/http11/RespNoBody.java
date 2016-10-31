@@ -6,16 +6,4 @@ public interface RespNoBody {
     String statusMsg();
 
     HttpHeaders headers();
-
-    static RespNoBody mk(
-            int status,
-            String statusMsg,
-            HttpHeaders headers
-    ) {
-        return new RespNoBodyImpl(
-                status,
-                statusMsg,
-                headers
-        );
-    }
 }

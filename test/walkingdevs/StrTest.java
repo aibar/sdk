@@ -2,9 +2,9 @@ package walkingdevs;
 
 import org.junit.Assert;
 import org.junit.Test;
-import walkingdevs.bytes.Bytes;
-import walkingdevs.chset.Chset;
-import walkingdevs.str.Str;
+import walkingdevs.bytes.MBytes;
+import walkingdevs.chset.MChset;
+import walkingdevs.str.MStr;
 
 public class StrTest extends Assert {
     @Test
@@ -12,42 +12,42 @@ public class StrTest extends Assert {
         String expected = "Please get me";
         assertEquals(
                 expected,
-                Str.mk(expected).get()
+                MStr.mk(expected).get()
         );
     }
 
     @Test
     public void shouldBeEmpty() {
         String nil = null;
-        assertTrue(Str.mk(nil).isEmpty());
-        assertTrue(Str.mk("").isEmpty());
+        assertTrue(MStr.mk(nil).isEmpty());
+        assertTrue(MStr.mk("").isEmpty());
     }
 
     @Test
     public void shouldNotBeEmpty() {
-        assertFalse(Str.mk("not empty").isEmpty());
-        assertFalse(Str.mk(" ").isEmpty());
+        assertFalse(MStr.mk("not empty").isEmpty());
+        assertFalse(MStr.mk(" ").isEmpty());
     }
 
     @Test
     public void shouldBeBlank() {
         String nil = null;
-        assertTrue(Str.mk(nil).isBlank());
-        assertTrue(Str.mk("").isBlank());
-        assertTrue(Str.mk(" ").isBlank());
-        assertTrue(Str.mk(" ").isBlank());
+        assertTrue(MStr.mk(nil).isBlank());
+        assertTrue(MStr.mk("").isBlank());
+        assertTrue(MStr.mk(" ").isBlank());
+        assertTrue(MStr.mk(" ").isBlank());
     }
 
     @Test
     public void shouldNotBeBlank() {
-        assertFalse(Str.mk("not blank").isBlank());
+        assertFalse(MStr.mk("not blank").isBlank());
     }
 
     @Test
     public void shouldIterate() {
         String expected = "I am a very good Expected in Java";
         String actual = "";
-        for (Character character : Str.mk(expected)) {
+        for (Character character : MStr.mk(expected)) {
             actual += character;
         }
         assertEquals(
@@ -60,20 +60,20 @@ public class StrTest extends Assert {
     public void shouldGetUTF8TextBytes() {
         String text = "Привет, Мир!";
         assertEquals(
-                Bytes.mk(text.getBytes(Chset.UTF8().get())),
-                Bytes.mk(
-                        Str.mk(text.getBytes()).bytes()
+                MBytes.mk(text.getBytes(MChset.UTF8().get())),
+                MBytes.mk(
+                        MStr.mk(text.getBytes()).bytes()
                 )
         );
     }
 
     @Test
     public void shouldGetOtherCharsetTextBytesToo() {
-        byte[] expected = "Привет, Мир!".getBytes(Chset.KOI8R().get());
+        byte[] expected = "Привет, Мир!".getBytes(MChset.KOI8R().get());
         assertEquals(
-                Bytes.mk(expected),
-                Bytes.mk(
-                        Str.mk(expected, Chset.KOI8R()).bytes(Chset.KOI8R())
+                MBytes.mk(expected),
+                MBytes.mk(
+                        MStr.mk(expected, MChset.KOI8R()).bytes(MChset.KOI8R())
                 )
         );
     }

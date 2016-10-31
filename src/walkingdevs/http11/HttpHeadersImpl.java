@@ -18,12 +18,12 @@ class HttpHeadersImpl implements HttpHeaders {
     }
 
     public Iterator<HttpHeader> iterator() {
-        List<HttpHeader> list = new ArrayList<>();
+        List<HttpHeader> list = new ArrayList<HttpHeader>();
         for (Map.Entry<String, String> entry : map.entrySet()) {
-            list.add(HttpHeader.mk(entry.getKey(), entry.getValue()));
+            list.add(MHttpHeader.mk(entry.getKey(), entry.getValue()));
         }
         return list.iterator();
     }
 
-    private final Map<String, String> map = new HashMap<>();
+    private final Map<String, String> map = new HashMap<String, String>();
 }

@@ -2,8 +2,10 @@ package walkingdevs.http11;
 
 import walkingdevs.Problems;
 import walkingdevs.bytes.BytesBuilder;
+import walkingdevs.bytes.MBytesBuilder;
 import walkingdevs.fun.Handler;
 import walkingdevs.stream.BufferedIs;
+import walkingdevs.stream.MBufferedIs;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -18,17 +20,19 @@ import java.util.Map;
 
 class ReqImpl implements Req {
     public Resp send() {
-        BytesBuilder bytesBuilder = BytesBuilder.mk();
-        RespNoBody resp = send(bufferedIs -> {
-            for (byte[] bytes : bufferedIs) {
-                bytesBuilder.add(bytes);
+        final BytesBuilder bytesBuilder = MBytesBuilder.mk();
+        RespNoBody resp = send(new Handler<BufferedIs>() {
+            public void handle(BufferedIs bufferedIs) {
+                for (byte[] bytes : bufferedIs) {
+                    bytesBuilder.add(bytes);
+                }
             }
         });
-        return Resp.mk(
-                resp.status(),
-                resp.statusMsg(),
-                resp.headers(),
-                RespBody.mk(bytesBuilder.get())
+        return MResp.mk(
+            resp.status(),
+            resp.statusMsg(),
+            resp.headers(),
+            MRespBody.mk(bytesBuilder.get())
         );
     }
 
@@ -41,19 +45,26 @@ class ReqImpl implements Req {
             setHeaders(connection);
             tryToSendBody(connection);
 
-            try (InputStream is = tryToGetInputStream(connection)) {
-                bufferedIsHandler.handle(BufferedIs.mk(is));
+            InputStream is = tryToGetInputStream(connection);
+            if (is != null) {
+                try {
+                    bufferedIsHandler.handle(MBufferedIs.mk(is));
+                } finally {
+                    is.close();
+                }
+            } else {
+                bufferedIsHandler.handle(MBufferedIs.mk(null));
             }
 
-            return RespNoBody.mk(
-                    tryToGetStatus(connection),
-                    tryToGetStatusMsg(connection),
-                    getHeaders(connection)
+            return MRespNoBody.mk(
+                tryToGetStatus(connection),
+                tryToGetStatusMsg(connection),
+                getHeaders(connection)
             );
         } catch (Exception fail) {
             throw Problems.weFucked(
-                    String.format("%s: We tried hard, but Failed to send the request", uri),
-                    fail
+                String.format("%s: We tried hard, but Failed to send the request", uri),
+                fail
             );
         } finally {
             if (connection != null) {
@@ -73,12 +84,12 @@ class ReqImpl implements Req {
     }
 
     ReqImpl(
-            HttpURI uri,
-            Method method,
-            HttpHeaders headers,
-            Body body,
-            int readTimeout,
-            int connectTimeout
+        HttpURI uri,
+        Method method,
+        HttpHeaders headers,
+        Body body,
+        int readTimeout,
+        int connectTimeout
     ) {
         this.uri = uri;
         this.method = method;
@@ -101,13 +112,13 @@ class ReqImpl implements Req {
             raw = new URL(uri.full()).openConnection();
         } catch (IOException fail) {
             throw Problems.weFucked(
-                    String.format("%s: Failed to connect", uri),
-                    fail
+                String.format("%s: Failed to connect", uri),
+                fail
             );
         }
         if (!(raw instanceof HttpURLConnection)) {
             throw Problems.WTF(
-                    String.format("%s: We are expecting HttpURLConnection, but get " + raw.getClass(), uri)
+                String.format("%s: We are expecting HttpURLConnection, but get " + raw.getClass(), uri)
             );
         }
         // Now, it's Ok.
@@ -133,7 +144,7 @@ class ReqImpl implements Req {
     }
 
     private HttpHeaders getHeaders(HttpURLConnection connection) {
-        HttpHeaders headers = HttpHeaders.mk();
+        HttpHeaders headers = MHttpHeaders.mk();
         for (Map.Entry<String, List<String>> field : connection.getHeaderFields().entrySet()) {
             if (field.getKey() != null) {
                 for (String value : field.getValue()) {
@@ -152,8 +163,8 @@ class ReqImpl implements Req {
                 return connection.getInputStream();
             } catch (IOException fail) {
                 throw Problems.weFucked(
-                        String.format("%s: For reasons unknown we didn't get the InputStream", uri),
-                        fail
+                    String.format("%s: For reasons unknown we didn't get the InputStream", uri),
+                    fail
                 );
             }
         }
@@ -164,8 +175,8 @@ class ReqImpl implements Req {
             return connection.getResponseCode();
         } catch (IOException fail) {
             throw Problems.weFucked(
-                    String.format("%s: We Fucked when getting status code", uri),
-                    fail
+                String.format("%s: We Fucked when getting status code", uri),
+                fail
             );
         }
     }
@@ -175,8 +186,8 @@ class ReqImpl implements Req {
             return connection.getResponseMessage();
         } catch (IOException fail) {
             throw Problems.weFucked(
-                    String.format("%s: We Fucked when getting status message", uri),
-                    fail
+                String.format("%s: We Fucked when getting status message", uri),
+                fail
             );
         }
     }
@@ -185,20 +196,18 @@ class ReqImpl implements Req {
         if (body.isEmpty()) {
             return;
         }
-        InputStream content = new ByteArrayInputStream(new byte[]{});
         connection.setDoOutput(true);
         OutputStream output = null;
         try {
             output = connection.getOutputStream();
-            BufferedIs.mk(content, 8192).writeTo(output);
+            body.writeTo(output);
         } catch (IOException fail) {
             throw Problems.weFucked(
-                    String.format("%s: Cannot send body", uri),
-                    fail
+                String.format("%s: Cannot send body", uri),
+                fail
             );
         } finally {
             try {
-                content.close();
                 if (output != null) {
                     output.close();
                 }

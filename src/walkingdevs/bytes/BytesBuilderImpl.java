@@ -24,13 +24,13 @@ class BytesBuilderImpl implements BytesBuilder {
     }
 
     public BytesBuilder add(byte[] bytes) {
-        if (!Bytes.mk(bytes).isEmpty()) {
+        if (!MBytes.mk(bytes).isEmpty()) {
             bytesList.add(bytes);
             length += bytes.length;
         }
         return this;
     }
 
-    private final List<byte[]> bytesList = new ArrayList<>();
+    private final List<byte[]> bytesList = new ArrayList<byte[]>();
     private int length = 0;
 }

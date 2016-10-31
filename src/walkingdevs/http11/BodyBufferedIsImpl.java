@@ -6,6 +6,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 class BodyBufferedIsImpl implements Body {
+    public boolean isEmpty() {
+        return false;
+    }
+
     public void writeTo(OutputStream os) throws IOException {
         for (byte[] bytes : bufferedIs) {
             os.write(bytes);

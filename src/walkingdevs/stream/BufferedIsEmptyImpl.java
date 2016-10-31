@@ -1,6 +1,7 @@
 package walkingdevs.stream;
 
 import walkingdevs.iter.Itor;
+import walkingdevs.iter.MItor;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -20,5 +21,5 @@ class BufferedIsEmptyImpl implements BufferedIs {
         return itor.get();
     }
 
-    private final Itor<byte[]> itor = Itor.mk();
+    private final Itor<byte[]> itor = MItor.mk();
 }

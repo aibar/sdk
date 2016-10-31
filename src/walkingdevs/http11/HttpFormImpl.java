@@ -2,11 +2,12 @@ package walkingdevs.http11;
 
 import walkingdevs.data.KeyVal;
 import walkingdevs.data.KeyVals;
-import walkingdevs.iter.Iter;
+import walkingdevs.data.MKeyVals;
+import walkingdevs.iter.MIter;
 
 class HttpFormImpl implements HttpForm {
     public String get() {
-        return Iter.mk(kvs).join("&");
+        return MIter.mk(kvs).join("&");
     }
 
     public HttpForm add(KeyVal<String, String> kv) {
@@ -31,5 +32,5 @@ class HttpFormImpl implements HttpForm {
         return kvs.isEmpty();
     }
 
-    private final KeyVals<String, String> kvs = KeyVals.mk();
+    private final KeyVals<String, String> kvs = MKeyVals.mk();
 }

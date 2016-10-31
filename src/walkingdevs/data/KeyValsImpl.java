@@ -1,6 +1,6 @@
 package walkingdevs.data;
 
-import walkingdevs.iter.Iter;
+import walkingdevs.iter.MIter;
 
 import java.util.*;
 
@@ -32,17 +32,17 @@ class KeyValsImpl<K, V> implements KeyVals<K, V> {
 
     @Override
     public Iterator<KeyVal<K, V>> iterator() {
-        List<KeyVal<K, V>> list = new ArrayList<>();
+        List<KeyVal<K, V>> list = new ArrayList<KeyVal<K, V>>();
         for (Map.Entry<K, V> entry : map.entrySet()) {
-            list.add(KeyVal.mk(entry.getKey(), entry.getValue()));
+            list.add(MKeyVal.mk(entry.getKey(), entry.getValue()));
         }
         return list.iterator();
     }
 
     @Override
     public String toString() {
-        return Iter.mk(this).join(", ");
+        return MIter.mk(this).join(", ");
     }
 
-    private final Map<K, V> map = new HashMap<>();
+    private final Map<K, V> map = new HashMap<K, V>();
 }

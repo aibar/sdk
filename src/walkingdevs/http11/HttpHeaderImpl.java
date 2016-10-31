@@ -1,6 +1,6 @@
 package walkingdevs.http11;
 
-import walkingdevs.str.Str;
+import walkingdevs.str.MStr;
 
 class HttpHeaderImpl implements HttpHeader {
     public String name() {
@@ -12,7 +12,7 @@ class HttpHeaderImpl implements HttpHeader {
     }
 
     HttpHeaderImpl(String name, String value) {
-        if (Str.mk(name).isBlank()) {
+        if (MStr.mk(name).isBlank()) {
             throw new IllegalArgumentException("Http header name cannot be blank");
         }
         this.name = name;

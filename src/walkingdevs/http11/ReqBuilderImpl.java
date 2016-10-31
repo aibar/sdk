@@ -1,6 +1,6 @@
 package walkingdevs.http11;
 
-import walkingdevs.val.Val;
+import walkingdevs.val.MVal;
 
 class ReqBuilderImpl implements ReqBuilder {
     public int readTimeout() {
@@ -8,12 +8,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder readTimeout(int readTimeout) {
-        this.readTimeout = Val.mk(
-                readTimeout,
-                "readTimeout",
-                () -> readTimeout < 0,
-                "Cannot be negative"
-        ).get();
+        this.readTimeout = MVal.mkNegative(readTimeout, "readTimeout").get();
         return this;
     }
 
@@ -22,12 +17,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder connectTimeout(int connectTimeout) {
-        this.connectTimeout = Val.mk(
-                connectTimeout,
-                "connectTimeout",
-                () -> connectTimeout < 0,
-                "Cannot be negative"
-        ).get();
+        this.connectTimeout = MVal.mkNegative(connectTimeout, "connectTimeout").get();
         return this;
     }
 
@@ -40,7 +30,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder method(Method method) {
-        this.method = Val.isNull(method, "method").get();
+        this.method = MVal.mkIsNull(method, "method").get();
         return this;
     }
 
@@ -49,7 +39,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder headers(HttpHeaders headers) {
-        this.headers = Val.isNull(headers, "headers").get();
+        this.headers = MVal.mkIsNull(headers, "headers").get();
         return this;
     }
 
@@ -58,16 +48,16 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder body(Body body) {
-        this.body = Val.isNull(body, "body").get();
+        this.body = MVal.mkIsNull(body, "body").get();
         return this;
     }
 
     public ReqBuilder body(HttpForm form) {
-        return body(Body.mk(form));
+        return body(MBody.mk(form));
     }
 
     public Req build() {
-        return Req.mk(
+        return MReq.mk(
                 uri(),
                 method(),
                 headers(),
@@ -90,6 +80,6 @@ class ReqBuilderImpl implements ReqBuilder {
     private int connectTimeout = Timeout;
 
     private Method method = Method.GET;
-    private HttpHeaders headers = HttpHeaders.mk();
-    private Body body = Body.mk();
+    private HttpHeaders headers = MHttpHeaders.mk();
+    private Body body = MBody.mk();
 }

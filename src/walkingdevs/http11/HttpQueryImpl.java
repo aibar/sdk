@@ -1,14 +1,14 @@
 package walkingdevs.http11;
 
-import walkingdevs.iter.Iter;
 import walkingdevs.data.KeyVals;
+import walkingdevs.iter.MIter;
 
 class HttpQueryImpl implements HttpQuery {
     public String queryString() {
         if (kvs.isEmpty()) {
             return "";
         }
-        return Iter.mk(kvs).join("&");
+        return "?" + MIter.mk(kvs).join("&");
     }
 
     public KeyVals<String, String> keyVals() {

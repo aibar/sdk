@@ -1,6 +1,7 @@
 package walkingdevs.str;
 
 import walkingdevs.chset.Chset;
+import walkingdevs.chset.MChset;
 
 import java.util.Iterator;
 
@@ -18,7 +19,7 @@ class StrImpl implements Str {
     }
 
     public byte[] bytes() {
-        return bytes(Chset.UTF8());
+        return bytes(MChset.UTF8());
     }
 
     public byte[] bytes(Chset chset) {
@@ -34,11 +35,12 @@ class StrImpl implements Str {
             public boolean hasNext() {
                 return i < str.length();
             }
-
             public Character next() {
                 return str.charAt(i++);
             }
-
+            public void remove() {
+                // Oh, mine God
+            }
             private int i = 0;
         };
     }
