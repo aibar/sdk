@@ -19,10 +19,10 @@ class HttpURIImpl implements HttpURI {
 
     public HttpURI port(int port) {
         this.port = Val.mk(
-                port,
-                "port",
-                () -> port < 1 || port > 65535,
-                "Just Invalid"
+            port,
+            "port",
+            () -> port < 1 || port > 65535,
+            "Just Invalid"
         ).get();
         return this;
     }

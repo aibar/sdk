@@ -29,18 +29,8 @@ public interface Req {
             Val.isNull(method, "method").get(),
             Val.isNull(headers, "headers").get(),
             Val.isNull(body, "body").get(),
-            Val.mk(
-                readTimeout,
-                "readTimeout",
-                () -> readTimeout < 0,
-                "Cannot be negative"
-            ).get(),
-            Val.mk(
-                connectTimeout,
-                "connectTimeout",
-                () -> connectTimeout < 0,
-                "Cannot be negative"
-            ).get()
+            Val.isNegative(readTimeout, "readTimeout").get(),
+            Val.isNegative(connectTimeout, "connectTimeout").get()
         );
     }
 }

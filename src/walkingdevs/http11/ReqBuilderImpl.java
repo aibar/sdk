@@ -8,12 +8,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder readTimeout(int readTimeout) {
-        this.readTimeout = Val.mk(
-            readTimeout,
-            "readTimeout",
-            () -> readTimeout < 0,
-            "Cannot be negative"
-        ).get();
+        this.readTimeout = Val.isNegative(readTimeout, "readTimeout").get();
         return this;
     }
 
@@ -22,12 +17,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder connectTimeout(int connectTimeout) {
-        this.connectTimeout = Val.mk(
-            connectTimeout,
-            "connectTimeout",
-            () -> connectTimeout < 0,
-            "Cannot be negative"
-        ).get();
+        this.connectTimeout = Val.isNegative(connectTimeout, "connectTimeout").get();
         return this;
     }
 

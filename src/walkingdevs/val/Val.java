@@ -15,6 +15,24 @@ public interface Val<T> {
 
     String BLANK = "Cannot be Blank.";
 
+    static Val<Integer> isNegative(Integer value, String name) {
+        return mk(
+            value,
+            name,
+            () -> value < 0,
+            String.format(FORMAT, name, value, "Cannot be negative")
+        );
+    }
+
+    static Val<Integer> isLessThan1(Integer value, String name) {
+        return mk(
+            value,
+            name,
+            () -> value < 1,
+            String.format(FORMAT, name, value, "Cannot be < 1")
+        );
+    }
+
     static <T> Val<T> isNull(T value, String name) {
         if (Str.mk(name).isBlank()) {
             throw Problems.illegalArg(

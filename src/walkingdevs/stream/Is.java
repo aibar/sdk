@@ -34,12 +34,7 @@ public interface Is {
         }
         return new IsImpl(
             is,
-            Val.mk(
-                size,
-                "size",
-                () -> size < 1,
-                "Buffer size < 1"
-            ).get()
+            Val.isLessThan1(size, "size").get()
         );
     }
 }

@@ -28,12 +28,7 @@ public interface BufferedIs extends Iterable<byte[]> {
         }
         return new BufferedIsImpl(
             is,
-            Val.mk(
-                size,
-                "size",
-                () -> size < 1,
-                "Buffer size < 1"
-            ).get()
+            Val.isLessThan1(size, "size").get()
         );
     }
 }
