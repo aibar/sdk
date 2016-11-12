@@ -2,25 +2,25 @@ package walkingdevs.http11;
 
 import java.util.*;
 
-class HttpHeadersImpl implements HttpHeaders {
+class HeadersImpl implements Headers {
     public boolean has(String header) {
         return map.containsKey(header);
     }
 
-    public HttpHeaders add(String name, String value) {
+    public Headers add(String name, String value) {
         map.put(name, value);
         return this;
     }
 
-    public HttpHeaders del(String name) {
+    public Headers del(String name) {
         map.remove(name);
         return this;
     }
 
-    public Iterator<HttpHeader> iterator() {
-        List<HttpHeader> list = new ArrayList<>();
+    public Iterator<Header> iterator() {
+        List<Header> list = new ArrayList<>();
         for (Map.Entry<String, String> entry : map.entrySet()) {
-            list.add(HttpHeader.mk(entry.getKey(), entry.getValue()));
+            list.add(Header.mk(entry.getKey(), entry.getValue()));
         }
         return list.iterator();
     }

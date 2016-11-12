@@ -39,11 +39,11 @@ class HttpURIImpl implements HttpURI {
         return this;
     }
 
-    public HttpQuery query() {
+    public Query query() {
         return query;
     }
 
-    public HttpURI query(HttpQuery query) {
+    public HttpURI query(Query query) {
         this.query = Val.isNull(query, "query").get();
         return this;
     }
@@ -77,5 +77,5 @@ class HttpURIImpl implements HttpURI {
     private Scheme scheme;
 
     private String path = "/";
-    private HttpQuery query = HttpQuery.mk();
+    private Query query = Query.mk();
 }

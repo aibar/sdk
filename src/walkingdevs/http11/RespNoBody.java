@@ -5,12 +5,12 @@ public interface RespNoBody {
 
     String statusMsg();
 
-    HttpHeaders headers();
+    Headers headers();
 
     static RespNoBody mk(
         int status,
         String statusMsg,
-        HttpHeaders headers
+        Headers headers
     ) {
         return new RespNoBodyImpl(
             status,

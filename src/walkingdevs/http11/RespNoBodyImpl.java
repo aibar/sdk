@@ -9,14 +9,14 @@ class RespNoBodyImpl implements RespNoBody {
         return statusMsg;
     }
 
-    public HttpHeaders headers() {
+    public Headers headers() {
         return headers;
     }
 
     RespNoBodyImpl(
         int status,
         String statusMsg,
-        HttpHeaders headers
+        Headers headers
     ) {
         this.status = status;
         this.statusMsg = statusMsg;
@@ -25,5 +25,5 @@ class RespNoBodyImpl implements RespNoBody {
 
     private final int status;
     private final String statusMsg;
-    private final HttpHeaders headers;
+    private final Headers headers;
 }

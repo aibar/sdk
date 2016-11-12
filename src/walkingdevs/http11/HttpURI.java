@@ -15,8 +15,8 @@ public interface HttpURI {
     String path();
     HttpURI path(String path);
 
-    HttpQuery query();
-    HttpURI query(HttpQuery query);
+    Query query();
+    HttpURI query(Query query);
 
     Scheme scheme();
     HttpURI scheme(Scheme scheme);
@@ -43,9 +43,9 @@ public interface HttpURI {
             httpURI.path(uri.getPath());
         }
         if (Str.mk(uri.getQuery()).isBlank()) {
-            httpURI.query(HttpQuery.mk());
+            httpURI.query(Query.mk());
         } else {
-            httpURI.query(HttpQuery.mk(uri.getQuery()));
+            httpURI.query(Query.mk(uri.getQuery()));
         }
         return httpURI;
     }

@@ -4,17 +4,17 @@ import walkingdevs.data.Kv;
 import walkingdevs.data.Kvs;
 import walkingdevs.iter.Iter;
 
-class HttpFormImpl implements HttpForm {
+class FormImpl implements Form {
     public String get() {
         return Iter.mk(kvs).join("&");
     }
 
-    public HttpForm add(Kv<String, String> kv) {
+    public Form add(Kv<String, String> kv) {
         kvs.add(kv);
         return this;
     }
 
-    public HttpForm del(String key) {
+    public Form del(String key) {
         kvs.del(key);
         return this;
     }

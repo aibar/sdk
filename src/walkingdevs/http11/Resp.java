@@ -5,14 +5,14 @@ public interface Resp {
 
     String statusMsg();
 
-    HttpHeaders headers();
+    Headers headers();
 
     RespBody body();
 
     static Resp mk(
         int status,
         String statusMsg,
-        HttpHeaders headers,
+        Headers headers,
         RespBody body
     ) {
         return new RespImpl(

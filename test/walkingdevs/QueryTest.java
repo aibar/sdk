@@ -2,33 +2,33 @@ package walkingdevs;
 
 import org.junit.Assert;
 import org.junit.Test;
-import walkingdevs.http11.HttpQuery;
+import walkingdevs.http11.Query;
 
-public class HttpQueryTest extends Assert {
+public class QueryTest extends Assert {
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotParseNullQueryString() {
         String nil = null;
-        HttpQuery.mk(nil);
+        Query.mk(nil);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotParseEmptyQueryString() {
-        HttpQuery.mk("");
+        Query.mk("");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotParseBlankQueryString() {
-        HttpQuery.mk(" ");
+        Query.mk(" ");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotParseQueryStringStartingWithQuestionMark() {
-        HttpQuery.mk("?one=1");
+        Query.mk("?one=1");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotParseQueryStringEndingWithNumberMark() {
-        HttpQuery.mk("one=1#");
+        Query.mk("one=1#");
     }
 
     @Test
@@ -37,7 +37,7 @@ public class HttpQueryTest extends Assert {
         String expected = "one=1&two=2";
         assertEquals(
             expected,
-            HttpQuery.mk(query).queryString()
+            Query.mk(query).queryString()
         );
     }
 
@@ -47,7 +47,7 @@ public class HttpQueryTest extends Assert {
         String expected = "one=&two=&five=5";
         assertEquals(
             expected,
-            HttpQuery.mk(query).queryString()
+            Query.mk(query).queryString()
         );
     }
 }

@@ -9,7 +9,7 @@ class HttpResponseImpl {
         return statusMessage;
     }
 
-    HttpHeaders headers() {
+    Headers headers() {
         return headers;
     }
 
@@ -17,7 +17,7 @@ class HttpResponseImpl {
         return body;
     }
 
-    HttpResponseImpl(int status, String statusMessage, HttpHeaders headers, Body body) {
+    HttpResponseImpl(int status, String statusMessage, Headers headers, Body body) {
         this.status = status;
         this.statusMessage = statusMessage;
         this.headers = headers;
@@ -26,6 +26,6 @@ class HttpResponseImpl {
 
     private final int status;
     private final String statusMessage;
-    private final HttpHeaders headers;
+    private final Headers headers;
     private final Body body;
 }

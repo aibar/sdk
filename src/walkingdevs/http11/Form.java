@@ -2,12 +2,12 @@ package walkingdevs.http11;
 
 import walkingdevs.data.Kv;
 
-public interface HttpForm {
+public interface Form {
     String get();
 
-    HttpForm add(Kv<String, String> kv);
+    Form add(Kv<String, String> kv);
 
-    HttpForm del(String key);
+    Form del(String key);
 
     boolean has(String key);
 
@@ -15,15 +15,15 @@ public interface HttpForm {
 
     boolean isEmpty();
 
-    static HttpForm mk(Kv<String, String>... from) {
-        HttpForm form = mk();
+    static Form mk(Kv<String, String>... from) {
+        Form form = mk();
         for (Kv<String, String> kv : from) {
             form.add(kv);
         }
         return form;
     }
 
-    static HttpForm mk() {
-        return new HttpFormImpl();
+    static Form mk() {
+        return new FormImpl();
     }
 }

@@ -6,20 +6,20 @@ import walkingdevs.data.Kvs;
 import walkingdevs.data.Tuple;
 import walkingdevs.str.Str;
 
-public interface HttpQuery {
+public interface Query {
     String queryString();
 
     Kvs<String, String> keyVals();
 
-    static HttpQuery mk() {
+    static Query mk() {
         return mk(Kvs.mk());
     }
 
-    static HttpQuery mk(Kvs<String, String> kvs) {
-        return new HttpQueryImpl(kvs);
+    static Query mk(Kvs<String, String> kvs) {
+        return new QueryImpl(kvs);
     }
 
-    static HttpQuery mk(String queryString) {
+    static Query mk(String queryString) {
         Vals.mk(queryString, "queryString",
             Tuple.mk(
                 () -> Str.mk(queryString).isBlank(),

@@ -23,7 +23,7 @@ public interface Body {
     }
 
     // Assume it's UTF-8...
-    static Body mk(HttpForm form) {
+    static Body mk(Form form) {
         return mk(form.get());
     }
 
