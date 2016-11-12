@@ -7,7 +7,7 @@ import java.net.URI;
 
 public class mHttpURI {
     public static HttpURI parse(String uriString) {
-        URI uri = URI.create(mVal.mkIsBlank(uriString, "uriString").get());
+        URI uri = URI.create(mVal.isIsBlank(uriString, "uriString").get());
         HttpURI httpURI = mk();
         httpURI.scheme(Scheme.from(uri.getScheme()));
         httpURI.host(uri.getHost());

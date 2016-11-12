@@ -17,7 +17,7 @@ public class mQuery {
     }
 
     public static Query mk(final String queryString) {
-        mVal.mkIsBlank(queryString, "queryString").fail();
+        mVal.isIsBlank(queryString, "queryString").fail();
         mVal.mk(queryString, "queryString",
             new Result<Boolean>() {
                 public Boolean get() {

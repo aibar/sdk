@@ -9,7 +9,7 @@ import static walkingdevs.val.Val.BLANK;
 import static walkingdevs.val.Val.FORMAT;
 
 public class mVal {
-    public static Val<Integer> mkNegative(final Integer value, String name) {
+    public static Val<Integer> isNegative(final Integer value, String name) {
         return mk(
             value,
             name,
@@ -22,7 +22,7 @@ public class mVal {
         );
     }
 
-    public static Val<Integer> mkLessThan1(final Integer value, String name) {
+    public static Val<Integer> isLessThan1(final Integer value, String name) {
         return mk(
             value,
             name,
@@ -35,7 +35,7 @@ public class mVal {
         );
     }
 
-    public static <T> Val<T> mkIsNull(final T value, String name) {
+    public static <T> Val<T> isIsNull(final T value, String name) {
         return mk(
             value,
             name,
@@ -48,7 +48,7 @@ public class mVal {
         );
     }
 
-    public static Val<String> mkIsBlank(final String value, String name) {
+    public static Val<String> isIsBlank(final String value, String name) {
         return mk(
             value,
             name,

@@ -10,7 +10,7 @@ class HttpURIImpl implements HttpURI {
     }
 
     public HttpURI host(String host) {
-        this.host = mVal.mkIsBlank(host, "host").get();
+        this.host = mVal.isIsBlank(host, "host").get();
         return this;
     }
 
@@ -49,7 +49,7 @@ class HttpURIImpl implements HttpURI {
     }
 
     public HttpURI query(Query query) {
-        this.query = mVal.mkIsNull(query, "query").get();
+        this.query = mVal.isIsNull(query, "query").get();
         return this;
     }
 
@@ -58,7 +58,7 @@ class HttpURIImpl implements HttpURI {
     }
 
     public HttpURI scheme(Scheme scheme) {
-        this.scheme = mVal.mkIsNull(scheme, "scheme").get();
+        this.scheme = mVal.isIsNull(scheme, "scheme").get();
         return this;
     }
 

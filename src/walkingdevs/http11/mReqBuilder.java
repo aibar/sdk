@@ -17,7 +17,7 @@ public class mReqBuilder {
 
     public static ReqBuilder mk(HttpURI uri) {
         return new ReqBuilderImpl(
-            mVal.mkIsNull(uri, "uri").get()
+            mVal.isIsNull(uri, "uri").get()
         );
     }
 }

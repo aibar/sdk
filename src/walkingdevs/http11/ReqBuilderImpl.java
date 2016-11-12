@@ -8,7 +8,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder readTimeout(int readTimeout) {
-        this.readTimeout = mVal.mkNegative(readTimeout, "readTimeout").get();
+        this.readTimeout = mVal.isNegative(readTimeout, "readTimeout").get();
         return this;
     }
 
@@ -17,7 +17,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder connectTimeout(int connectTimeout) {
-        this.connectTimeout = mVal.mkNegative(connectTimeout, "connectTimeout").get();
+        this.connectTimeout = mVal.isNegative(connectTimeout, "connectTimeout").get();
         return this;
     }
 
@@ -30,7 +30,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder method(Method method) {
-        this.method = mVal.mkIsNull(method, "method").get();
+        this.method = mVal.isIsNull(method, "method").get();
         return this;
     }
 
@@ -39,7 +39,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder headers(Headers headers) {
-        this.headers = mVal.mkIsNull(headers, "headers").get();
+        this.headers = mVal.isIsNull(headers, "headers").get();
         return this;
     }
 
@@ -48,7 +48,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder body(Body body) {
-        this.body = mVal.mkIsNull(body, "body").get();
+        this.body = mVal.isIsNull(body, "body").get();
         return this;
     }
 

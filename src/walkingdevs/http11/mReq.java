@@ -12,12 +12,12 @@ public class mReq {
         int connectTimeout
     ) {
         return new ReqImpl(
-            mVal.mkIsNull(uri, "uri").get(),
-            mVal.mkIsNull(method, "method").get(),
-            mVal.mkIsNull(headers, "headers").get(),
-            mVal.mkIsNull(body, "body").get(),
-            mVal.mkNegative(readTimeout, "readTimeout").get(),
-            mVal.mkNegative(connectTimeout, "connectTimeout").get()
+            mVal.isIsNull(uri, "uri").get(),
+            mVal.isIsNull(method, "method").get(),
+            mVal.isIsNull(headers, "headers").get(),
+            mVal.isIsNull(body, "body").get(),
+            mVal.isNegative(readTimeout, "readTimeout").get(),
+            mVal.isNegative(connectTimeout, "connectTimeout").get()
         );
     }
 }

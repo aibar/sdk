@@ -23,7 +23,7 @@ public class mIs {
         }
         return new IsImpl(
             is,
-            mVal.mkLessThan1(size, "size").get()
+            mVal.isLessThan1(size, "size").get()
         );
     }
 }

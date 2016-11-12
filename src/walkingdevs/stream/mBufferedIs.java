@@ -21,7 +21,7 @@ public class mBufferedIs {
         }
         return new BufferedIsImpl(
             is,
-            mVal.mkLessThan1(size, "size").get()
+            mVal.isLessThan1(size, "size").get()
         );
     }
 }

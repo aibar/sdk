@@ -10,10 +10,10 @@ import java.util.List;
 
 public class mVals {
     public static <T> Vals<T> mk(T value, String name, Tuple<Result<Boolean>, String>... rps) {
-        mVal.mkIsBlank(name, "name").fail();
+        mVal.isIsBlank(name, "name").fail();
         List<Val<T>> vals = new ArrayList<Val<T>>();
         for (Tuple<Result<Boolean>, String> rp : rps) {
-            mVal.mkIsNull(rp, "rp").fail();
+            mVal.isIsNull(rp, "rp").fail();
             vals.add(mVal.mk(
                 value,
                 name,
