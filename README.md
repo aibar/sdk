@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/walkingdevs/sdk.svg?branch=master)](https://travis-ci.org/walkingdevs/sdk)
+
 # State: Proof Of Concept!
 
 ## The artifact (With Latest Java "Features")
