@@ -6,7 +6,7 @@ public class mReq {
     public static Req mk(
         HttpURI uri,
         Method method,
-        HttpHeaders headers,
+        Headers headers,
         Body body,
         int readTimeout,
         int connectTimeout

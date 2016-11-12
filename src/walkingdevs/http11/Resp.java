@@ -5,7 +5,7 @@ public interface Resp {
 
     String statusMsg();
 
-    HttpHeaders headers();
+    Headers headers();
 
     RespBody body();
 }

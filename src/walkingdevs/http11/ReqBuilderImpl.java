@@ -34,11 +34,11 @@ class ReqBuilderImpl implements ReqBuilder {
         return this;
     }
 
-    public HttpHeaders headers() {
+    public Headers headers() {
         return headers;
     }
 
-    public ReqBuilder headers(HttpHeaders headers) {
+    public ReqBuilder headers(Headers headers) {
         this.headers = mVal.mkIsNull(headers, "headers").get();
         return this;
     }
@@ -52,7 +52,7 @@ class ReqBuilderImpl implements ReqBuilder {
         return this;
     }
 
-    public ReqBuilder body(HttpForm form) {
+    public ReqBuilder body(Form form) {
         return body(mBody.mk(form));
     }
 
@@ -80,6 +80,6 @@ class ReqBuilderImpl implements ReqBuilder {
     private int connectTimeout = Timeout;
 
     private Method method = Method.GET;
-    private HttpHeaders headers = mHttpHeaders.mk();
+    private Headers headers = mHeaders.mk();
     private Body body = mBody.mk();
 }

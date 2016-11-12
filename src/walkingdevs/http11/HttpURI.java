@@ -10,8 +10,8 @@ public interface HttpURI {
     String path();
     HttpURI path(String path);
 
-    HttpQuery query();
-    HttpURI query(HttpQuery query);
+    Query query();
+    HttpURI query(Query query);
 
     Scheme scheme();
     HttpURI scheme(Scheme scheme);

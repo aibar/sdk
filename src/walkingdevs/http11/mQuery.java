@@ -6,17 +6,17 @@ import walkingdevs.data.mKvs;
 import walkingdevs.fun.Result;
 import walkingdevs.val.mVal;
 
-public class mHttpQuery {
-    public static HttpQuery mk() {
+public class mQuery {
+    public static Query mk() {
         Kvs<String, String> kvs = mKvs.mk();
         return mk(kvs);
     }
 
-    public static HttpQuery mk(Kvs<String, String> keyVals) {
-        return new HttpQueryImpl(keyVals);
+    public static Query mk(Kvs<String, String> keyVals) {
+        return new QueryImpl(keyVals);
     }
 
-    public static HttpQuery mk(final String queryString) {
+    public static Query mk(final String queryString) {
         mVal.mkIsBlank(queryString, "queryString").fail();
         mVal.mk(queryString, "queryString",
             new Result<Boolean>() {

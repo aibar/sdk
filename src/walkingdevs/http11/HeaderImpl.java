@@ -1,6 +1,6 @@
 package walkingdevs.http11;
 
-class HttpHeaderImpl implements HttpHeader {
+class HeaderImpl implements Header {
     public String name() {
         return name;
     }
@@ -9,7 +9,7 @@ class HttpHeaderImpl implements HttpHeader {
         return value;
     }
 
-    HttpHeaderImpl(String name, String value) {
+    HeaderImpl(String name, String value) {
         this.name = name;
         this.value = value;
     }

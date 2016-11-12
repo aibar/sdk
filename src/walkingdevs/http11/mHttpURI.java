@@ -26,9 +26,9 @@ public class mHttpURI {
             httpURI.path(uri.getPath());
         }
         if (mStr.mk(uri.getQuery()).isBlank()) {
-            httpURI.query(mHttpQuery.mk());
+            httpURI.query(mQuery.mk());
         } else {
-            httpURI.query(mHttpQuery.mk(uri.getQuery()));
+            httpURI.query(mQuery.mk(uri.getQuery()));
         }
         return httpURI;
     }

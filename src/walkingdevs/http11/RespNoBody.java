@@ -5,5 +5,5 @@ public interface RespNoBody {
 
     String statusMsg();
 
-    HttpHeaders headers();
+    Headers headers();
 }

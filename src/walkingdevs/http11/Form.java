@@ -2,12 +2,12 @@ package walkingdevs.http11;
 
 import walkingdevs.data.Kv;
 
-public interface HttpForm {
+public interface Form {
     String get();
 
-    HttpForm add(Kv<String, String> kv);
+    Form add(Kv<String, String> kv);
 
-    HttpForm del(String key);
+    Form del(String key);
 
     boolean has(String key);
 

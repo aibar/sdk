@@ -9,7 +9,7 @@ class RespImpl implements Resp {
         return statusMsg;
     }
 
-    public HttpHeaders headers() {
+    public Headers headers() {
         return headers;
     }
 
@@ -20,7 +20,7 @@ class RespImpl implements Resp {
     RespImpl(
         int status,
         String statusMsg,
-        HttpHeaders headers,
+        Headers headers,
         RespBody body
     ) {
         this.status = status;
@@ -31,6 +31,6 @@ class RespImpl implements Resp {
 
     private final int status;
     private final String statusMsg;
-    private final HttpHeaders headers;
+    private final Headers headers;
     private final RespBody body;
 }

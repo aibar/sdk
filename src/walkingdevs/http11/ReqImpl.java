@@ -85,7 +85,7 @@ class ReqImpl implements Req {
     ReqImpl(
         HttpURI uri,
         Method method,
-        HttpHeaders headers,
+        Headers headers,
         Body body,
         int readTimeout,
         int connectTimeout
@@ -100,7 +100,7 @@ class ReqImpl implements Req {
 
     private final HttpURI uri;
     private final Method method;
-    private final HttpHeaders headers;
+    private final Headers headers;
     private final Body body;
     private final int readTimeout;
     private final int connectTimeout;
@@ -137,13 +137,13 @@ class ReqImpl implements Req {
     }
 
     private void setHeaders(HttpURLConnection connection) {
-        for (HttpHeader header : headers) {
+        for (Header header : headers) {
             connection.addRequestProperty(header.name(), header.value());
         }
     }
 
-    private HttpHeaders getHeaders(HttpURLConnection connection) {
-        HttpHeaders headers = mHttpHeaders.mk();
+    private Headers getHeaders(HttpURLConnection connection) {
+        Headers headers = mHeaders.mk();
         for (Map.Entry<String, List<String>> field : connection.getHeaderFields().entrySet()) {
             if (field.getKey() != null) {
                 for (String value : field.getValue()) {

@@ -4,7 +4,7 @@ public class mRespNoBody {
     static RespNoBody mk(
         int status,
         String statusMsg,
-        HttpHeaders headers
+        Headers headers
     ) {
         return new RespNoBodyImpl(
             status,

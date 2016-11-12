@@ -4,7 +4,7 @@ public class mResp {
     public static Resp mk(
         int status,
         String statusMsg,
-        HttpHeaders headers,
+        Headers headers,
         RespBody body
     ) {
         return new RespImpl(

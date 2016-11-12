@@ -14,7 +14,7 @@ public class mBody {
         return new BodyEmptyImpl();
     }
 
-    public static Body mk(HttpForm form) {
+    public static Body mk(Form form) {
         return mk(form.get());
     }
 

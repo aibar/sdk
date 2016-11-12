@@ -3,7 +3,7 @@ package walkingdevs.http11;
 import walkingdevs.data.Kvs;
 import walkingdevs.iter.mIter;
 
-class HttpQueryImpl implements HttpQuery {
+class QueryImpl implements Query {
     public String queryString() {
         if (kvs.isEmpty()) {
             return "";
@@ -20,7 +20,7 @@ class HttpQueryImpl implements HttpQuery {
         return queryString();
     }
 
-    HttpQueryImpl(Kvs<String, String> kvs) {
+    QueryImpl(Kvs<String, String> kvs) {
         this.kvs = kvs;
     }
 
