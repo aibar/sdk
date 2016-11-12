@@ -6,7 +6,7 @@ import walkingdevs.str.Str;
 
 class RespBodyImpl implements RespBody {
     public byte[] get() {
-        return Bytes.mk(bytes).get();
+        return Bytes.mk(bytes).copy();
     }
 
     public int length() {

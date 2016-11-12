@@ -18,15 +18,15 @@ public interface Vals<T> {
         for (Tuple<Result<Boolean>, String> rp : rps) {
             Val.isNull(rp, "rp").fail();
             vals.add(Val.mk(
-                    value,
-                    name,
-                    rp.first(),
-                    String.format(Val.FORMAT, name, value, rp.second())
+                value,
+                name,
+                rp.first(),
+                String.format(Val.FORMAT, name, value, rp.second())
             ));
         }
         return new ValsImpl<>(
-                value,
-                vals
+            value,
+            vals
         );
     }
 }

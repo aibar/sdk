@@ -1,9 +1,9 @@
 # State: Proof Of Concept!
 
-## The artifact (For our lovely JDK 6, mostly because of Android)
+## The artifact (With Latest Java "Features")
     <groupId>walkingdevs</groupId>
     <artifactId>sdk</artifactId>
-    <version>6.0.1-SNAPSHOT</version>
+    <version>8-SNAPSHOT</version>
 
 ## Why?
 - Cut down boilerplate code and noise

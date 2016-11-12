@@ -33,13 +33,13 @@ public interface Is {
             throw Problems.weFucked(fail);
         }
         return new IsImpl(
-                is,
-                Val.mk(
-                        size,
-                        "size",
-                        () -> size < 1,
-                        "Buffer size < 1"
-                ).get()
+            is,
+            Val.mk(
+                size,
+                "size",
+                () -> size < 1,
+                "Buffer size < 1"
+            ).get()
         );
     }
 }

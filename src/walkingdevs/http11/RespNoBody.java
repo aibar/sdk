@@ -8,14 +8,14 @@ public interface RespNoBody {
     HttpHeaders headers();
 
     static RespNoBody mk(
-            int status,
-            String statusMsg,
-            HttpHeaders headers
+        int status,
+        String statusMsg,
+        HttpHeaders headers
     ) {
         return new RespNoBodyImpl(
-                status,
-                statusMsg,
-                headers
+            status,
+            statusMsg,
+            headers
         );
     }
 }

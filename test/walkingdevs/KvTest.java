@@ -2,32 +2,32 @@ package walkingdevs;
 
 import org.junit.Assert;
 import org.junit.Test;
-import walkingdevs.data.KeyVal;
+import walkingdevs.data.Kv;
 
-public class KeyValTest extends Assert {
+public class KvTest extends Assert {
     @Test
     public void shouldGetKey() {
         assertEquals(
-                "key",
-                KeyVal.mk("key", "val").key()
+            "key",
+            Kv.mk("key", "val").key()
         );
     }
 
     @Test
     public void shouldGetVal() {
         assertEquals(
-                "val",
-                KeyVal.mk("key", "val").val()
+            "val",
+            Kv.mk("key", "val").val()
         );
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotAllowNullKeys() {
-        KeyVal.mk(null, "How?");
+        Kv.mk(null, "How?");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotAllowBlankKeys() {
-        KeyVal.mk(" ", "What?");
+        Kv.mk(" ", "What?");
     }
 }

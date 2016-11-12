@@ -1,7 +1,7 @@
 package walkingdevs.http11;
 
-import walkingdevs.data.KeyVal;
-import walkingdevs.data.KeyVals;
+import walkingdevs.data.Kv;
+import walkingdevs.data.Kvs;
 import walkingdevs.iter.Iter;
 
 class HttpFormImpl implements HttpForm {
@@ -9,7 +9,7 @@ class HttpFormImpl implements HttpForm {
         return Iter.mk(kvs).join("&");
     }
 
-    public HttpForm add(KeyVal<String, String> kv) {
+    public HttpForm add(Kv<String, String> kv) {
         kvs.add(kv);
         return this;
     }
@@ -31,5 +31,5 @@ class HttpFormImpl implements HttpForm {
         return kvs.isEmpty();
     }
 
-    private final KeyVals<String, String> kvs = KeyVals.mk();
+    private final Kvs<String, String> kvs = Kvs.mk();
 }

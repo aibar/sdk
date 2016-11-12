@@ -25,10 +25,10 @@ class ReqImpl implements Req {
             }
         });
         return Resp.mk(
-                resp.status(),
-                resp.statusMsg(),
-                resp.headers(),
-                RespBody.mk(bytesBuilder.get())
+            resp.status(),
+            resp.statusMsg(),
+            resp.headers(),
+            RespBody.mk(bytesBuilder.get())
         );
     }
 
@@ -46,14 +46,14 @@ class ReqImpl implements Req {
             }
 
             return RespNoBody.mk(
-                    tryToGetStatus(connection),
-                    tryToGetStatusMsg(connection),
-                    getHeaders(connection)
+                tryToGetStatus(connection),
+                tryToGetStatusMsg(connection),
+                getHeaders(connection)
             );
         } catch (Exception fail) {
             throw Problems.weFucked(
-                    String.format("%s: We tried hard, but Failed to send the request", uri),
-                    fail
+                String.format("%s: We tried hard, but Failed to send the request", uri),
+                fail
             );
         } finally {
             if (connection != null) {
@@ -73,12 +73,12 @@ class ReqImpl implements Req {
     }
 
     ReqImpl(
-            HttpURI uri,
-            Method method,
-            HttpHeaders headers,
-            Body body,
-            int readTimeout,
-            int connectTimeout
+        HttpURI uri,
+        Method method,
+        HttpHeaders headers,
+        Body body,
+        int readTimeout,
+        int connectTimeout
     ) {
         this.uri = uri;
         this.method = method;
@@ -101,13 +101,13 @@ class ReqImpl implements Req {
             raw = new URL(uri.full()).openConnection();
         } catch (IOException fail) {
             throw Problems.weFucked(
-                    String.format("%s: Failed to connect", uri),
-                    fail
+                String.format("%s: Failed to connect", uri),
+                fail
             );
         }
         if (!(raw instanceof HttpURLConnection)) {
             throw Problems.WTF(
-                    String.format("%s: We are expecting HttpURLConnection, but get " + raw.getClass(), uri)
+                String.format("%s: We are expecting HttpURLConnection, but copy " + raw.getClass(), uri)
             );
         }
         // Now, it's Ok.
@@ -152,8 +152,8 @@ class ReqImpl implements Req {
                 return connection.getInputStream();
             } catch (IOException fail) {
                 throw Problems.weFucked(
-                        String.format("%s: For reasons unknown we didn't get the InputStream", uri),
-                        fail
+                    String.format("%s: For reasons unknown we didn't copy the InputStream", uri),
+                    fail
                 );
             }
         }
@@ -164,8 +164,8 @@ class ReqImpl implements Req {
             return connection.getResponseCode();
         } catch (IOException fail) {
             throw Problems.weFucked(
-                    String.format("%s: We Fucked when getting status code", uri),
-                    fail
+                String.format("%s: We Fucked when getting status code", uri),
+                fail
             );
         }
     }
@@ -175,8 +175,8 @@ class ReqImpl implements Req {
             return connection.getResponseMessage();
         } catch (IOException fail) {
             throw Problems.weFucked(
-                    String.format("%s: We Fucked when getting status message", uri),
-                    fail
+                String.format("%s: We Fucked when getting status message", uri),
+                fail
             );
         }
     }
@@ -193,8 +193,8 @@ class ReqImpl implements Req {
             BufferedIs.mk(content, 8192).writeTo(output);
         } catch (IOException fail) {
             throw Problems.weFucked(
-                    String.format("%s: Cannot send body", uri),
-                    fail
+                String.format("%s: Cannot send body", uri),
+                fail
             );
         } finally {
             try {

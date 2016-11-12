@@ -22,10 +22,12 @@ public interface Body {
         return new BodyEmptyImpl();
     }
 
+    // Assume it's UTF-8...
     static Body mk(HttpForm form) {
         return mk(form.get());
     }
 
+    // Default to UTF-8
     static Body mk(String text) {
         return mk(text, Chset.UTF8());
     }

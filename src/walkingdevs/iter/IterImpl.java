@@ -13,8 +13,8 @@ class IterImpl<T> implements Iter<T> {
             return "";
         }
         return sb.delete(
-                sb.length() - with.length(),
-                sb.length()
+            sb.length() - with.length(),
+            sb.length()
         ).toString();
     }
 

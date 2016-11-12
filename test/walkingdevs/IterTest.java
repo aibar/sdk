@@ -15,8 +15,8 @@ public class IterTest extends Assert {
         list.add("one");
         list.add("two");
         assertEquals(
-                expected,
-                Iter.mk(list).join("&")
+            expected,
+            Iter.mk(list).join("&")
         );
     }
 
@@ -26,16 +26,16 @@ public class IterTest extends Assert {
         List<String> list = new ArrayList<>();
         list.add("one-and-only");
         assertEquals(
-                expected,
-                Iter.mk(list).join("doesn't matter")
+            expected,
+            Iter.mk(list).join("doesn't matter")
         );
     }
 
     @Test
     public void shouldMkEmptyIfNullPassed() {
         assertEquals(
-                "",
-                Iter.mk(null).join("doesn't matter")
+            "",
+            Iter.mk(null).join("doesn't matter")
         );
     }
 }

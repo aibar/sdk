@@ -8,8 +8,8 @@ public enum Scheme {
 
     public static Scheme from(String scheme) {
         Val.mk(scheme, "scheme",
-                () -> scheme == null || (!scheme.equals("http") && !scheme.equals("https")),
-                "http|https"
+            () -> scheme == null || (!scheme.equals("http") && !scheme.equals("https")),
+            "http|https"
         ).fail();
         if ("http".equals(scheme)) {
             return Http;

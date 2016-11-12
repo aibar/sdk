@@ -9,10 +9,10 @@ class ReqBuilderImpl implements ReqBuilder {
 
     public ReqBuilder readTimeout(int readTimeout) {
         this.readTimeout = Val.mk(
-                readTimeout,
-                "readTimeout",
-                () -> readTimeout < 0,
-                "Cannot be negative"
+            readTimeout,
+            "readTimeout",
+            () -> readTimeout < 0,
+            "Cannot be negative"
         ).get();
         return this;
     }
@@ -23,10 +23,10 @@ class ReqBuilderImpl implements ReqBuilder {
 
     public ReqBuilder connectTimeout(int connectTimeout) {
         this.connectTimeout = Val.mk(
-                connectTimeout,
-                "connectTimeout",
-                () -> connectTimeout < 0,
-                "Cannot be negative"
+            connectTimeout,
+            "connectTimeout",
+            () -> connectTimeout < 0,
+            "Cannot be negative"
         ).get();
         return this;
     }
@@ -68,12 +68,12 @@ class ReqBuilderImpl implements ReqBuilder {
 
     public Req build() {
         return Req.mk(
-                uri(),
-                method(),
-                headers(),
-                body(),
-                readTimeout(),
-                connectTimeout()
+            uri(),
+            method(),
+            headers(),
+            body(),
+            readTimeout(),
+            connectTimeout()
         );
     }
 
@@ -82,7 +82,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     // 10 minutes
-    private static final int Timeout = 60*60*10;
+    private static final int Timeout = 60 * 60 * 10;
 
     private final HttpURI uri;
 

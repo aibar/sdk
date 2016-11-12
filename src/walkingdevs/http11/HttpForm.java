@@ -1,11 +1,11 @@
 package walkingdevs.http11;
 
-import walkingdevs.data.KeyVal;
+import walkingdevs.data.Kv;
 
 public interface HttpForm {
     String get();
 
-    HttpForm add(KeyVal<String, String> kv);
+    HttpForm add(Kv<String, String> kv);
 
     HttpForm del(String key);
 
@@ -15,9 +15,9 @@ public interface HttpForm {
 
     boolean isEmpty();
 
-    static HttpForm mk(KeyVal<String, String>... from) {
+    static HttpForm mk(Kv<String, String>... from) {
         HttpForm form = mk();
-        for (KeyVal<String, String> kv : from) {
+        for (Kv<String, String> kv : from) {
             form.add(kv);
         }
         return form;

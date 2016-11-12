@@ -5,15 +5,15 @@ import walkingdevs.iter.Iter;
 import java.util.*;
 
 // Actually a Map!
-class KeyValsImpl<K, V> implements KeyVals<K, V> {
-    public KeyVals<K, V> add(KeyVal<K, V> kv) {
+class KvsImpl<K, V> implements Kvs<K, V> {
+    public Kvs<K, V> add(Kv<K, V> kv) {
         if (kv != null) {
             map.put(kv.key(), kv.val());
         }
         return this;
     }
 
-    public KeyVals<K, V> del(K key) {
+    public Kvs<K, V> del(K key) {
         map.remove(key);
         return this;
     }
@@ -31,10 +31,10 @@ class KeyValsImpl<K, V> implements KeyVals<K, V> {
     }
 
     @Override
-    public Iterator<KeyVal<K, V>> iterator() {
-        List<KeyVal<K, V>> list = new ArrayList<>();
+    public Iterator<Kv<K, V>> iterator() {
+        List<Kv<K, V>> list = new ArrayList<>();
         for (Map.Entry<K, V> entry : map.entrySet()) {
-            list.add(KeyVal.mk(entry.getKey(), entry.getValue()));
+            list.add(Kv.mk(entry.getKey(), entry.getValue()));
         }
         return list.iterator();
     }

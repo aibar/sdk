@@ -9,10 +9,10 @@ import walkingdevs.str.Str;
 public class StrTest extends Assert {
     @Test
     public void shouldGet() {
-        String expected = "Please get me";
+        String expected = "Please copy me";
         assertEquals(
-                expected,
-                Str.mk(expected).get()
+            expected,
+            Str.mk(expected).get()
         );
     }
 
@@ -51,8 +51,8 @@ public class StrTest extends Assert {
             actual += character;
         }
         assertEquals(
-                expected,
-                actual
+            expected,
+            actual
         );
     }
 
@@ -60,10 +60,10 @@ public class StrTest extends Assert {
     public void shouldGetUTF8TextBytes() {
         String text = "Привет, Мир!";
         assertEquals(
-                Bytes.mk(text.getBytes(Chset.UTF8().get())),
-                Bytes.mk(
-                        Str.mk(text.getBytes()).bytes()
-                )
+            Bytes.mk(text.getBytes(Chset.UTF8().get())),
+            Bytes.mk(
+                Str.mk(text.getBytes()).bytes()
+            )
         );
     }
 
@@ -71,10 +71,10 @@ public class StrTest extends Assert {
     public void shouldGetOtherCharsetTextBytesToo() {
         byte[] expected = "Привет, Мир!".getBytes(Chset.KOI8R().get());
         assertEquals(
-                Bytes.mk(expected),
-                Bytes.mk(
-                        Str.mk(expected, Chset.KOI8R()).bytes(Chset.KOI8R())
-                )
+            Bytes.mk(expected),
+            Bytes.mk(
+                Str.mk(expected, Chset.KOI8R()).bytes(Chset.KOI8R())
+            )
         );
     }
 }

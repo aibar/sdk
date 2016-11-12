@@ -10,16 +10,16 @@ public interface Resp {
     RespBody body();
 
     static Resp mk(
-            int status,
-            String statusMsg,
-            HttpHeaders headers,
-            RespBody body
+        int status,
+        String statusMsg,
+        HttpHeaders headers,
+        RespBody body
     ) {
         return new RespImpl(
-                status,
-                statusMsg,
-                headers,
-                body
+            status,
+            statusMsg,
+            headers,
+            body
         );
     }
 }

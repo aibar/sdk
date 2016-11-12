@@ -1,8 +1,7 @@
 package walkingdevs.bytes;
 
 public interface Bytes {
-    // Copy
-    byte[] get();
+    byte[] copy();
 
     int length();
 

@@ -36,8 +36,8 @@ public class HttpQueryTest extends Assert {
         String query = "one=1&two=2";
         String expected = "one=1&two=2";
         assertEquals(
-                expected,
-                HttpQuery.mk(query).queryString()
+            expected,
+            HttpQuery.mk(query).queryString()
         );
     }
 
@@ -46,8 +46,8 @@ public class HttpQueryTest extends Assert {
         String query = "one=&two&five=5&";
         String expected = "one=&two=&five=5";
         assertEquals(
-                expected,
-                HttpQuery.mk(query).queryString()
+            expected,
+            HttpQuery.mk(query).queryString()
         );
     }
 }

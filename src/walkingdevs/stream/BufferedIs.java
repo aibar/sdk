@@ -27,13 +27,13 @@ public interface BufferedIs extends Iterable<byte[]> {
             throw Problems.weFucked(fail);
         }
         return new BufferedIsImpl(
-                is,
-                Val.mk(
-                        size,
-                        "size",
-                        () -> size < 1,
-                        "Buffer size < 1"
-                ).get()
+            is,
+            Val.mk(
+                size,
+                "size",
+                () -> size < 1,
+                "Buffer size < 1"
+            ).get()
         );
     }
 }
