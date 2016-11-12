@@ -1,6 +1,6 @@
 package walkingdevs.http11;
 
-public class MHttpHeaders {
+public class mHttpHeaders {
     public static HttpHeaders mk() {
         return new HttpHeadersImpl();
     }

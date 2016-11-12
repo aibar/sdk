@@ -2,14 +2,14 @@ package walkingdevs;
 
 import org.junit.Assert;
 import org.junit.Test;
-import walkingdevs.data.MKeyVal;
+import walkingdevs.data.mKv;
 
-public class KeyValTest extends Assert {
+public class KvTest extends Assert {
     @Test
     public void shouldGetKey() {
         assertEquals(
             "key",
-            MKeyVal.mk("key", "val").key()
+            mKv.mk("key", "val").key()
         );
     }
 
@@ -17,17 +17,17 @@ public class KeyValTest extends Assert {
     public void shouldGetVal() {
         assertEquals(
             "val",
-            MKeyVal.mk("key", "val").val()
+            mKv.mk("key", "val").val()
         );
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotAllowNullKeys() {
-        MKeyVal.mk(null, "How?");
+        mKv.mk(null, "How?");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotAllowBlankKeys() {
-        MKeyVal.mk(" ", "What?");
+        mKv.mk(" ", "What?");
     }
 }

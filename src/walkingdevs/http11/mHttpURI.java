@@ -1,13 +1,13 @@
 package walkingdevs.http11;
 
-import walkingdevs.str.MStr;
-import walkingdevs.val.MVal;
+import walkingdevs.str.mStr;
+import walkingdevs.val.mVal;
 
 import java.net.URI;
 
-public class MHttpURI {
+public class mHttpURI {
     public static HttpURI parse(String uriString) {
-        URI uri = URI.create(MVal.mkIsBlank(uriString, "uriString").get());
+        URI uri = URI.create(mVal.mkIsBlank(uriString, "uriString").get());
         HttpURI httpURI = mk();
         httpURI.scheme(Scheme.from(uri.getScheme()));
         httpURI.host(uri.getHost());
@@ -20,15 +20,15 @@ public class MHttpURI {
         } else {
             httpURI.port(uri.getPort());
         }
-        if (MStr.mk(uri.getPath()).isBlank()) {
+        if (mStr.mk(uri.getPath()).isBlank()) {
             httpURI.path("/");
         } else {
             httpURI.path(uri.getPath());
         }
-        if (MStr.mk(uri.getQuery()).isBlank()) {
-            httpURI.query(MHttpQuery.mk());
+        if (mStr.mk(uri.getQuery()).isBlank()) {
+            httpURI.query(mHttpQuery.mk());
         } else {
-            httpURI.query(MHttpQuery.mk(uri.getQuery()));
+            httpURI.query(mHttpQuery.mk(uri.getQuery()));
         }
         return httpURI;
     }

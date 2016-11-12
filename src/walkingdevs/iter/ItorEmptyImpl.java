@@ -11,6 +11,8 @@ class ItorEmptyImpl<T> implements Itor<T> {
             public T next() {
                 return null;
             }
+            public void remove() {
+            }
         };
     }
 }

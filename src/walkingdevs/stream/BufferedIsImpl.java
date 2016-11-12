@@ -32,6 +32,7 @@ class BufferedIsImpl implements BufferedIs {
             public boolean hasNext() {
                 return !isEmpty();
             }
+
             public byte[] next() {
                 int read;
                 byte[] buffer = new byte[size];
@@ -45,6 +46,9 @@ class BufferedIsImpl implements BufferedIs {
                 } else {
                     return new byte[0];
                 }
+            }
+
+            public void remove() {
             }
         };
     }

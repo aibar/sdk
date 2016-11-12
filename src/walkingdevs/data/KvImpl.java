@@ -1,6 +1,6 @@
 package walkingdevs.data;
 
-class KeyValImpl<K, V> implements KeyVal<K, V> {
+class KvImpl<K, V> implements Kv<K, V> {
     public K key() {
         return key;
     }
@@ -14,7 +14,7 @@ class KeyValImpl<K, V> implements KeyVal<K, V> {
         return key() + "=" + val();
     }
 
-    KeyValImpl(K key, V val) {
+    KvImpl(K key, V val) {
         this.key = key;
         this.val = val;
     }

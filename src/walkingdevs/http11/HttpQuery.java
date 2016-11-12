@@ -1,9 +1,9 @@
 package walkingdevs.http11;
 
-import walkingdevs.data.KeyVals;
+import walkingdevs.data.Kvs;
 
 public interface HttpQuery {
     String queryString();
 
-    KeyVals<String, String> keyVals();
+    Kvs<String, String> keyVals();
 }

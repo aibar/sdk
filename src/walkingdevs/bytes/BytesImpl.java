@@ -3,7 +3,7 @@ package walkingdevs.bytes;
 import java.util.Arrays;
 
 class BytesImpl implements Bytes {
-    public byte[] get() {
+    public byte[] copy() {
         return Arrays.copyOf(bytes, length());
     }
 
@@ -31,7 +31,7 @@ class BytesImpl implements Bytes {
             return false;
         }
 
-        byte[] otherBytes = other.get();
+        byte[] otherBytes = other.copy();
         for (int i = 0; i < otherBytes.length; i++) {
             if (otherBytes[i] != bytes[i]) {
                 return false;

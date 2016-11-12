@@ -1,6 +1,6 @@
 package walkingdevs.iter;
 
-public class MIter {
+public class mIter {
     public static <T> Iter<T> mk() {
         return mk(new IterEmptyImpl<T>());
     }

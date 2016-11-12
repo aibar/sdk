@@ -24,7 +24,7 @@ class BytesBuilderImpl implements BytesBuilder {
     }
 
     public BytesBuilder add(byte[] bytes) {
-        if (!MBytes.mk(bytes).isEmpty()) {
+        if (!mBytes.mk(bytes).isEmpty()) {
             bytesList.add(bytes);
             length += bytes.length;
         }

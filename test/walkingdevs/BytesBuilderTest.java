@@ -2,21 +2,21 @@ package walkingdevs;
 
 import org.junit.Assert;
 import org.junit.Test;
-import walkingdevs.bytes.MBytes;
-import walkingdevs.bytes.MBytesBuilder;
+import walkingdevs.bytes.mBytes;
+import walkingdevs.bytes.mBytesBuilder;
 
 public class BytesBuilderTest extends Assert {
     @Test
     public void shouldGet() {
         byte[] expected = {1, 2, 3};
-        byte[] actual = MBytesBuilder.mk()
+        byte[] actual = mBytesBuilder.mk()
             .add(new byte[]{1})
             .add(new byte[]{2})
             .add(new byte[]{3})
             .get();
         assertEquals(
-            MBytes.mk(expected),
-            MBytes.mk(actual)
+            mBytes.mk(expected),
+            mBytes.mk(actual)
         );
     }
 
@@ -24,13 +24,13 @@ public class BytesBuilderTest extends Assert {
     public void shouldGetLength() {
         assertEquals(
             3,
-            MBytesBuilder.mk().add(new byte[3]).length()
+            mBytesBuilder.mk().add(new byte[3]).length()
         );
     }
 
     @Test
     public void shouldBeEmpty() {
-        assertTrue(MBytesBuilder.mk().isEmpty());
+        assertTrue(mBytesBuilder.mk().isEmpty());
     }
 
     @Test
@@ -39,6 +39,6 @@ public class BytesBuilderTest extends Assert {
 
     @Test
     public void shouldMk() {
-        assertNotNull(MBytesBuilder.mk());
+        assertNotNull(mBytesBuilder.mk());
     }
 }

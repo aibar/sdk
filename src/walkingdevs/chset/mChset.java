@@ -2,7 +2,7 @@ package walkingdevs.chset;
 
 import java.nio.charset.Charset;
 
-public class MChset {
+public class mChset {
     public static Chset Default() {
         return new ChsetImpl(Charset.defaultCharset().name());
     }

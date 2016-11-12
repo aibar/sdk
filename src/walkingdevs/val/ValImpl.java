@@ -7,7 +7,7 @@ class ValImpl<T> implements Val<T> {
     public void fail() {
         if (result.get()) {
             throw Problems.illegalArg(
-                    String.format(FORMAT, name, value, problem)
+                String.format(FORMAT, name, value, problem)
             );
         }
     }

@@ -20,7 +20,7 @@ class HttpHeadersImpl implements HttpHeaders {
     public Iterator<HttpHeader> iterator() {
         List<HttpHeader> list = new ArrayList<HttpHeader>();
         for (Map.Entry<String, String> entry : map.entrySet()) {
-            list.add(MHttpHeader.mk(entry.getKey(), entry.getValue()));
+            list.add(mHttpHeader.mk(entry.getKey(), entry.getValue()));
         }
         return list.iterator();
     }

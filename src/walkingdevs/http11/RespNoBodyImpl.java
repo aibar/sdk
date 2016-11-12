@@ -14,9 +14,9 @@ class RespNoBodyImpl implements RespNoBody {
     }
 
     RespNoBodyImpl(
-            int status,
-            String statusMsg,
-            HttpHeaders headers
+        int status,
+        String statusMsg,
+        HttpHeaders headers
     ) {
         this.status = status;
         this.statusMsg = statusMsg;

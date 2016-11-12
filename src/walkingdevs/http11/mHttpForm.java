@@ -1,11 +1,11 @@
 package walkingdevs.http11;
 
-import walkingdevs.data.KeyVal;
+import walkingdevs.data.Kv;
 
-public class MHttpForm {
-    static HttpForm mk(KeyVal<String, String>... from) {
+public class mHttpForm {
+    static HttpForm mk(Kv<String, String>... from) {
         HttpForm form = mk();
-        for (KeyVal<String, String> kv : from) {
+        for (Kv<String, String> kv : from) {
             form.add(kv);
         }
         return form;

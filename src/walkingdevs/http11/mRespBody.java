@@ -1,6 +1,6 @@
 package walkingdevs.http11;
 
-public class MRespBody {
+public class mRespBody {
     static RespBody mk() {
         return mk(new byte[0]);
     }

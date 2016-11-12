@@ -2,7 +2,7 @@ package walkingdevs;
 
 import org.junit.Assert;
 import org.junit.Test;
-import walkingdevs.data.MTuple;
+import walkingdevs.data.mTuple;
 
 // Just for 100% coverage!
 public class TupleTest extends Assert {
@@ -10,7 +10,7 @@ public class TupleTest extends Assert {
     public void shouldGetFirst() {
         assertEquals(
             "first",
-            MTuple.mk("first", "second").first()
+            mTuple.mk("first", "second").first()
         );
     }
 
@@ -18,7 +18,7 @@ public class TupleTest extends Assert {
     public void shouldGetSecond() {
         assertEquals(
             "second",
-            MTuple.mk("first", "second").second()
+            mTuple.mk("first", "second").second()
         );
     }
 }

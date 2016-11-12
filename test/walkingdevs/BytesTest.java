@@ -2,7 +2,7 @@ package walkingdevs;
 
 import org.junit.Assert;
 import org.junit.Test;
-import walkingdevs.bytes.MBytes;
+import walkingdevs.bytes.mBytes;
 
 public class BytesTest extends Assert {
     @Test
@@ -10,13 +10,13 @@ public class BytesTest extends Assert {
         byte[] bytes = {1, 2, 3};
         // Not equal shallow
         assertNotEquals(
-            MBytes.mk(bytes).get(),
-            MBytes.mk(bytes).get()
+            mBytes.mk(bytes).copy(),
+            mBytes.mk(bytes).copy()
         );
         // Deep equal
         assertEquals(
-            MBytes.mk(bytes),
-            MBytes.mk(bytes)
+            mBytes.mk(bytes),
+            mBytes.mk(bytes)
         );
     }
 
@@ -25,7 +25,7 @@ public class BytesTest extends Assert {
         byte[] bytes = {1, 2, 3};
         assertEquals(
             3,
-            MBytes.mk(bytes).length()
+            mBytes.mk(bytes).length()
         );
     }
 
@@ -33,8 +33,8 @@ public class BytesTest extends Assert {
     public void shouldImplementHashCorrectly() {
         byte[] bytes = {1, 2, 3};
         assertEquals(
-            MBytes.mk(bytes).hashCode(),
-            MBytes.mk(bytes).hashCode()
+            mBytes.mk(bytes).hashCode(),
+            mBytes.mk(bytes).hashCode()
         );
     }
 
@@ -42,29 +42,29 @@ public class BytesTest extends Assert {
     public void shouldImplementEqualsCorrectly() {
         byte[] bytes = {1, 2, 3};
         assertEquals(
-            MBytes.mk(bytes),
-            MBytes.mk(bytes)
+            mBytes.mk(bytes),
+            mBytes.mk(bytes)
         );
     }
 
     @Test
     public void shouldNotMkEmptyIfDataExists() {
         assertFalse(
-            MBytes.mk(new byte[1]).isEmpty()
+            mBytes.mk(new byte[1]).isEmpty()
         );
     }
 
     @Test
     public void shouldMkEmptyIfDataNotExists() {
         assertTrue(
-            MBytes.mk(new byte[0]).isEmpty()
+            mBytes.mk(new byte[0]).isEmpty()
         );
     }
 
     @Test
     public void shouldMkEmptyIfNullPassed() {
         assertTrue(
-            MBytes.mk(null).isEmpty()
+            mBytes.mk(null).isEmpty()
         );
     }
 }

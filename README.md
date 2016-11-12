@@ -3,7 +3,7 @@
 ## The artifact (For our lovely JDK 6, mostly because of Android)
     <groupId>walkingdevs</groupId>
     <artifactId>sdk</artifactId>
-    <version>6.0.1-SNAPSHOT</version>
+    <version>6-SNAPSHOT</version>
 
 ## Why?
 - Cut down boilerplate code and noise

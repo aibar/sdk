@@ -1,12 +1,12 @@
 package walkingdevs.http11;
 
-import walkingdevs.bytes.MBytes;
+import walkingdevs.bytes.mBytes;
 import walkingdevs.chset.Chset;
-import walkingdevs.str.MStr;
+import walkingdevs.str.mStr;
 
 class RespBodyImpl implements RespBody {
     public byte[] get() {
-        return MBytes.mk(bytes).get();
+        return mBytes.mk(bytes).copy();
     }
 
     public int length() {
@@ -18,11 +18,11 @@ class RespBodyImpl implements RespBody {
     }
 
     public String text() {
-        return MStr.mk(bytes).get();
+        return mStr.mk(bytes).get();
     }
 
     public String text(Chset chset) {
-        return MStr.mk(bytes, chset).get();
+        return mStr.mk(bytes, chset).get();
     }
 
     RespBodyImpl(byte[] bytes) {

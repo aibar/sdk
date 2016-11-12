@@ -18,10 +18,10 @@ class RespImpl implements Resp {
     }
 
     RespImpl(
-            int status,
-            String statusMsg,
-            HttpHeaders headers,
-            RespBody body
+        int status,
+        String statusMsg,
+        HttpHeaders headers,
+        RespBody body
     ) {
         this.status = status;
         this.statusMsg = statusMsg;

@@ -8,5 +8,5 @@ class IterEmptyImpl<T> implements Iterable<T> {
         return itor.get();
     }
 
-    private Itor<T> itor = MItor.mk();
+    private Itor<T> itor = mItor.mk();
 }

@@ -1,6 +1,6 @@
 package walkingdevs.stream;
 
-import walkingdevs.val.MVal;
+import walkingdevs.val.mVal;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -17,12 +17,12 @@ class IsImpl implements Is {
     }
 
     public void writeTo(OutputStream os) throws IOException {
-        MVal.mkIsNull(os, "os").get().write(bytes);
+        mVal.mkIsNull(os, "os").get().write(bytes);
     }
 
     IsImpl(InputStream is, int size) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream(size);
-        for (byte[] buffer : MBufferedIs.mk(is, size)) {
+        for (byte[] buffer : mBufferedIs.mk(is, size)) {
             baos.write(buffer, 0, buffer.length);
         }
         bytes = baos.toByteArray();

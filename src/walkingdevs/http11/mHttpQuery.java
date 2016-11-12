@@ -1,24 +1,24 @@
 package walkingdevs.http11;
 
-import walkingdevs.data.KeyVals;
-import walkingdevs.data.MKeyVal;
-import walkingdevs.data.MKeyVals;
+import walkingdevs.data.Kvs;
+import walkingdevs.data.mKv;
+import walkingdevs.data.mKvs;
 import walkingdevs.fun.Result;
-import walkingdevs.val.MVal;
+import walkingdevs.val.mVal;
 
-public class MHttpQuery {
+public class mHttpQuery {
     public static HttpQuery mk() {
-        KeyVals<String, String> kvs = MKeyVals.mk();
+        Kvs<String, String> kvs = mKvs.mk();
         return mk(kvs);
     }
 
-    public static HttpQuery mk(KeyVals<String, String> keyVals) {
+    public static HttpQuery mk(Kvs<String, String> keyVals) {
         return new HttpQueryImpl(keyVals);
     }
 
     public static HttpQuery mk(final String queryString) {
-        MVal.mkIsBlank(queryString, "queryString").fail();
-        MVal.mk(queryString, "queryString",
+        mVal.mkIsBlank(queryString, "queryString").fail();
+        mVal.mk(queryString, "queryString",
             new Result<Boolean>() {
                 public Boolean get() {
                     return queryString.startsWith("?");
@@ -26,7 +26,7 @@ public class MHttpQuery {
             },
             "Cannot start with '?'"
         ).fail();
-        MVal.mk(queryString, "queryString",
+        mVal.mk(queryString, "queryString",
             new Result<Boolean>() {
                 public Boolean get() {
                     return queryString.endsWith("#");
@@ -35,13 +35,13 @@ public class MHttpQuery {
             "Cannot end with '#'"
         ).fail();
 
-        KeyVals<String, String> kvs = MKeyVals.mk();
+        Kvs<String, String> kvs = mKvs.mk();
         for (String kvString : queryString.split("&")) {
             String[] kv = kvString.split("=");
             if (kv.length == 1) {
-                kvs.add(MKeyVal.mk(kv[0], ""));
+                kvs.add(mKv.mk(kv[0], ""));
             } else if (kv.length == 2) {
-                kvs.add(MKeyVal.mk(kv[0], kv[1]));
+                kvs.add(mKv.mk(kv[0], kv[1]));
             }
         }
         return mk(kvs);

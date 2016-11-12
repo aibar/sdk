@@ -1,6 +1,6 @@
 package walkingdevs.http11;
 
-import walkingdevs.val.MVal;
+import walkingdevs.val.mVal;
 
 class ReqBuilderImpl implements ReqBuilder {
     public int readTimeout() {
@@ -8,7 +8,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder readTimeout(int readTimeout) {
-        this.readTimeout = MVal.mkNegative(readTimeout, "readTimeout").get();
+        this.readTimeout = mVal.mkNegative(readTimeout, "readTimeout").get();
         return this;
     }
 
@@ -17,7 +17,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder connectTimeout(int connectTimeout) {
-        this.connectTimeout = MVal.mkNegative(connectTimeout, "connectTimeout").get();
+        this.connectTimeout = mVal.mkNegative(connectTimeout, "connectTimeout").get();
         return this;
     }
 
@@ -30,7 +30,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder method(Method method) {
-        this.method = MVal.mkIsNull(method, "method").get();
+        this.method = mVal.mkIsNull(method, "method").get();
         return this;
     }
 
@@ -39,7 +39,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder headers(HttpHeaders headers) {
-        this.headers = MVal.mkIsNull(headers, "headers").get();
+        this.headers = mVal.mkIsNull(headers, "headers").get();
         return this;
     }
 
@@ -48,22 +48,22 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder body(Body body) {
-        this.body = MVal.mkIsNull(body, "body").get();
+        this.body = mVal.mkIsNull(body, "body").get();
         return this;
     }
 
     public ReqBuilder body(HttpForm form) {
-        return body(MBody.mk(form));
+        return body(mBody.mk(form));
     }
 
     public Req build() {
-        return MReq.mk(
-                uri(),
-                method(),
-                headers(),
-                body(),
-                readTimeout(),
-                connectTimeout()
+        return mReq.mk(
+            uri(),
+            method(),
+            headers(),
+            body(),
+            readTimeout(),
+            connectTimeout()
         );
     }
 
@@ -72,7 +72,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     // 10 minutes
-    private static final int Timeout = 60*60*10;
+    private static final int Timeout = 60 * 60 * 10;
 
     private final HttpURI uri;
 
@@ -80,6 +80,6 @@ class ReqBuilderImpl implements ReqBuilder {
     private int connectTimeout = Timeout;
 
     private Method method = Method.GET;
-    private HttpHeaders headers = MHttpHeaders.mk();
-    private Body body = MBody.mk();
+    private HttpHeaders headers = mHttpHeaders.mk();
+    private Body body = mBody.mk();
 }

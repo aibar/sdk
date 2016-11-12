@@ -1,7 +1,7 @@
 package walkingdevs.str;
 
 import walkingdevs.chset.Chset;
-import walkingdevs.chset.MChset;
+import walkingdevs.chset.mChset;
 
 import java.util.Iterator;
 
@@ -19,7 +19,7 @@ class StrImpl implements Str {
     }
 
     public byte[] bytes() {
-        return bytes(MChset.UTF8());
+        return bytes(mChset.UTF8());
     }
 
     public byte[] bytes(Chset chset) {

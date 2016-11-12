@@ -2,7 +2,7 @@ package walkingdevs;
 
 import org.junit.Assert;
 import org.junit.Test;
-import walkingdevs.iter.MIter;
+import walkingdevs.iter.mIter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ public class IterTest extends Assert {
         list.add("two");
         assertEquals(
             expected,
-            MIter.mk(list).join("&")
+            mIter.mk(list).join("&")
         );
     }
 
@@ -27,7 +27,7 @@ public class IterTest extends Assert {
         list.add("one-and-only");
         assertEquals(
             expected,
-            MIter.mk(list).join("doesn't matter")
+            mIter.mk(list).join("doesn't matter")
         );
     }
 
@@ -35,7 +35,7 @@ public class IterTest extends Assert {
     public void shouldMkEmptyIfNullPassed() {
         assertEquals(
             "",
-            MIter.mk(null).join("doesn't matter")
+            mIter.mk(null).join("doesn't matter")
         );
     }
 }

@@ -1,8 +1,8 @@
 package walkingdevs.http11;
 
 import walkingdevs.fun.Result;
-import walkingdevs.str.MStr;
-import walkingdevs.val.MVal;
+import walkingdevs.str.mStr;
+import walkingdevs.val.mVal;
 
 class HttpURIImpl implements HttpURI {
     public String host() {
@@ -10,7 +10,7 @@ class HttpURIImpl implements HttpURI {
     }
 
     public HttpURI host(String host) {
-        this.host = MVal.mkIsBlank(host, "host").get();
+        this.host = mVal.mkIsBlank(host, "host").get();
         return this;
     }
 
@@ -19,7 +19,7 @@ class HttpURIImpl implements HttpURI {
     }
 
     public HttpURI port(final int port) {
-        this.port = MVal.mk(
+        this.port = mVal.mk(
             port,
             "port",
             new Result<Boolean>() {
@@ -37,7 +37,7 @@ class HttpURIImpl implements HttpURI {
     }
 
     public HttpURI path(String path) {
-        if (MStr.mk(path).isBlank()) {
+        if (mStr.mk(path).isBlank()) {
             path = "/";
         }
         this.path = path;
@@ -49,7 +49,7 @@ class HttpURIImpl implements HttpURI {
     }
 
     public HttpURI query(HttpQuery query) {
-        this.query = MVal.mkIsNull(query, "query").get();
+        this.query = mVal.mkIsNull(query, "query").get();
         return this;
     }
 
@@ -58,7 +58,7 @@ class HttpURIImpl implements HttpURI {
     }
 
     public HttpURI scheme(Scheme scheme) {
-        this.scheme = MVal.mkIsNull(scheme, "scheme").get();
+        this.scheme = mVal.mkIsNull(scheme, "scheme").get();
         return this;
     }
 
@@ -82,5 +82,5 @@ class HttpURIImpl implements HttpURI {
     private Scheme scheme;
 
     private String path = "/";
-    private HttpQuery query = MHttpQuery.mk();
+    private HttpQuery query = mHttpQuery.mk();
 }

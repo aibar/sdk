@@ -1,6 +1,6 @@
 package walkingdevs.http11;
 
-public class MResp {
+public class mResp {
     public static Resp mk(
         int status,
         String statusMsg,
@@ -8,10 +8,10 @@ public class MResp {
         RespBody body
     ) {
         return new RespImpl(
-                status,
-                statusMsg,
-                headers,
-                body
+            status,
+            statusMsg,
+            headers,
+            body
         );
     }
 }

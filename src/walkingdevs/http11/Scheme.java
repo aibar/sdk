@@ -1,14 +1,14 @@
 package walkingdevs.http11;
 
 import walkingdevs.fun.Result;
-import walkingdevs.val.MVal;
+import walkingdevs.val.mVal;
 
 public enum Scheme {
     Http("http"),
     Https("https");
 
     public static Scheme from(final String scheme) {
-        MVal.mk(scheme, "scheme",
+        mVal.mk(scheme, "scheme",
             new Result<Boolean>() {
                 public Boolean get() {
                     return scheme == null || (!scheme.equals("http") && !scheme.equals("https"));

@@ -1,10 +1,10 @@
 package walkingdevs.iter;
 
-import walkingdevs.val.MVal;
+import walkingdevs.val.mVal;
 
 class IterImpl<T> implements Iter<T> {
     public String join(String with) {
-        MVal.mkIsNull(with, "with").fail();
+        mVal.mkIsNull(with, "with").fail();
         StringBuilder sb = new StringBuilder();
         for (T t : iterable) {
             sb.append(t).append(with);
@@ -13,8 +13,8 @@ class IterImpl<T> implements Iter<T> {
             return "";
         }
         return sb.delete(
-                sb.length() - with.length(),
-                sb.length()
+            sb.length() - with.length(),
+            sb.length()
         ).toString();
     }
 

@@ -2,8 +2,8 @@ package walkingdevs;
 
 import org.junit.Assert;
 import org.junit.Test;
-import walkingdevs.bytes.MBytes;
-import walkingdevs.stream.MIs;
+import walkingdevs.bytes.mBytes;
+import walkingdevs.stream.mIs;
 
 import java.io.ByteArrayInputStream;
 
@@ -12,9 +12,9 @@ public class IsTest extends Assert {
     public void shouldGetBytes() {
         byte[] expected = {1, 2, 3};
         assertEquals(
-            MBytes.mk(expected),
-            MBytes.mk(
-                MIs.mk(new ByteArrayInputStream(expected)).bytes()
+            mBytes.mk(expected),
+            mBytes.mk(
+                mIs.mk(new ByteArrayInputStream(expected)).bytes()
             )
         );
     }
@@ -22,7 +22,7 @@ public class IsTest extends Assert {
     @Test
     public void shouldNotMkEmptyIfDataExists() {
         assertFalse(
-            MIs.mk(
+            mIs.mk(
                 new ByteArrayInputStream(new byte[1])
             ).isEmpty()
         );
@@ -31,7 +31,7 @@ public class IsTest extends Assert {
     @Test
     public void shouldMkEmptyIfNoData() {
         assertTrue(
-            MIs.mk(
+            mIs.mk(
                 new ByteArrayInputStream(new byte[0])
             ).isEmpty()
         );
@@ -40,7 +40,7 @@ public class IsTest extends Assert {
     @Test
     public void shouldMkEmptyIfNullPassed() {
         assertTrue(
-            MIs.mk(null).isEmpty()
+            mIs.mk(null).isEmpty()
         );
     }
 }

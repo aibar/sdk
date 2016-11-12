@@ -2,12 +2,11 @@ package walkingdevs.http11;
 
 import walkingdevs.Problems;
 import walkingdevs.bytes.BytesBuilder;
-import walkingdevs.bytes.MBytesBuilder;
+import walkingdevs.bytes.mBytesBuilder;
 import walkingdevs.fun.Handler;
 import walkingdevs.stream.BufferedIs;
-import walkingdevs.stream.MBufferedIs;
+import walkingdevs.stream.mBufferedIs;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -20,7 +19,7 @@ import java.util.Map;
 
 class ReqImpl implements Req {
     public Resp send() {
-        final BytesBuilder bytesBuilder = MBytesBuilder.mk();
+        final BytesBuilder bytesBuilder = mBytesBuilder.mk();
         RespNoBody resp = send(new Handler<BufferedIs>() {
             public void handle(BufferedIs bufferedIs) {
                 for (byte[] bytes : bufferedIs) {
@@ -28,11 +27,11 @@ class ReqImpl implements Req {
                 }
             }
         });
-        return MResp.mk(
+        return mResp.mk(
             resp.status(),
             resp.statusMsg(),
             resp.headers(),
-            MRespBody.mk(bytesBuilder.get())
+            mRespBody.mk(bytesBuilder.get())
         );
     }
 
@@ -48,15 +47,15 @@ class ReqImpl implements Req {
             InputStream is = tryToGetInputStream(connection);
             if (is != null) {
                 try {
-                    bufferedIsHandler.handle(MBufferedIs.mk(is));
+                    bufferedIsHandler.handle(mBufferedIs.mk(is));
                 } finally {
                     is.close();
                 }
             } else {
-                bufferedIsHandler.handle(MBufferedIs.mk(null));
+                bufferedIsHandler.handle(mBufferedIs.mk(null));
             }
 
-            return MRespNoBody.mk(
+            return mRespNoBody.mk(
                 tryToGetStatus(connection),
                 tryToGetStatusMsg(connection),
                 getHeaders(connection)
@@ -118,7 +117,7 @@ class ReqImpl implements Req {
         }
         if (!(raw instanceof HttpURLConnection)) {
             throw Problems.WTF(
-                String.format("%s: We are expecting HttpURLConnection, but get " + raw.getClass(), uri)
+                String.format("%s: We are expecting HttpURLConnection, but copy " + raw.getClass(), uri)
             );
         }
         // Now, it's Ok.
@@ -144,7 +143,7 @@ class ReqImpl implements Req {
     }
 
     private HttpHeaders getHeaders(HttpURLConnection connection) {
-        HttpHeaders headers = MHttpHeaders.mk();
+        HttpHeaders headers = mHttpHeaders.mk();
         for (Map.Entry<String, List<String>> field : connection.getHeaderFields().entrySet()) {
             if (field.getKey() != null) {
                 for (String value : field.getValue()) {

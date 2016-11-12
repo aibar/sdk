@@ -2,13 +2,13 @@ package walkingdevs.val;
 
 import walkingdevs.Problems;
 import walkingdevs.fun.Result;
-import walkingdevs.str.MStr;
+import walkingdevs.str.mStr;
 
 import static walkingdevs.val.Val.BANG;
 import static walkingdevs.val.Val.BLANK;
 import static walkingdevs.val.Val.FORMAT;
 
-public class MVal {
+public class mVal {
     public static Val<Integer> mkNegative(final Integer value, String name) {
         return mk(
             value,
@@ -54,7 +54,7 @@ public class MVal {
             name,
             new Result<Boolean>() {
                 public Boolean get() {
-                    return MStr.mk(value).isBlank();
+                    return mStr.mk(value).isBlank();
                 }
             },
             BLANK
@@ -62,12 +62,12 @@ public class MVal {
     }
 
     public static <T> Val<T> mk(T value, String name, Result<Boolean> result, String problem) {
-        if (MStr.mk(name).isBlank()) {
+        if (mStr.mk(name).isBlank()) {
             throw Problems.illegalArg(
                 String.format(FORMAT, "name", name, BLANK)
             );
         }
-        if (MStr.mk(problem).isBlank()) {
+        if (mStr.mk(problem).isBlank()) {
             throw Problems.illegalArg(
                 String.format(FORMAT, "problem", problem, BLANK)
             );

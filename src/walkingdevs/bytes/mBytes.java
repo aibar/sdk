@@ -1,6 +1,6 @@
 package walkingdevs.bytes;
 
-public class MBytes {
+public class mBytes {
     public static Bytes mk() {
         return mk(new byte[0]);
     }

@@ -1,6 +1,6 @@
 package walkingdevs.data;
 
-public interface KeyVal<K, V> {
+public interface Kv<K, V> {
     K key();
 
     V val();

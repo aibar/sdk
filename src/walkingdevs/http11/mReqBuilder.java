@@ -1,14 +1,14 @@
 package walkingdevs.http11;
 
-import walkingdevs.val.MVal;
+import walkingdevs.val.mVal;
 
-public class MReqBuilder {
+public class mReqBuilder {
     public static ReqBuilder GET(String uriString) {
         return mk(uriString).method(Method.GET);
     }
 
     public static ReqBuilder mk(String uriString) {
-        return mk(MHttpURI.parse(uriString));
+        return mk(mHttpURI.parse(uriString));
     }
 
     public static ReqBuilder GET(HttpURI uri) {
@@ -17,7 +17,7 @@ public class MReqBuilder {
 
     public static ReqBuilder mk(HttpURI uri) {
         return new ReqBuilderImpl(
-                MVal.mkIsNull(uri, "uri").get()
+            mVal.mkIsNull(uri, "uri").get()
         );
     }
 }

@@ -1,29 +1,27 @@
 package walkingdevs.stream;
 
 import walkingdevs.Problems;
-import walkingdevs.val.MVal;
+import walkingdevs.val.mVal;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-// Keeps bytes in memory
-// For acceptable small inputs
-public class MIs {
-    public static Is mk(InputStream is) {
+public class mBufferedIs {
+    public static BufferedIs mk(InputStream is) {
         return mk(is, 8192);
     }
 
-    public static Is mk(InputStream is, int size) {
+    public static BufferedIs mk(InputStream is, int size) {
         try {
             if (is == null || is.available() < 1) {
-                return new IsEmptyImpl();
+                return new BufferedIsEmptyImpl();
             }
         } catch (IOException fail) {
             throw Problems.weFucked(fail);
         }
-        return new IsImpl(
-                is,
-                MVal.mkLessThan1(size, "size").get()
+        return new BufferedIsImpl(
+            is,
+            mVal.mkLessThan1(size, "size").get()
         );
     }
 }

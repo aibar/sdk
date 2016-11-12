@@ -1,17 +1,17 @@
 package walkingdevs.http11;
 
-import walkingdevs.data.KeyVals;
-import walkingdevs.iter.MIter;
+import walkingdevs.data.Kvs;
+import walkingdevs.iter.mIter;
 
 class HttpQueryImpl implements HttpQuery {
     public String queryString() {
         if (kvs.isEmpty()) {
             return "";
         }
-        return "?" + MIter.mk(kvs).join("&");
+        return "?" + mIter.mk(kvs).join("&");
     }
 
-    public KeyVals<String, String> keyVals() {
+    public Kvs<String, String> keyVals() {
         return kvs;
     }
 
@@ -20,9 +20,9 @@ class HttpQueryImpl implements HttpQuery {
         return queryString();
     }
 
-    HttpQueryImpl(KeyVals<String, String> kvs) {
+    HttpQueryImpl(Kvs<String, String> kvs) {
         this.kvs = kvs;
     }
 
-    private final KeyVals<String, String> kvs;
+    private final Kvs<String, String> kvs;
 }
