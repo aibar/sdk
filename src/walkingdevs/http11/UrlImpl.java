@@ -1,8 +1,8 @@
 package walkingdevs.http11;
 
 import walkingdevs.fun.Result;
-import walkingdevs.str.mStr;
-import walkingdevs.val.mVal;
+import walkingdevs.str.$Str;
+import walkingdevs.val.$Val;
 
 class UrlImpl implements Url {
     public String host() {
@@ -10,7 +10,7 @@ class UrlImpl implements Url {
     }
 
     public Url host(String host) {
-        this.host = mVal.isIsBlank(host, "host").get();
+        this.host = $Val.isIsBlank(host, "host").get();
         return this;
     }
 
@@ -19,7 +19,7 @@ class UrlImpl implements Url {
     }
 
     public Url port(final int port) {
-        this.port = mVal.mk(
+        this.port = $Val.mk(
             port,
             "port",
             new Result<Boolean>() {
@@ -37,7 +37,7 @@ class UrlImpl implements Url {
     }
 
     public Url path(String path) {
-        if (mStr.mk(path).isBlank()) {
+        if ($Str.mk(path).isBlank()) {
             path = "/";
         }
         this.path = path;
@@ -49,7 +49,7 @@ class UrlImpl implements Url {
     }
 
     public Url query(Query query) {
-        this.query = mVal.isIsNull(query, "query").get();
+        this.query = $Val.isIsNull(query, "query").get();
         return this;
     }
 
@@ -58,7 +58,7 @@ class UrlImpl implements Url {
     }
 
     public Url scheme(Scheme scheme) {
-        this.scheme = mVal.isIsNull(scheme, "scheme").get();
+        this.scheme = $Val.isIsNull(scheme, "scheme").get();
         return this;
     }
 
@@ -82,5 +82,5 @@ class UrlImpl implements Url {
     private Scheme scheme;
 
     private String path = "/";
-    private Query query = mQuery.mk();
+    private Query query = $Query.mk();
 }

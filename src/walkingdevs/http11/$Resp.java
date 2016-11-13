@@ -1,6 +1,6 @@
 package walkingdevs.http11;
 
-public class mResp {
+public class $Resp {
     public static Resp mk(
         int status,
         String statusMsg,

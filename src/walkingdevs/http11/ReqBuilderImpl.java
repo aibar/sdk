@@ -1,6 +1,6 @@
 package walkingdevs.http11;
 
-import walkingdevs.val.mVal;
+import walkingdevs.val.$Val;
 
 class ReqBuilderImpl implements ReqBuilder {
     public int readTimeout() {
@@ -8,7 +8,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder readTimeout(int readTimeout) {
-        this.readTimeout = mVal.isNegative(readTimeout, "readTimeout").get();
+        this.readTimeout = $Val.isNegative(readTimeout, "readTimeout").get();
         return this;
     }
 
@@ -17,7 +17,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder connectTimeout(int connectTimeout) {
-        this.connectTimeout = mVal.isNegative(connectTimeout, "connectTimeout").get();
+        this.connectTimeout = $Val.isNegative(connectTimeout, "connectTimeout").get();
         return this;
     }
 
@@ -30,7 +30,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder method(Method method) {
-        this.method = mVal.isIsNull(method, "method").get();
+        this.method = $Val.isIsNull(method, "method").get();
         return this;
     }
 
@@ -39,7 +39,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder headers(Headers headers) {
-        this.headers = mVal.isIsNull(headers, "headers").get();
+        this.headers = $Val.isIsNull(headers, "headers").get();
         return this;
     }
 
@@ -53,16 +53,16 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder body(Body body) {
-        this.body = mVal.isIsNull(body, "body").get();
+        this.body = $Val.isIsNull(body, "body").get();
         return this;
     }
 
     public ReqBuilder body(Form form) {
-        return body(mBody.mk(form));
+        return body($Body.mk(form));
     }
 
     public Req build() {
-        return mReq.mk(
+        return $Req.mk(
             uri(),
             method(),
             headers(),
@@ -85,6 +85,6 @@ class ReqBuilderImpl implements ReqBuilder {
     private int connectTimeout = Timeout;
 
     private Method method = Method.GET;
-    private Headers headers = mHeaders.mk();
-    private Body body = mBody.mk();
+    private Headers headers = $Headers.mk();
+    private Body body = $Body.mk();
 }

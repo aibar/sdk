@@ -2,33 +2,33 @@ package walkingdevs;
 
 import org.junit.Assert;
 import org.junit.Test;
-import walkingdevs.http11.mQuery;
+import walkingdevs.http11.$Query;
 
 public class QueryTest extends Assert {
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotParseNullQueryString() {
         String nil = null;
-        mQuery.mk(nil);
+        $Query.mk(nil);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotParseEmptyQueryString() {
-        mQuery.mk("");
+        $Query.mk("");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotParseBlankQueryString() {
-        mQuery.mk(" ");
+        $Query.mk(" ");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotParseQueryStringStartingWithQuestionMark() {
-        mQuery.mk("?one=1");
+        $Query.mk("?one=1");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotParseQueryStringEndingWithNumberMark() {
-        mQuery.mk("one=1#");
+        $Query.mk("one=1#");
     }
 
     @Test
@@ -37,7 +37,7 @@ public class QueryTest extends Assert {
         String expected = "?one=1&two=2";
         assertEquals(
             expected,
-            mQuery.mk(query).queryString()
+            $Query.mk(query).queryString()
         );
     }
 
@@ -47,7 +47,7 @@ public class QueryTest extends Assert {
         String expected = "?one=&two=&five=5";
         assertEquals(
             expected,
-            mQuery.mk(query).queryString()
+            $Query.mk(query).queryString()
         );
     }
 }

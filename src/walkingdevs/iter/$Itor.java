@@ -2,7 +2,7 @@ package walkingdevs.iter;
 
 import java.util.Iterator;
 
-public class mItor {
+public class $Itor {
     public static <T> Itor<T> mk() {
         return new ItorEmptyImpl<T>();
     }

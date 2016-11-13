@@ -1,6 +1,6 @@
 package walkingdevs.http11;
 
-public class mHeaders {
+public class $Headers {
     public static Headers mk() {
         return new HeadersImpl();
     }

@@ -1,6 +1,6 @@
 package walkingdevs.data;
 
-public class mKvs {
+public class $Kvs {
     public static <K, V> Kvs<K, V> mk(Kv<K, V>... from) {
         Kvs<K, V> kvs = mk();
         for (Kv<K, V> kv : from) {

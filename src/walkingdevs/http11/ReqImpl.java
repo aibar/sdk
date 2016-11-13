@@ -2,10 +2,10 @@ package walkingdevs.http11;
 
 import walkingdevs.Problems;
 import walkingdevs.bytes.BytesBuilder;
-import walkingdevs.bytes.mBytesBuilder;
+import walkingdevs.bytes.$BytesBuilder;
 import walkingdevs.fun.Handler;
 import walkingdevs.stream.BufferedIs;
-import walkingdevs.stream.mBufferedIs;
+import walkingdevs.stream.$BufferedIs;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,7 +19,7 @@ import java.util.Map;
 
 class ReqImpl implements Req {
     public Resp send() {
-        final BytesBuilder bytesBuilder = mBytesBuilder.mk();
+        final BytesBuilder bytesBuilder = $BytesBuilder.mk();
         RespNoBody resp = send(new Handler<BufferedIs>() {
             public void handle(BufferedIs bufferedIs) {
                 for (byte[] bytes : bufferedIs) {
@@ -27,11 +27,11 @@ class ReqImpl implements Req {
                 }
             }
         });
-        return mResp.mk(
+        return $Resp.mk(
             resp.status(),
             resp.statusMsg(),
             resp.headers(),
-            mRespBody.mk(bytesBuilder.get())
+            $RespBody.mk(bytesBuilder.get())
         );
     }
 
@@ -47,15 +47,15 @@ class ReqImpl implements Req {
             InputStream is = tryToGetInputStream(connection);
             if (is != null) {
                 try {
-                    bufferedIsHandler.handle(mBufferedIs.mk(is));
+                    bufferedIsHandler.handle($BufferedIs.mk(is));
                 } finally {
                     is.close();
                 }
             } else {
-                bufferedIsHandler.handle(mBufferedIs.mk(null));
+                bufferedIsHandler.handle($BufferedIs.mk(null));
             }
 
-            return mRespNoBody.mk(
+            return $RespNoBody.mk(
                 tryToGetStatus(connection),
                 tryToGetStatusMsg(connection),
                 getHeaders(connection)
@@ -143,7 +143,7 @@ class ReqImpl implements Req {
     }
 
     private Headers getHeaders(HttpURLConnection connection) {
-        Headers headers = mHeaders.mk();
+        Headers headers = $Headers.mk();
         for (Map.Entry<String, List<String>> field : connection.getHeaderFields().entrySet()) {
             if (field.getKey() != null) {
                 for (String value : field.getValue()) {

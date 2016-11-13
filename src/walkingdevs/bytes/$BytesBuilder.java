@@ -1,6 +1,6 @@
 package walkingdevs.bytes;
 
-public class mBytesBuilder {
+public class $BytesBuilder {
     public static BytesBuilder mk() {
         return new BytesBuilderImpl();
     }

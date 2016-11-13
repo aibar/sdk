@@ -2,7 +2,7 @@ package walkingdevs;
 
 import org.junit.Assert;
 import org.junit.Test;
-import walkingdevs.bytes.mBytes;
+import walkingdevs.bytes.$Bytes;
 
 public class BytesTest extends Assert {
     @Test
@@ -10,13 +10,13 @@ public class BytesTest extends Assert {
         byte[] bytes = {1, 2, 3};
         // Not equal shallow
         assertNotEquals(
-            mBytes.mk(bytes).copy(),
-            mBytes.mk(bytes).copy()
+            $Bytes.mk(bytes).copy(),
+            $Bytes.mk(bytes).copy()
         );
         // Deep equal
         assertEquals(
-            mBytes.mk(bytes),
-            mBytes.mk(bytes)
+            $Bytes.mk(bytes),
+            $Bytes.mk(bytes)
         );
     }
 
@@ -25,7 +25,7 @@ public class BytesTest extends Assert {
         byte[] bytes = {1, 2, 3};
         assertEquals(
             3,
-            mBytes.mk(bytes).length()
+            $Bytes.mk(bytes).length()
         );
     }
 
@@ -33,8 +33,8 @@ public class BytesTest extends Assert {
     public void shouldImplementHashCorrectly() {
         byte[] bytes = {1, 2, 3};
         assertEquals(
-            mBytes.mk(bytes).hashCode(),
-            mBytes.mk(bytes).hashCode()
+            $Bytes.mk(bytes).hashCode(),
+            $Bytes.mk(bytes).hashCode()
         );
     }
 
@@ -42,29 +42,29 @@ public class BytesTest extends Assert {
     public void shouldImplementEqualsCorrectly() {
         byte[] bytes = {1, 2, 3};
         assertEquals(
-            mBytes.mk(bytes),
-            mBytes.mk(bytes)
+            $Bytes.mk(bytes),
+            $Bytes.mk(bytes)
         );
     }
 
     @Test
     public void shouldNotMkEmptyIfDataExists() {
         assertFalse(
-            mBytes.mk(new byte[1]).isEmpty()
+            $Bytes.mk(new byte[1]).isEmpty()
         );
     }
 
     @Test
     public void shouldMkEmptyIfDataNotExists() {
         assertTrue(
-            mBytes.mk(new byte[0]).isEmpty()
+            $Bytes.mk(new byte[0]).isEmpty()
         );
     }
 
     @Test
     public void shouldMkEmptyIfNullPassed() {
         assertTrue(
-            mBytes.mk(null).isEmpty()
+            $Bytes.mk(null).isEmpty()
         );
     }
 }

@@ -1,14 +1,14 @@
 package walkingdevs.stream;
 
 import walkingdevs.Problems;
-import walkingdevs.val.mVal;
+import walkingdevs.val.$Val;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 // Keeps bytes in memory
 // For acceptable small inputs
-public class mIs {
+public class $Is {
     public static Is mk(InputStream is) {
         return mk(is, 8192);
     }
@@ -23,7 +23,7 @@ public class mIs {
         }
         return new IsImpl(
             is,
-            mVal.isLessThan1(size, "size").get()
+            $Val.isLessThan1(size, "size").get()
         );
     }
 }

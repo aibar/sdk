@@ -1,9 +1,9 @@
 package walkingdevs.str;
 
 import walkingdevs.chset.Chset;
-import walkingdevs.chset.mChset;
+import walkingdevs.chset.$Chset;
 
-public class mStr {
+public class $Str {
     // No NULLs!!!
     public static Str mk() {
         return mk("");
@@ -18,7 +18,7 @@ public class mStr {
 
     // In UTF-8
     public static Str mk(byte[] bytes) {
-        return mk(bytes, mChset.UTF8());
+        return mk(bytes, $Chset.UTF8());
     }
 
     public static Str mk(byte[] bytes, Chset chset) {

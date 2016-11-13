@@ -1,6 +1,6 @@
 package walkingdevs.data;
 
-import walkingdevs.iter.mIter;
+import walkingdevs.iter.$Iter;
 
 import java.util.*;
 
@@ -34,14 +34,14 @@ class KvsImpl<K, V> implements Kvs<K, V> {
     public Iterator<Kv<K, V>> iterator() {
         List<Kv<K, V>> list = new ArrayList<Kv<K, V>>();
         for (Map.Entry<K, V> entry : map.entrySet()) {
-            list.add(mKv.mk(entry.getKey(), entry.getValue()));
+            list.add($Kv.mk(entry.getKey(), entry.getValue()));
         }
         return list.iterator();
     }
 
     @Override
     public String toString() {
-        return mIter.mk(this).join(", ");
+        return $Iter.mk(this).join(", ");
     }
 
     private final Map<K, V> map = new HashMap<K, V>();

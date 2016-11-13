@@ -1,14 +1,14 @@
 package walkingdevs.http11;
 
 import walkingdevs.data.Kvs;
-import walkingdevs.iter.mIter;
+import walkingdevs.iter.$Iter;
 
 class QueryImpl implements Query {
     public String queryString() {
         if (kvs.isEmpty()) {
             return "";
         }
-        return "?" + mIter.mk(kvs).join("&");
+        return "?" + $Iter.mk(kvs).join("&");
     }
 
     public Kvs<String, String> keyVals() {

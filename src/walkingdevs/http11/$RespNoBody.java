@@ -1,6 +1,6 @@
 package walkingdevs.http11;
 
-public class mRespNoBody {
+public class $RespNoBody {
     static RespNoBody mk(
         int status,
         String statusMsg,

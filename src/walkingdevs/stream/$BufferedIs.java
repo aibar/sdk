@@ -1,12 +1,12 @@
 package walkingdevs.stream;
 
 import walkingdevs.Problems;
-import walkingdevs.val.mVal;
+import walkingdevs.val.$Val;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-public class mBufferedIs {
+public class $BufferedIs {
     public static BufferedIs mk(InputStream is) {
         return mk(is, 8192);
     }
@@ -21,7 +21,7 @@ public class mBufferedIs {
         }
         return new BufferedIsImpl(
             is,
-            mVal.isLessThan1(size, "size").get()
+            $Val.isLessThan1(size, "size").get()
         );
     }
 }

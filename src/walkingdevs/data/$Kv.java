@@ -1,18 +1,18 @@
 package walkingdevs.data;
 
-import walkingdevs.val.mVal;
+import walkingdevs.val.$Val;
 
-public class mKv {
+public class $Kv {
     public static <K, V> Kv<K, V> mk(K key, V val) {
         return new KvImpl<K, V>(
-            mVal.isIsNull(key, "key").get(),
+            $Val.isIsNull(key, "key").get(),
             val
         );
     }
 
     public static <V> Kv<String, V> mk(String key, V val) {
         return new KvImpl<String, V>(
-            mVal.isIsBlank(key, "key").get(),
+            $Val.isIsBlank(key, "key").get(),
             val
         );
     }

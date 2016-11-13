@@ -1,6 +1,6 @@
 package walkingdevs.http11;
 
-import walkingdevs.str.mStr;
+import walkingdevs.str.$Str;
 
 import java.util.*;
 
@@ -10,7 +10,7 @@ class HeadersImpl implements Headers {
     }
 
     public Headers add(String name, String value) {
-        if (!mStr.mk(value).isBlank()) {
+        if (!$Str.mk(value).isBlank()) {
             map.put(name, value);
         }
         return this;
@@ -24,7 +24,7 @@ class HeadersImpl implements Headers {
     public Iterator<Header> iterator() {
         List<Header> list = new ArrayList<Header>();
         for (Map.Entry<String, String> entry : map.entrySet()) {
-            list.add(mHeader.mk(entry.getKey(), entry.getValue()));
+            list.add($Header.mk(entry.getKey(), entry.getValue()));
         }
         return list.iterator();
     }

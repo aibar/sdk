@@ -2,12 +2,12 @@ package walkingdevs.http11;
 
 import walkingdevs.data.Kv;
 import walkingdevs.data.Kvs;
-import walkingdevs.data.mKvs;
-import walkingdevs.iter.mIter;
+import walkingdevs.data.$Kvs;
+import walkingdevs.iter.$Iter;
 
 class FormImpl implements Form {
     public String get() {
-        return mIter.mk(kvs).join("&");
+        return $Iter.mk(kvs).join("&");
     }
 
     public Form add(Kv<String, String> kv) {
@@ -32,5 +32,5 @@ class FormImpl implements Form {
         return kvs.isEmpty();
     }
 
-    private final Kvs<String, String> kvs = mKvs.mk();
+    private final Kvs<String, String> kvs = $Kvs.mk();
 }

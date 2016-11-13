@@ -1,15 +1,15 @@
 package walkingdevs.http11;
 
-import walkingdevs.bytes.mBytes;
+import walkingdevs.bytes.$Bytes;
 import walkingdevs.chset.Chset;
-import walkingdevs.chset.mChset;
-import walkingdevs.str.mStr;
+import walkingdevs.chset.$Chset;
+import walkingdevs.str.$Str;
 import walkingdevs.stream.BufferedIs;
-import walkingdevs.stream.mBufferedIs;
+import walkingdevs.stream.$BufferedIs;
 
 import java.io.InputStream;
 
-public class mBody {
+public class $Body {
     public static Body mk() {
         return new BodyEmptyImpl();
     }
@@ -19,18 +19,18 @@ public class mBody {
     }
 
     public static Body mk(String text) {
-        return mk(text, mChset.UTF8());
+        return mk(text, $Chset.UTF8());
     }
 
     public static Body mk(String text, Chset chset) {
-        if (mStr.mk(text).isEmpty()) {
+        if ($Str.mk(text).isEmpty()) {
             return mk();
         }
-        return mk(mStr.mk(text).bytes(chset));
+        return mk($Str.mk(text).bytes(chset));
     }
 
     public static Body mk(byte[] bytes) {
-        if (mBytes.mk(bytes).isEmpty()) {
+        if ($Bytes.mk(bytes).isEmpty()) {
             return mk();
         }
         return new BodyBytesImpl(bytes);
@@ -41,7 +41,7 @@ public class mBody {
     }
 
     public static Body mk(InputStream is, int size) {
-        BufferedIs bufferedIs = mBufferedIs.mk(is, size);
+        BufferedIs bufferedIs = $BufferedIs.mk(is, size);
         if (bufferedIs.isEmpty()) {
             return mk();
         }
