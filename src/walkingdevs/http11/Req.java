@@ -17,7 +17,7 @@ public interface Req {
     void sendAsync(Handler<Resp> respHandler, Handler<BufferedIs> bufferedIsHandler);
 
     static Req mk(
-        HttpURI uri,
+        Url url,
         Method method,
         Headers headers,
         Body body,
@@ -32,7 +32,7 @@ public interface Req {
             "For reasons unknown Http Method will be forced to change to POST. Thank you! HttpUrlConnection."
         ).fail();
         return new ReqImpl(
-            Val.isNull(uri, "uri").get(),
+            Val.isNull(url, "url").get(),
             method,
             Val.isNull(headers, "headers").get(),
             body,

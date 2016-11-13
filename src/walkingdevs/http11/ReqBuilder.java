@@ -9,14 +9,14 @@ public interface ReqBuilder {
     int connectTimeout();
     ReqBuilder connectTimeout(int milliseconds);
 
-    HttpURI uri();
+    Url uri();
 
     Method method();
     ReqBuilder method(Method method);
 
     Headers headers();
     ReqBuilder headers(Headers headers);
-    ReqBuilder addHeader(String name, String value);
+    ReqBuilder header(String name, String value);
 
     Body body();
     ReqBuilder body(Body body);
@@ -29,14 +29,14 @@ public interface ReqBuilder {
     }
 
     static ReqBuilder mk(String uriString) {
-        return mk(HttpURI.parse(uriString));
+        return mk(Url.parse(uriString));
     }
 
-    static ReqBuilder GET(HttpURI uri) {
+    static ReqBuilder GET(Url uri) {
         return mk(uri).method(Method.GET);
     }
 
-    static ReqBuilder mk(HttpURI uri) {
+    static ReqBuilder mk(Url uri) {
         return new ReqBuilderImpl(
             Val.isNull(uri, "uri").get()
         );

@@ -3,12 +3,12 @@ package walkingdevs.http11;
 import walkingdevs.val.Val;
 import walkingdevs.str.Str;
 
-class HttpURIImpl implements HttpURI {
+class UrlImpl implements Url {
     public String host() {
         return host;
     }
 
-    public HttpURI host(String host) {
+    public Url host(String host) {
         this.host = Val.isBlank(host, "host").get();
         return this;
     }
@@ -17,7 +17,7 @@ class HttpURIImpl implements HttpURI {
         return port;
     }
 
-    public HttpURI port(int port) {
+    public Url port(int port) {
         this.port = Val.mk(
             port,
             "port",
@@ -31,7 +31,7 @@ class HttpURIImpl implements HttpURI {
         return path;
     }
 
-    public HttpURI path(String path) {
+    public Url path(String path) {
         if (Str.mk(path).isBlank()) {
             path = "/";
         }
@@ -43,7 +43,7 @@ class HttpURIImpl implements HttpURI {
         return query;
     }
 
-    public HttpURI query(Query query) {
+    public Url query(Query query) {
         this.query = Val.isNull(query, "query").get();
         return this;
     }
@@ -52,7 +52,7 @@ class HttpURIImpl implements HttpURI {
         return scheme;
     }
 
-    public HttpURI scheme(Scheme scheme) {
+    public Url scheme(Scheme scheme) {
         this.scheme = Val.isNull(scheme, "scheme").get();
         return this;
     }
@@ -66,7 +66,7 @@ class HttpURIImpl implements HttpURI {
         return full();
     }
 
-    HttpURIImpl(String host, int port, Scheme scheme) {
+    UrlImpl(String host, int port, Scheme scheme) {
         host(host);
         port(port);
         scheme(scheme);
