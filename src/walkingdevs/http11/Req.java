@@ -24,11 +24,18 @@ public interface Req {
         int readTimeout,
         int connectTimeout
     ) {
+        Val.isNull(method, "method").fail();
+        Val.isNull(body, "body").fail();
+        Val.mk(
+            method, "method",
+            () -> method != Method.POST && !body.isEmpty(),
+            "For reasons unknown Http Method will be forced to change to POST. Thank you! HttpUrlConnection."
+        ).fail();
         return new ReqImpl(
             Val.isNull(uri, "uri").get(),
-            Val.isNull(method, "method").get(),
+            method,
             Val.isNull(headers, "headers").get(),
-            Val.isNull(body, "body").get(),
+            body,
             Val.isNegative(readTimeout, "readTimeout").get(),
             Val.isNegative(connectTimeout, "connectTimeout").get()
         );
