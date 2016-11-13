@@ -21,7 +21,7 @@ class ReqBuilderImpl implements ReqBuilder {
         return this;
     }
 
-    public HttpURI uri() {
+    public Url uri() {
         return uri;
     }
 
@@ -43,7 +43,7 @@ class ReqBuilderImpl implements ReqBuilder {
         return this;
     }
 
-    public ReqBuilder addHeader(String name, String value) {
+    public ReqBuilder header(String name, String value) {
         headers().add(name, value);
         return this;
     }
@@ -72,14 +72,14 @@ class ReqBuilderImpl implements ReqBuilder {
         );
     }
 
-    ReqBuilderImpl(HttpURI uri) {
+    ReqBuilderImpl(Url uri) {
         this.uri = uri;
     }
 
     // 10 minutes
     private static final int Timeout = 60 * 60 * 10;
 
-    private final HttpURI uri;
+    private final Url uri;
 
     private int readTimeout = Timeout;
     private int connectTimeout = Timeout;

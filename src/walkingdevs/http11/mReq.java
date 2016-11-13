@@ -5,7 +5,7 @@ import walkingdevs.val.mVal;
 
 public class mReq {
     public static Req mk(
-        HttpURI uri,
+        Url url,
         final Method method,
         Headers headers,
         final Body body,
@@ -21,7 +21,7 @@ public class mReq {
             "For reasons unknown Http Method will be forced to change to POST. Thank you! HttpUrlConnection."
         ).fail();
         return new ReqImpl(
-            mVal.isIsNull(uri, "uri").get(),
+            mVal.isIsNull(url, "url").get(),
             method,
             mVal.isIsNull(headers, "headers").get(),
             body,

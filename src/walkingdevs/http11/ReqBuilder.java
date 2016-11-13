@@ -7,14 +7,14 @@ public interface ReqBuilder {
     int connectTimeout();
     ReqBuilder connectTimeout(int milliseconds);
 
-    HttpURI uri();
+    Url uri();
 
     Method method();
     ReqBuilder method(Method method);
 
     Headers headers();
     ReqBuilder headers(Headers headers);
-    ReqBuilder addHeader(String name, String value);
+    ReqBuilder header(String name, String value);
 
     Body body();
     ReqBuilder body(Body body);

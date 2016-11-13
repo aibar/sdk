@@ -62,7 +62,7 @@ class ReqImpl implements Req {
             );
         } catch (Exception fail) {
             throw Problems.weFucked(
-                String.format("%s: We tried hard, but Failed to send the request", uri),
+                String.format("%s: We tried hard, but Failed to send the request", url),
                 fail
             );
         } finally {
@@ -83,14 +83,14 @@ class ReqImpl implements Req {
     }
 
     ReqImpl(
-        HttpURI uri,
+        Url url,
         Method method,
         Headers headers,
         Body body,
         int readTimeout,
         int connectTimeout
     ) {
-        this.uri = uri;
+        this.url = url;
         this.method = method;
         this.headers = headers;
         this.body = body;
@@ -98,7 +98,7 @@ class ReqImpl implements Req {
         this.connectTimeout = connectTimeout;
     }
 
-    private final HttpURI uri;
+    private final Url url;
     private final Method method;
     private final Headers headers;
     private final Body body;
@@ -108,16 +108,16 @@ class ReqImpl implements Req {
     private HttpURLConnection tryToGetConnection() {
         URLConnection raw;
         try {
-            raw = new URL(uri.full()).openConnection();
+            raw = new URL(url.full()).openConnection();
         } catch (IOException fail) {
             throw Problems.weFucked(
-                String.format("%s: Failed to connect", uri),
+                String.format("%s: Failed to connect", url),
                 fail
             );
         }
         if (!(raw instanceof HttpURLConnection)) {
             throw Problems.WTF(
-                String.format("%s: We are expecting HttpURLConnection, but copy " + raw.getClass(), uri)
+                String.format("%s: We are expecting HttpURLConnection, but copy " + raw.getClass(), url)
             );
         }
         // Now, it's Ok.
@@ -162,7 +162,7 @@ class ReqImpl implements Req {
                 return connection.getInputStream();
             } catch (IOException fail) {
                 throw Problems.weFucked(
-                    String.format("%s: For reasons unknown we didn't get the InputStream", uri),
+                    String.format("%s: For reasons unknown we didn't copy the InputStream", url),
                     fail
                 );
             }
@@ -174,7 +174,7 @@ class ReqImpl implements Req {
             return connection.getResponseCode();
         } catch (IOException fail) {
             throw Problems.weFucked(
-                String.format("%s: We Fucked when getting status code", uri),
+                String.format("%s: We Fucked when getting status code", url),
                 fail
             );
         }
@@ -185,7 +185,7 @@ class ReqImpl implements Req {
             return connection.getResponseMessage();
         } catch (IOException fail) {
             throw Problems.weFucked(
-                String.format("%s: We Fucked when getting status message", uri),
+                String.format("%s: We Fucked when getting status message", url),
                 fail
             );
         }
@@ -202,7 +202,7 @@ class ReqImpl implements Req {
             body.writeTo(output);
         } catch (IOException fail) {
             throw Problems.weFucked(
-                String.format("%s: Cannot send body", uri),
+                String.format("%s: Cannot send body", url),
                 fail
             );
         } finally {

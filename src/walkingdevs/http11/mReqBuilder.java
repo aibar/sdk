@@ -8,16 +8,16 @@ public class mReqBuilder {
     }
 
     public static ReqBuilder mk(String uriString) {
-        return mk(mHttpURI.parse(uriString));
+        return mk(mUrl.parse(uriString));
     }
 
-    public static ReqBuilder GET(HttpURI uri) {
-        return mk(uri).method(Method.GET);
+    public static ReqBuilder GET(Url url) {
+        return mk(url).method(Method.GET);
     }
 
-    public static ReqBuilder mk(HttpURI uri) {
+    public static ReqBuilder mk(Url url) {
         return new ReqBuilderImpl(
-            mVal.isIsNull(uri, "uri").get()
+            mVal.isIsNull(url, "url").get()
         );
     }
 }

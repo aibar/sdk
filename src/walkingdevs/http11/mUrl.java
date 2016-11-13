@@ -5,10 +5,10 @@ import walkingdevs.val.mVal;
 
 import java.net.URI;
 
-public class mHttpURI {
-    public static HttpURI parse(String uriString) {
+public class mUrl {
+    public static Url parse(String uriString) {
         URI uri = URI.create(mVal.isIsBlank(uriString, "uriString").get());
-        HttpURI httpURI = mk();
+        Url httpURI = mk();
         httpURI.scheme(Scheme.from(uri.getScheme()));
         httpURI.host(uri.getHost());
         if (uri.getPort() == -1) {
@@ -34,23 +34,23 @@ public class mHttpURI {
     }
 
     // "Dev"
-    public static HttpURI mk() {
+    public static Url mk() {
         return mk("localhost", 8080);
     }
 
-    public static HttpURI mk(String host) {
+    public static Url mk(String host) {
         return mk(host, 80);
     }
 
-    public static HttpURI mk(String host, int port) {
+    public static Url mk(String host, int port) {
         return mk(host, port, Scheme.Http);
     }
 
-    public static HttpURI mkSsl(String host) {
-        return new HttpURIImpl(host, 443, Scheme.Https);
+    public static Url mkSsl(String host) {
+        return new UrlImpl(host, 443, Scheme.Https);
     }
 
-    public static HttpURI mk(String host, int port, Scheme scheme) {
-        return new HttpURIImpl(host, port, scheme);
+    public static Url mk(String host, int port, Scheme scheme) {
+        return new UrlImpl(host, port, scheme);
     }
 }

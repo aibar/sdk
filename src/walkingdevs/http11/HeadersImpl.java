@@ -1,5 +1,7 @@
 package walkingdevs.http11;
 
+import walkingdevs.str.mStr;
+
 import java.util.*;
 
 class HeadersImpl implements Headers {
@@ -8,7 +10,9 @@ class HeadersImpl implements Headers {
     }
 
     public Headers add(String name, String value) {
-        map.put(name, value);
+        if (!mStr.mk(value).isBlank()) {
+            map.put(name, value);
+        }
         return this;
     }
 
