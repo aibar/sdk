@@ -43,6 +43,11 @@ class ReqBuilderImpl implements ReqBuilder {
         return this;
     }
 
+    public ReqBuilder addHeader(String name, String value) {
+        headers().add(name, value);
+        return this;
+    }
+
     public Body body() {
         return body;
     }
