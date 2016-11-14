@@ -28,7 +28,7 @@ public interface Req {
         Val.isNull(body, "body").fail();
         Val.mk(
             method, "method",
-            () -> method != Method.POST && !body.isEmpty(),
+            () -> method == Method.GET && !body.isEmpty(),
             "For reasons unknown Http Method will be forced to change to POST. Thank you! HttpUrlConnection."
         ).fail();
         return new ReqImpl(
