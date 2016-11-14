@@ -16,7 +16,7 @@ public class $Req {
         $Val.isIsNull(body, "body").fail();
         $Val.mk(method, "method", new Result<Boolean>() {
             public Boolean get() {
-                return method != Method.POST && !body.isEmpty();
+                return method == Method.GET && !body.isEmpty();
             }},
             "For reasons unknown Http Method will be forced to change to POST. Thank you! HttpUrlConnection."
         ).fail();
