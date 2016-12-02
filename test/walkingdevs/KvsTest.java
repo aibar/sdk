@@ -40,6 +40,16 @@ public class KvsTest extends Assert {
     }
 
     @Test
+    public void shouldGetByKey() {
+        assertEquals(
+            Kvs.mk(
+                Kv.mk("key", "val")
+            ).get("key").val(),
+            "val"
+        );
+    }
+
+    @Test
     public void shouldGetSize() {
         assertEquals(
             2,

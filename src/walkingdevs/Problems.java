@@ -38,4 +38,8 @@ public interface Problems {
     static RuntimeException weFucked(Throwable source) {
         return new RuntimeException(source);
     }
+
+    static RuntimeException objectIsEmpty() {
+        return new RuntimeException("Object is empty, perhaps you forgot to check for emptiness");
+    }
 }

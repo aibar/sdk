@@ -1,8 +1,9 @@
 package walkingdevs.data;
 
+import walkingdevs.NULLSafe;
 import walkingdevs.val.Val;
 
-public interface Kv<K, V> {
+public interface Kv<K, V> extends NULLSafe {
     K key();
 
     V val();
@@ -19,5 +20,9 @@ public interface Kv<K, V> {
             Val.isBlank(key, "key").get(),
             val
         );
+    }
+
+    static <K, V> Kv<K, V> mk() {
+        return new EmptyKv<>();
     }
 }

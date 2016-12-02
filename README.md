@@ -5,7 +5,7 @@
 ## The artifact (With Latest Java "Features")
     <groupId>walkingdevs</groupId>
     <artifactId>sdk</artifactId>
-    <version>8-SNAPSHOT</version>
+    <version>8.4</version>
 
 ## Why?
 - Cut down boilerplate code and noise
@@ -22,6 +22,7 @@
 - Functional arrays
 - JSON
 - Small mockable, embeddable HTTP server
+- NULLSafe
 
 ## Philosophy
 Programming isn't an Art, but it does not mean that it can be ugly.
