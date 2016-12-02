@@ -36,4 +36,8 @@ public class Problems {
     public static RuntimeException weFucked(Throwable source) {
         return new RuntimeException(source);
     }
+
+    public static RuntimeException objectIsEmpty() {
+        return new RuntimeException("Object is empty, perhaps you forgot to check for emptiness");
+    }
 }

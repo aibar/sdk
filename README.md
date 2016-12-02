@@ -1,11 +1,12 @@
 [![Build Status](https://travis-ci.org/walkingdevs/sdk.svg?branch=master)](https://travis-ci.org/walkingdevs/sdk)
+[![Download](https://api.bintray.com/packages/walkingdevs/mvn/sdk/images/download.svg) ](https://bintray.com/walkingdevs/mvn/sdk/_latestVersion)
 
 # State: Proof Of Concept!
 
 ## The artifact (For our lovely JDK 6, mostly because of Android)
     <groupId>walkingdevs</groupId>
     <artifactId>sdk</artifactId>
-    <version>6-SNAPSHOT</version>
+    <version>6.5</version>
 
 ## Why?
 - Cut down boilerplate code and noise
@@ -22,6 +23,7 @@
 - Functional arrays
 - JSON
 - Small mockable, embeddable HTTP server
+- NULLSafe
 
 ## Philosophy
 Programming isn't an Art, but it does not mean that it can be ugly.

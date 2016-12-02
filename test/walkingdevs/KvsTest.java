@@ -2,9 +2,9 @@ package walkingdevs;
 
 import org.junit.Assert;
 import org.junit.Test;
-import walkingdevs.data.Kvs;
 import walkingdevs.data.$Kv;
 import walkingdevs.data.$Kvs;
+import walkingdevs.data.Kvs;
 
 public class KvsTest extends Assert {
     @Test
@@ -37,6 +37,16 @@ public class KvsTest extends Assert {
             $Kvs.mk(
                 $Kv.mk("key", "val")
             ).has("key")
+        );
+    }
+
+    @Test
+    public void shouldGetByKey() {
+        assertEquals(
+            $Kvs.mk(
+                $Kv.mk("key", "val")
+            ).get("key").val(),
+            "val"
         );
     }
 

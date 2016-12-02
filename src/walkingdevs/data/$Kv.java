@@ -16,4 +16,8 @@ public class $Kv {
             val
         );
     }
+
+    public static <K, V> Kv<K, V> mk() {
+        return new EmptyKv<K, V>();
+    }
 }
