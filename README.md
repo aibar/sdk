@@ -6,7 +6,7 @@
 ## The artifact (With Latest Java "Features")
     <groupId>walkingdevs</groupId>
     <artifactId>sdk</artifactId>
-    <version>8.4</version>
+    <version>8.5</version>
 
 ## Why?
 - Cut down boilerplate code and noise
