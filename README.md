@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/walkingdevs/sdk.svg?branch=master)](https://travis-ci.org/walkingdevs/sdk)
+[![Download](https://api.bintray.com/packages/walkingdevs/mvn/sdk/images/download.svg) ](https://bintray.com/walkingdevs/mvn/sdk/_latestVersion)
 
 # State: Proof Of Concept!
 
