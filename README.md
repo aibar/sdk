@@ -19,6 +19,17 @@
 - HTTP client
 - Byte, String, Stream ~~utility~~ classes
 
+## Quick review
+Http client examples:
+
+    RespBody body = ReqBuilder.GET("https://google.com")
+        .build()
+        .send()
+        .body();
+    assert body.text().contains("google")
+
+TODO: more examples
+
 ## TODO
 - Functional arrays
 - JSON
