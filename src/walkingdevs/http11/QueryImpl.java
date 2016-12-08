@@ -8,11 +8,15 @@ class QueryImpl implements Query {
         if (kvs.isEmpty()) {
             return "";
         }
-        return Iter.mk(kvs).join("&");
+        return "?" + Iter.mk(kvs).join("&");
     }
 
     public Kvs<String, String> keyVals() {
         return kvs;
+    }
+
+    public boolean isEmpty() {
+        return keyVals().isEmpty();
     }
 
     @Override
