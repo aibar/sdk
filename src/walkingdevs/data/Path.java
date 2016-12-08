@@ -28,11 +28,14 @@ public interface Path<Item> extends NULLSafe {
     }
 
     static <T> Path<T> mk(T... items) {
-        Path<T> ret = mk();
-        for (T item : items) {
-            ret.add(item);
+        Path<T> res = mk();
+        if (items.length == 1 && items[0] == null) {
+            return res;
         }
-        return ret;
+        for (T item : items) {
+            res.add(item);
+        }
+        return res;
     }
 
     static Path<String> mk(String pathString) {
