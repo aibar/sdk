@@ -10,6 +10,8 @@ public interface Path<Item> extends NULLSafe {
 
     Path<Item> parent();
 
+    Path<Item> tail();
+
     // Delimit with "/"
     String string();
 

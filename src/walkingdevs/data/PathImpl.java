@@ -25,6 +25,14 @@ class PathImpl<Item> implements Path<Item> {
         return ret;
     }
 
+    public Path<Item> tail() {
+        Path<Item> ret = Path.mk();
+        for (int i = 1; i < items.size(); i++) {
+            ret.add(items.get(i));
+        }
+        return ret;
+    }
+
     public String string() {
         return string('/');
     }

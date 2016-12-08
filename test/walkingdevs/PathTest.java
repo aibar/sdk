@@ -71,4 +71,12 @@ public class PathTest extends Assert {
             ).join(",")
         );
     }
+
+    @Test
+    public void shouldGetTail() {
+        assertEquals(
+            "/2/3",
+            Path.mk("/1/2/3").tail().string()
+        );
+    }
 }
