@@ -1,10 +1,14 @@
 package walkingdevs.iter;
 
-public interface Iter<T> {
+import walkingdevs.NULLSafe;
+
+import java.util.ArrayList;
+
+public interface Iter<T> extends NULLSafe {
     String join(String with);
 
     static <T> Iter<T> mk() {
-        return mk(new IterEmptyImpl<T>());
+        return mk(new ArrayList<T>());
     }
 
     static <T> Iter<T> mk(Iterable<T> iterable) {

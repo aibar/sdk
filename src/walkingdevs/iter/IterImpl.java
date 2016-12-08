@@ -18,6 +18,10 @@ class IterImpl<T> implements Iter<T> {
         ).toString();
     }
 
+    public boolean isEmpty() {
+        return !iterable.iterator().hasNext();
+    }
+
     IterImpl(Iterable<T> iterable) {
         this.iterable = iterable;
     }
