@@ -50,4 +50,13 @@ public interface Path<Item> extends NULLSafe {
         }
         return ret;
     }
+
+    static Path<String> mkHttp(String httpPath) {
+        // Cut query string
+        int i = httpPath.indexOf('?');
+        if (i != -1) {
+            httpPath = httpPath.substring(0, i);
+        }
+        return mk(httpPath);
+    }
 }

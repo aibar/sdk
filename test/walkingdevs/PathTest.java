@@ -83,4 +83,12 @@ public class PathTest extends Assert {
             Path.mk("/1/2/3").tail().string()
         );
     }
+
+    @Test
+    public void shouldMkHttpPath() {
+        assertEquals(
+            "/admin/orders",
+            Path.mkHttp("/admin/orders?finished=false").string()
+        );
+    }
 }
