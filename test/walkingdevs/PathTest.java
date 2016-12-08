@@ -123,4 +123,14 @@ public class PathTest extends Assert {
             Path.mk("/one/two").hashCode()
         );
     }
+
+    @Test
+    public void shouldBeEmpty() {
+        assertTrue(
+            Path.mk("/").isEmpty()
+        );
+        assertTrue(
+            Path.mk("///").isEmpty()
+        );
+    }
 }
