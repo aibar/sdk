@@ -60,6 +60,10 @@ public class PathTest extends Assert {
             "/1",
             Path.mk("//1//").string()
         );
+        assertEquals(
+            "/one/two",
+            Path.mk("/one/two").string()
+        );
     }
 
     @Test

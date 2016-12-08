@@ -45,6 +45,7 @@ public interface Path<Item> extends NULLSafe {
                     return ret.add(pathString.substring(i));
                 }
                 ret.add(pathString.substring(i, end));
+                i = end;
             }
         }
         return ret;
