@@ -1,12 +1,13 @@
 package walkingdevs.http11;
 
+import walkingdevs.NULLSafe;
 import walkingdevs.vals.Vals;
 import walkingdevs.data.Kv;
 import walkingdevs.data.Kvs;
 import walkingdevs.data.Tuple;
 import walkingdevs.str.Str;
 
-public interface Query {
+public interface Query extends NULLSafe {
     String queryString();
 
     Kvs<String, String> keyVals();
