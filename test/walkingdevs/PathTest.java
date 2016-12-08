@@ -107,4 +107,20 @@ public class PathTest extends Assert {
             Path.mk("/one/two").root().string()
         );
     }
+
+    @Test
+    public void shouldImplEquals() {
+        assertEquals(
+            Path.mk("/one/two"),
+            Path.mk("/one/two")
+        );
+    }
+
+    @Test
+    public void shouldImplHashCode() {
+        assertEquals(
+            Path.mk("/one/two").hashCode(),
+            Path.mk("/one/two").hashCode()
+        );
+    }
 }

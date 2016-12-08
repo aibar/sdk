@@ -72,15 +72,13 @@ class PathImpl<Item> implements Path<Item> {
 
     private final List<Item> items = new ArrayList<>();
 
-    // TODO
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        return obj instanceof Path && toString().equals(obj.toString());
     }
 
-    // TODO
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return toString().hashCode();
     }
 }
