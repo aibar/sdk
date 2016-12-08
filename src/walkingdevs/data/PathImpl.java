@@ -1,6 +1,5 @@
 package walkingdevs.data;
 
-import walkingdevs.Problems;
 import walkingdevs.val.Val;
 
 import java.util.ArrayList;
@@ -16,12 +15,15 @@ class PathImpl<Item> implements Path<Item> {
 
     public Item head() {
         if (isEmpty()) {
-            throw Problems.objectIsEmpty();
+            return null;
         }
         return items.get(0);
     }
 
     public Item last() {
+        if (isEmpty()) {
+            return null;
+        }
         return items.get(items.size()-1);
     }
 
@@ -73,8 +75,6 @@ class PathImpl<Item> implements Path<Item> {
         return string();
     }
 
-    private final List<Item> items = new ArrayList<>();
-
     @Override
     public boolean equals(Object obj) {
         return obj instanceof Path && toString().equals(obj.toString());
@@ -84,4 +84,6 @@ class PathImpl<Item> implements Path<Item> {
     public int hashCode() {
         return toString().hashCode();
     }
+
+    private final List<Item> items = new ArrayList<>();
 }
