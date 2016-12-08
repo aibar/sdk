@@ -13,8 +13,16 @@ class PathImpl<Item> implements Path<Item> {
         return this;
     }
 
+    public Item head() {
+        return items.get(0);
+    }
+
     public Item last() {
         return items.get(items.size()-1);
+    }
+
+    public Path<Item> root() {
+        return Path.mk(head());
     }
 
     public Path<Item> parent() {

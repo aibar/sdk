@@ -91,4 +91,20 @@ public class PathTest extends Assert {
             Path.mkHttp("/admin/orders?finished=false").string()
         );
     }
+
+    @Test
+    public void shouldGetHead() {
+        assertEquals(
+            "one",
+            Path.mk().add("one").add("two").head()
+        );
+    }
+
+    @Test
+    public void shouldGetRoot() {
+        assertEquals(
+            "/one",
+            Path.mk("/one/two").root().string()
+        );
+    }
 }

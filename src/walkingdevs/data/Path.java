@@ -6,7 +6,11 @@ import walkingdevs.str.Str;
 public interface Path<Item> extends NULLSafe {
     Path<Item> add(Item item);
 
+    Item head();
+
     Item last();
+
+    Path<Item> root();
 
     Path<Item> parent();
 
