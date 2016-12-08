@@ -1,5 +1,6 @@
 package walkingdevs.data;
 
+import walkingdevs.Problems;
 import walkingdevs.val.Val;
 
 import java.util.ArrayList;
@@ -14,6 +15,9 @@ class PathImpl<Item> implements Path<Item> {
     }
 
     public Item head() {
+        if (isEmpty()) {
+            throw Problems.objectIsEmpty();
+        }
         return items.get(0);
     }
 
@@ -45,7 +49,6 @@ class PathImpl<Item> implements Path<Item> {
         return string('/');
     }
 
-    @Override
     public String string(char delimiter) {
         if (items.isEmpty()) {
             return delimiter + "";
