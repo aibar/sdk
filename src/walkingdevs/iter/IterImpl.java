@@ -2,6 +2,8 @@ package walkingdevs.iter;
 
 import walkingdevs.val.Val;
 
+import java.util.Iterator;
+
 class IterImpl<T> implements Iter<T> {
     public String join(String with) {
         Val.isNull(with, "with").fail();
@@ -20,6 +22,11 @@ class IterImpl<T> implements Iter<T> {
 
     public boolean isEmpty() {
         return !iterable.iterator().hasNext();
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return iterable.iterator();
     }
 
     IterImpl(Iterable<T> iterable) {

@@ -4,7 +4,7 @@ import walkingdevs.NULLSafe;
 
 import java.util.ArrayList;
 
-public interface Iter<T> extends NULLSafe {
+public interface Iter<T> extends Iterable<T>, NULLSafe {
     String join(String with);
 
     static <T> Iter<T> mk() {
