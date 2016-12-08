@@ -33,9 +33,18 @@ public class IterTest extends Assert {
 
     @Test
     public void shouldMkEmptyIfNullPassed() {
+        ArrayList<String> nil = null;
         assertEquals(
             "",
-            Iter.mk(null).join("doesn't matter")
+            Iter.mk(nil).join("doesn't matter")
+        );
+    }
+
+    @Test
+    public void shouldMkFromArray() {
+        assertEquals(
+            "one&two",
+            Iter.mk("one", "two").join("&")
         );
     }
 }
