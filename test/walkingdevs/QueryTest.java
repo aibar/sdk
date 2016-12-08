@@ -33,21 +33,17 @@ public class QueryTest extends Assert {
 
     @Test
     public void shouldParseQueryString() {
-        String query = "one=1&two=2";
-        String expected = "one=1&two=2";
         assertEquals(
-            expected,
-            Query.mk(query).queryString()
+            "?one=1&two=2",
+            Query.mk("one=1&two=2").queryString()
         );
     }
 
     @Test
     public void shouldParseQueryStringWithEmptyVals() {
-        String query = "one=&two&five=5&";
-        String expected = "one=&two=&five=5";
         assertEquals(
-            expected,
-            Query.mk(query).queryString()
+            "?one=&two=&five=5",
+            Query.mk("one=&two&five=5&").queryString()
         );
     }
 }
