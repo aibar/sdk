@@ -2,9 +2,11 @@ package walkingdevs.iter;
 
 import walkingdevs.val.$Val;
 
+import java.util.Iterator;
+
 class IterImpl<T> implements Iter<T> {
     public String join(String with) {
-        $Val.isIsNull(with, "with").fail();
+        $Val.isNull(with, "with").fail();
         StringBuilder sb = new StringBuilder();
         for (T t : iterable) {
             sb.append(t).append(with);
@@ -16,6 +18,15 @@ class IterImpl<T> implements Iter<T> {
             sb.length() - with.length(),
             sb.length()
         ).toString();
+    }
+
+    public boolean isEmpty() {
+        return !iterable.iterator().hasNext();
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return iterable.iterator();
     }
 
     IterImpl(Iterable<T> iterable) {

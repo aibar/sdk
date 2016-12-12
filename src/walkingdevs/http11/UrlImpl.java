@@ -49,7 +49,7 @@ class UrlImpl implements Url {
     }
 
     public Url query(Query query) {
-        this.query = $Val.isIsNull(query, "query").get();
+        this.query = $Val.isNull(query, "query").get();
         return this;
     }
 
@@ -58,7 +58,7 @@ class UrlImpl implements Url {
     }
 
     public Url scheme(Scheme scheme) {
-        this.scheme = $Val.isIsNull(scheme, "scheme").get();
+        this.scheme = $Val.isNull(scheme, "scheme").get();
         return this;
     }
 

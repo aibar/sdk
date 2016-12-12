@@ -1,5 +1,6 @@
 package walkingdevs.http11;
 
+import walkingdevs.Problems;
 import walkingdevs.str.$Str;
 
 import java.util.*;
@@ -7,6 +8,13 @@ import java.util.*;
 class HeadersImpl implements Headers {
     public boolean has(String header) {
         return map.containsKey(header);
+    }
+
+    public Header get(String name) {
+        if (has(name)) {
+            return $Header.mk(name, map.get(name));
+        }
+        throw Problems.illegalArg("There is no Header with name: " + name);
     }
 
     public Headers add(String name, String value) {

@@ -12,8 +12,8 @@ public class $Req {
         int readTimeout,
         int connectTimeout
     ) {
-        $Val.isIsNull(method, "method").fail();
-        $Val.isIsNull(body, "body").fail();
+        $Val.isNull(method, "method").fail();
+        $Val.isNull(body, "body").fail();
         $Val.mk(method, "method", new Result<Boolean>() {
             public Boolean get() {
                 return method == Method.GET && !body.isEmpty();
@@ -21,9 +21,9 @@ public class $Req {
             "For reasons unknown Http Method will be forced to change to POST. Thank you! HttpUrlConnection."
         ).fail();
         return new ReqImpl(
-            $Val.isIsNull(url, "url").get(),
+            $Val.isNull(url, "url").get(),
             method,
-            $Val.isIsNull(headers, "headers").get(),
+            $Val.isNull(headers, "headers").get(),
             body,
             $Val.isNegative(readTimeout, "readTimeout").get(),
             $Val.isNegative(connectTimeout, "connectTimeout").get()

@@ -10,14 +10,7 @@ import java.util.Iterator;
 
 class BufferedIsImpl implements BufferedIs {
     public boolean isEmpty() {
-        try {
-            if (is.available() > 0) {
-                return false;
-            }
-        } catch (IOException fail) {
-            throw Problems.weFucked(fail);
-        }
-        return true;
+        return empty;
     }
 
     public void writeTo(OutputStream os) throws IOException {
@@ -44,6 +37,7 @@ class BufferedIsImpl implements BufferedIs {
                 if (read > 0) {
                     return Arrays.copyOf(buffer, read);
                 } else {
+                    empty = true;
                     return new byte[0];
                 }
             }
@@ -60,4 +54,6 @@ class BufferedIsImpl implements BufferedIs {
 
     private final InputStream is;
     private final int size;
+
+    private boolean empty = false;
 }

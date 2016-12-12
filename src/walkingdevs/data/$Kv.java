@@ -5,7 +5,7 @@ import walkingdevs.val.$Val;
 public class $Kv {
     public static <K, V> Kv<K, V> mk(K key, V val) {
         return new KvImpl<K, V>(
-            $Val.isIsNull(key, "key").get(),
+            $Val.isNull(key, "key").get(),
             val
         );
     }

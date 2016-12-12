@@ -30,4 +30,18 @@ public class KvTest extends Assert {
     public void shouldNotAllowBlankKeys() {
         $Kv.mk(" ", "What?");
     }
+
+    @Test
+    public void shouldNotBeEmpty() {
+        assertFalse(
+            $Kv.mk("key", "val").isEmpty()
+        );
+    }
+
+    @Test
+    public void shouldBeEmpty() {
+        assertTrue(
+            $Kv.mk().isEmpty()
+        );
+    }
 }

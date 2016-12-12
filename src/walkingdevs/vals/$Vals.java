@@ -13,7 +13,7 @@ public class $Vals {
         $Val.isIsBlank(name, "name").fail();
         List<Val<T>> vals = new ArrayList<Val<T>>();
         for (Tuple<Result<Boolean>, String> rp : rps) {
-            $Val.isIsNull(rp, "rp").fail();
+            $Val.isNull(rp, "rp").fail();
             vals.add($Val.mk(
                 value,
                 name,

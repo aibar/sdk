@@ -30,7 +30,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder method(Method method) {
-        this.method = $Val.isIsNull(method, "method").get();
+        this.method = $Val.isNull(method, "method").get();
         return this;
     }
 
@@ -39,7 +39,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder headers(Headers headers) {
-        this.headers = $Val.isIsNull(headers, "headers").get();
+        this.headers = $Val.isNull(headers, "headers").get();
         return this;
     }
 
@@ -53,7 +53,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder body(Body body) {
-        this.body = $Val.isIsNull(body, "body").get();
+        this.body = $Val.isNull(body, "body").get();
         return this;
     }
 

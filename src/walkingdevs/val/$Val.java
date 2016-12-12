@@ -35,7 +35,7 @@ public class $Val {
         );
     }
 
-    public static <T> Val<T> isIsNull(final T value, String name) {
+    public static <T> Val<T> isNull(final T value, String name) {
         return mk(
             value,
             name,

@@ -17,7 +17,7 @@ class IsImpl implements Is {
     }
 
     public void writeTo(OutputStream os) throws IOException {
-        $Val.isIsNull(os, "os").get().write(bytes);
+        $Val.isNull(os, "os").get().write(bytes);
     }
 
     IsImpl(InputStream is, int size) {

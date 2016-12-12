@@ -6,7 +6,7 @@
 ## The artifact (For our lovely JDK 6, mostly because of Android)
     <groupId>walkingdevs</groupId>
     <artifactId>sdk</artifactId>
-    <version>6.5</version>
+    <version>6.8</version>
 
 ## Why?
 - Cut down boilerplate code and noise
@@ -18,6 +18,17 @@
 ## What's included
 - HTTP client
 - Byte, String, Stream ~~utility~~ classes
+
+## Quick review
+Http client examples:
+
+    RespBody body = ReqBuilder.GET("https://google.com")
+        .build()
+        .send()
+        .body();
+    assert body.text().contains("google")
+
+TODO: more examples
 
 ## TODO
 - Functional arrays
