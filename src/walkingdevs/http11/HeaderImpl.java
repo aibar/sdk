@@ -9,6 +9,11 @@ class HeaderImpl implements Header {
         return value;
     }
 
+    @Override
+    public String toString() {
+        return name + ": " + value;
+    }
+
     HeaderImpl(String name, String value) {
         this.name = name;
         this.value = value;
