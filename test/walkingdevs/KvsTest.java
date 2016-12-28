@@ -44,7 +44,7 @@ public class KvsTest extends Assert {
         assertEquals(
             Kvs.mk(
                 Kv.mk("key", "val")
-            ).get("key").val(),
+            ).get("key"),
             "val"
         );
     }

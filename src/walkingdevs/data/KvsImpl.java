@@ -22,11 +22,11 @@ class KvsImpl<K, V> implements Kvs<K, V> {
         return map.containsKey(key);
     }
 
-    public Kv<K, V> get(K key) {
+    public V get(K key) {
         if (has(key)) {
-            return Kv.mk(key, map.get(key));
+            return map.get(key);
         }
-        return Kv.mk();
+        return null;
     }
 
     public int size() {
