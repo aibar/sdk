@@ -18,6 +18,14 @@ class KvsImpl<K, V> implements Kvs<K, V> {
         return this;
     }
 
+    public Iterable<K> keys() {
+        return map.keySet();
+    }
+
+    public Iterable<V> vals() {
+        return map.values();
+    }
+
     public boolean has(K key) {
         return map.containsKey(key);
     }
