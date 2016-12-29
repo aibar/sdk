@@ -23,6 +23,8 @@ public interface Path<Item> extends NULLSafe {
 
     Iterable<Item> items();
 
+    boolean isAlone();
+
     static <T> Path<T> mk() {
         return new PathImpl<>();
     }

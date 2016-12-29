@@ -66,6 +66,10 @@ class PathImpl<Item> implements Path<Item> {
         return items;
     }
 
+    public boolean isAlone() {
+        return items.size() == 1;
+    }
+
     public boolean isEmpty() {
         return items.isEmpty();
     }
