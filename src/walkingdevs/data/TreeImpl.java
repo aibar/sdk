@@ -1,62 +1,66 @@
 package walkingdevs.data;
 
-import walkingdevs.Problems;
-import walkingdevs.val.Val;
-
 import java.util.Iterator;
 
-class TreeImpl<T> implements Tree<T> {
-    public T val() {
-        return value;
+class TreeImpl<K, V> implements Tree<K, V> {
+    public K key() {
+        return key;
     }
 
-    public Tree<T> get(T val) {
+    public V val() {
+        return val;
+    }
+
+    public Tree<K, V> get(K val) {
         return nodes.get(val);
     }
 
-    public boolean has(T val) {
+    public boolean has(K val) {
         return nodes.has(val);
     }
 
-    public Tree<T> parent() {
+    public Tree<K, V> parent() {
         return parent;
     }
 
-    public Tree<T> parent(Tree<T> parent) {
-        if (parent() != null && !parent().equals(parent)) {
-            throw Problems.illegalArg("Child tree is part of another tree");
-        }
+    public Tree<K, V> parent(Tree<K, V> parent) {
         this.parent = parent;
         return this;
     }
 
-    public Tree<T> add(T val) {
-        add(Tree.mk(val));
-        return this;
-    }
-
-    public Tree<T> add(Tree<T> child) {
-        Val.isNull(child, "child").fail();
-        nodes.add(Kv.mk(
-            child.val(),
+    public Tree<K, V> add(Tree<K, V> child) {
+        // TODO: Not good, refactor
+        nodes.add(
+            child.key(),
             child
-        ));
+        );
         child.parent(this);
         return this;
     }
 
-    public Tree<T> del(T val) {
-        nodes.del(val);
+    public Tree<K, V> add(K key, V val) {
+        return add(Tree.mk(
+            key,
+            val
+        ));
+    }
+
+    public Tree<K, V> add(K key) {
+        return add(key, null);
+    }
+
+    public Tree<K, V> del(K key) {
+        nodes.del(key);
         return this;
     }
 
-    public Tree<T> walk(Path<T> path) {
-        if (path == null || !val().equals(path.head())) {
+    public Tree<K, V> walk(Path<K> path) {
+        if (path == null || !key().equals(path.head())) {
             return null;
         } else if (path.isAlone()) {
             return this;
         }
-        Path<T> tail = path.tail();
+        Path<K> tail = path.tail();
         if (has(tail.head())) {
             return get(tail.head()).walk(tail);
         }
@@ -64,17 +68,19 @@ class TreeImpl<T> implements Tree<T> {
     }
 
     @Override
-    public Iterator<Tree<T>> iterator() {
+    public Iterator<Tree<K, V>> iterator() {
         return nodes.vals().iterator();
     }
 
-    TreeImpl(T value, Tree<T> parent) {
-        this.value = value;
+    TreeImpl(K key, V val, Tree<K, V> parent) {
+        this.key = key;
+        this.val = val;
         this.parent = parent;
     }
 
-    private final T value;
-    private final Kvs<T, Tree<T>> nodes = Kvs.mk();
+    private final K key;
+    private final V val;
+    private Tree<K, V> parent;
 
-    private Tree<T> parent;
+    private final Kvs<K, Tree<K, V>> nodes = Kvs.mk();
 }

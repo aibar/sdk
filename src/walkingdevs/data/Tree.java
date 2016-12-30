@@ -3,50 +3,60 @@ package walkingdevs.data;
 import walkingdevs.Problems;
 import walkingdevs.val.Val;
 
-// "Smart" Tree
-public interface Tree<T> extends Iterable<Tree<T>> {
-    T val();
+public interface Tree<K, V> extends Iterable<Tree<K, V>> {
+    K key();
 
-    Tree<T> get(T val);
+    V val();
 
-    boolean has(T val);
+    Tree<K, V> get(K key);
 
-    Tree<T> add(T val);
+    boolean has(K val);
 
-    Tree<T> add(Tree<T> child);
+    Tree<K, V> parent();
 
-    Tree<T> del(T val);
+    // TODO: move to TreeBuilder
+    Tree<K, V> parent(Tree<K, V> parent);
 
-    Tree<T> parent();
+    Tree<K, V> add(Tree<K, V> child);
 
-    Tree<T> parent(Tree<T> parent);
+    Tree<K, V> add(K key, V val);
 
-    Tree<T> walk(Path<T> path);
+    Tree<K, V> add(K key);
 
-    static <T> Tree<T> mk(T val) {
-        return mk(val, null);
-    }
+    Tree<K, V> del(K key);
 
-    static <T> Tree<T> mk(T val, Tree<T> parent) {
-        if (parent != null && !parent.has(val)) {
+    // TODO: move to TreeWalker
+    Tree<K, V> walk(Path<K> path);
+
+    static <K, V> Tree<K, V> mk(K key, V val, Tree<K, V> parent) {
+        if (parent != null && !parent.has(key)) {
             throw Problems.illegalArg(
                 String.format("Parent tree hasn't have this val: %s", val)
             );
         }
         return new TreeImpl<>(
-            Val.isNull(val, "val").get(),
+            Val.isNull(key, "key").get(),
+            val,
             parent
         );
     }
 
-    static <T> Tree<T> copy(Tree<T> tree) {
+    static <K, V> Tree<K, V> mk(K key, V val) {
+        return mk(key, val, null);
+    }
+
+    static <K, V> Tree<K, V> mk(K key) {
+        return mk(key, null, null);
+    }
+
+    static <K, V> Tree<K, V> copy(Tree<K, V> tree) {
         return copy(tree, null);
     }
 
-    static <T> Tree<T> copy(Tree<T> tree, Tree<T> parent) {
+    static <K, V> Tree<K, V> copy(Tree<K, V> tree, Tree<K, V> parent) {
         Val.isNull(tree, "tree").fail();
-        Tree<T> copy = Tree.mk(tree.val(), parent);
-        for (Tree<T> child : tree) {
+        Tree<K, V> copy = Tree.mk(tree.key(), tree.val(), parent);
+        for (Tree<K, V> child : tree) {
             copy.add(child);
         }
         return copy;
