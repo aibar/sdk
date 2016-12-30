@@ -7,6 +7,8 @@ public interface Kvs<K, V> extends Iterable<Kv<K, V>> {
 
     Kvs<K, V> add(Kv<K, V> kv);
 
+    Kvs<K, V> add(K key, V val);
+
     Kvs<K, V> del(K key);
 
     Iterable<K> keys();

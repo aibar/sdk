@@ -13,6 +13,13 @@ class KvsImpl<K, V> implements Kvs<K, V> {
         return this;
     }
 
+    public Kvs<K, V> add(K key, V val) {
+        return add(Kv.mk(
+            key,
+            val
+        ));
+    }
+
     public Kvs<K, V> del(K key) {
         map.remove(key);
         return this;
