@@ -1,15 +1,13 @@
 package walkingdevs;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 // Collection of static Evils
 public interface Problems {
     static IllegalArgumentException illegalArg(String problem) {
         return new IllegalArgumentException(problem);
     }
 
-    static NotImplementedException notImplemented() {
-        return new NotImplementedException();
+    static RuntimeException notImplemented() {
+        return new RuntimeException("Not implemented");
     }
 
     // Attention it's WTF.
