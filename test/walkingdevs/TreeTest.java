@@ -41,5 +41,29 @@ public class TreeTest extends Assert {
             "0",
             tree.walk(Path.mk("/0")).key()
         );
+        assertEquals(
+            null,
+            tree.walk(Path.mk("/"))
+        );
+    }
+
+    @Test
+    public void shouldMkTreesFromPath() {
+        Tree<String, Object> tree = Tree.mk("0");
+        tree.mk(Path.mk("/0/2/22/222"));
+        assertEquals(
+            "222",
+            tree.walk(Path.mk("/0/2/22/222")).key()
+        );
+    }
+
+    @Test
+    public void shouldAddFromPath() {
+        Tree<String, Object> tree = Tree.mk("0");
+        tree.add(Path.mk("/0/2/22/222"), "val");
+        assertEquals(
+            "val",
+            tree.walk(Path.mk("/0/2/22/222")).val()
+        );
     }
 }

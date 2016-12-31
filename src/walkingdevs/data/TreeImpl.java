@@ -49,6 +49,12 @@ class TreeImpl<K, V> implements Tree<K, V> {
         return add(key, null);
     }
 
+    public Tree<K, V> add(Path<K> path, V val) {
+        Tree<K, V> mk = mk(path.parent());
+        mk.add(path.last(), val);
+        return this;
+    }
+
     public Tree<K, V> del(K key) {
         nodes.del(key);
         return this;
@@ -65,6 +71,25 @@ class TreeImpl<K, V> implements Tree<K, V> {
             return get(tail.head()).walk(tail);
         }
         return this;
+    }
+
+    public Tree<K, V> mk(Path<K> path) {
+        if (path == null) {
+            return this;
+        }
+        Tree<K, V> parent = this;
+        Tree<K, V> walk = walk(path);
+        if (walk == null) {
+            walk = Tree.mk(path.head(), null);
+            parent.add(walk);
+            parent = walk;
+        }
+        for (K k : path.tail().items()) {
+            walk = Tree.mk(k, null);
+            parent.add(walk);
+            parent = walk;
+        }
+        return walk;
     }
 
     @Override
