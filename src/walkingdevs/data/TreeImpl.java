@@ -50,7 +50,7 @@ class TreeImpl<K, V> implements Tree<K, V> {
     }
 
     public Tree<K, V> add(Path<K> path, V val) {
-        Tree<K, V> mk = mk(path.parent());
+        Tree<K, V> mk = mkPath(path.parent());
         mk.add(path.last(), val);
         return this;
     }
@@ -73,7 +73,7 @@ class TreeImpl<K, V> implements Tree<K, V> {
         return this;
     }
 
-    public Tree<K, V> mk(Path<K> path) {
+    public Tree<K, V> mkPath(Path<K> path) {
         if (path == null) {
             return this;
         }

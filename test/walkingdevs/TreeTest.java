@@ -50,7 +50,7 @@ public class TreeTest extends Assert {
     @Test
     public void shouldMkTreesFromPath() {
         Tree<String, Object> tree = Tree.mk("0");
-        tree.mk(Path.mk("/0/2/22/222"));
+        tree.mkPath(Path.mk("/0/2/22/222"));
         assertEquals(
             "222",
             tree.walk(Path.mk("/0/2/22/222")).key()

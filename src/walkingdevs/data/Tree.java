@@ -30,7 +30,7 @@ public interface Tree<K, V> extends Iterable<Tree<K, V>> {
     // TODO: move to TreeWalker
     Tree<K, V> walk(Path<K> path);
 
-    Tree<K, V> mk(Path<K> path);
+    Tree<K, V> mkPath(Path<K> path);
 
     static <K, V> Tree<K, V> mk(K key, V val, Tree<K, V> parent) {
         if (parent != null && !parent.has(key)) {
