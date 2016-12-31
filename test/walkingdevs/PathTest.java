@@ -15,6 +15,18 @@ public class PathTest extends Assert {
     }
 
     @Test
+    public void shouldMergePaths() {
+        assertEquals(
+            "/one/two/three/four",
+            Path.mk("/one/two")
+                .add(
+                    Path.mk("/three/four")
+                )
+                .string()
+        );
+    }
+
+    @Test
     public void shouldGetLast() {
         assertEquals(
             "two",

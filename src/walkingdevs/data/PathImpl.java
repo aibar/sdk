@@ -13,6 +13,17 @@ class PathImpl<Item> implements Path<Item> {
         return this;
     }
 
+    public Path<Item> add(Path<Item> other) {
+        Path<Item> path = Path.mk();
+        for (Item item : items) {
+            path.add(item);
+        }
+        for (Item item : other.items()) {
+            path.add(item);
+        }
+        return path;
+    }
+
     public Item head() {
         if (isEmpty()) {
             return null;
