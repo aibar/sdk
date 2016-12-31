@@ -23,7 +23,7 @@ public interface Tree<K, V> extends Iterable<Tree<K, V>> {
 
     Tree<K, V> add(K key);
 
-    Tree<K, V> add(Path<K> path, V val);
+    Tree<K, V> addToPath(Path<K> path, V val);
 
     Tree<K, V> del(K key);
 

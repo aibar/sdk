@@ -49,7 +49,7 @@ class TreeImpl<K, V> implements Tree<K, V> {
         return add(key, null);
     }
 
-    public Tree<K, V> add(Path<K> path, V val) {
+    public Tree<K, V> addToPath(Path<K> path, V val) {
         Tree<K, V> mk = mkPath(path.parent());
         mk.add(path.last(), val);
         return this;
