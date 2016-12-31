@@ -31,7 +31,7 @@ public class PathTest extends Assert {
     }
 
     @Test
-    public void shouldGetStringDelimitedWithSlash() {
+    public void shouldGetStringDelimitedWithSlashByDefault() {
         assertEquals(
             "/one/two",
             Path.mk().add("one").add("two").string()
@@ -40,6 +40,10 @@ public class PathTest extends Assert {
 
     @Test
     public void shouldGetString() {
+        assertEquals(
+            "/",
+            Path.mk().string()
+        );
         assertEquals(
             ">one>two",
             Path.mk().add("one").add("two").string('>')
