@@ -10,8 +10,6 @@ public interface Path<Item> extends NULLSafe {
 
     Item last();
 
-    Path<Item> root();
-
     Path<Item> parent();
 
     Path<Item> tail();

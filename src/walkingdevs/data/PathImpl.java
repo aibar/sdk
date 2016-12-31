@@ -27,10 +27,6 @@ class PathImpl<Item> implements Path<Item> {
         return items.get(items.size()-1);
     }
 
-    public Path<Item> root() {
-        return Path.mk(head());
-    }
-
     public Path<Item> parent() {
         Path<Item> ret = Path.mk();
         for (int i = 0; i < items.size()-1; i++) {

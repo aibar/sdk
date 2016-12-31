@@ -105,14 +105,6 @@ public class PathTest extends Assert {
     }
 
     @Test
-    public void shouldGetRoot() {
-        assertEquals(
-            "/one",
-            Path.mk("/one/two").root().string()
-        );
-    }
-
-    @Test
     public void shouldImplEquals() {
         assertEquals(
             Path.mk("/one/two"),
