@@ -18,7 +18,11 @@ public class PathTest extends Assert {
     public void shouldGetLast() {
         assertEquals(
             "two",
-            Path.mk().add("one").add("two").last()
+            Path.mk("/one/two").last()
+        );
+        assertEquals(
+            "root",
+            Path.mk("/root").last()
         );
     }
 
@@ -85,6 +89,14 @@ public class PathTest extends Assert {
         assertEquals(
             "/2/3",
             Path.mk("/1/2/3").tail().string()
+        );
+    }
+
+    @Test
+    public void tailShouldBeEmpty() {
+        assertEquals(
+            true,
+            Path.mk("/1").tail().isEmpty()
         );
     }
 
