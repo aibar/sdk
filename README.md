@@ -41,3 +41,6 @@ Programming isn't an Art, but it does not mean that it can be ugly.
 Man who loves programming will love to write beautiful code too.
 It's hard to write good code with JDK. I hope that this artifact will
 help someone to write a better code.
+
+## WTF-s
+- What the fuck package name is "walkingdevs", not "com.github.walkingdevs.sdk"? - I hate be unnecessarily specific
