@@ -1,32 +1,32 @@
 package walkingdevs.vals;
 
-import walkingdevs.fun.Result;
 import walkingdevs.data.Tuple;
 import walkingdevs.val.Val;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.function.Predicate;
 
+// Vals = Validators
 public interface Vals<T> {
-    void fail();
+    void crash();
+
+    boolean test();
 
     T get();
 
-    static <T> Vals<T> mk(T value, String name, Tuple<Result<Boolean>, String>... rps) {
-        Val.isBlank(name, "name").fail();
-        List<Val<T>> vals = new ArrayList<>();
-        for (Tuple<Result<Boolean>, String> rp : rps) {
-            Val.isNull(rp, "rp").fail();
-            vals.add(Val.mk(
-                value,
-                name,
-                rp.first(),
-                String.format(Val.FORMAT, name, value, rp.second())
-            ));
+    Vals<T> add(Predicate<T> predicate, String exp);
+
+    Vals<T> cannotBeNULL();
+
+    static <T> Vals<T> mk(T val, String name, Tuple<Predicate<T>, String>... predicateExps) {
+        Val.Blank(name, "name").crash();
+        Vals<T> vals = new ValsImpl<>(val, name);
+        for (Tuple<Predicate<T>, String> predicateExp : predicateExps) {
+            Val.NULL(predicateExp, "predicateExp").crash();
+            vals.add(
+                predicateExp.first(),
+                predicateExp.second()
+            );
         }
-        return new ValsImpl<>(
-            value,
-            vals
-        );
+        return vals;
     }
 }

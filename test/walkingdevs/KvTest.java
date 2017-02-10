@@ -3,6 +3,7 @@ package walkingdevs;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingdevs.data.Kv;
+import walkingdevs.exceptions.IllegalArgument;
 
 public class KvTest extends Assert {
     @Test
@@ -21,12 +22,12 @@ public class KvTest extends Assert {
         );
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgument.class)
     public void shouldNotAllowNullKeys() {
         Kv.mk(null, "How?");
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgument.class)
     public void shouldNotAllowBlankKeys() {
         Kv.mk(" ", "What?");
     }

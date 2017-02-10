@@ -1,14 +1,12 @@
 package walkingdevs.data;
 
-import walkingdevs.Problems;
-
 class EmptyKv<K, V> implements Kv<K, V> {
     public K key() {
-        throw Problems.objectIsEmpty();
+        return null;
     }
 
     public V val() {
-        throw Problems.objectIsEmpty();
+        return null;
     }
 
     public boolean isEmpty() {

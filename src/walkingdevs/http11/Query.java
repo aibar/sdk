@@ -23,18 +23,18 @@ public interface Query extends NULLSafe {
     static Query mk(String queryString) {
         Vals.mk(queryString, "queryString",
             Tuple.mk(
-                () -> Str.mk(queryString).isBlank(),
+                (v) -> Str.mk(v).isBlank(),
                 "Cannot be blank"
             ),
             Tuple.mk(
-                () -> queryString.startsWith("?"),
+                (v) -> v.startsWith("?"),
                 "Cannot start with '?'"
             ),
             Tuple.mk(
-                () -> queryString.endsWith("#"),
+                (v) -> v.endsWith("#"),
                 "Cannot end with '#'"
             )
-        ).fail();
+        ).crash();
         Kvs<String, String> kvs = Kvs.mk();
         for (String kvString : queryString.split("&")) {
             String[] kv = kvString.split("=");

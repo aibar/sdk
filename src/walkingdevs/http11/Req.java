@@ -24,20 +24,22 @@ public interface Req {
         int readTimeout,
         int connectTimeout
     ) {
-        Val.isNull(method, "method").fail();
-        Val.isNull(body, "body").fail();
-        Val.mk(
-            method, "method",
-            () -> method == Method.GET && !body.isEmpty(),
-            "For reasons unknown Http Method will be forced to change to POST. Thank you! HttpUrlConnection."
-        ).fail();
+        Val.NULL(method, "method").crash();
+        Val.NULL(body, "body").crash();
+        if (!body.isEmpty()) {
+            Val.mk(
+                method, "method",
+                (v) -> v == Method.GET,
+                "For reasons unknown HTTP Method will be forced to change to POST. Thank you! HttpUrlConnection."
+            ).crash();
+        }
         return new ReqImpl(
-            Val.isNull(url, "url").get(),
+            Val.NULL(url, "url").get(),
             method,
-            Val.isNull(headers, "headers").get(),
+            Val.NULL(headers, "headers").get(),
             body,
-            Val.isNegative(readTimeout, "readTimeout").get(),
-            Val.isNegative(connectTimeout, "connectTimeout").get()
+            Val.Negative(readTimeout, "readTimeout").get(),
+            Val.Negative(connectTimeout, "connectTimeout").get()
         );
     }
 }

@@ -1,6 +1,6 @@
 package walkingdevs.stream;
 
-import walkingdevs.Problems;
+import walkingdevs.exceptions.Exceptions;
 import walkingdevs.val.Val;
 
 import java.io.IOException;
@@ -30,11 +30,11 @@ public interface Is {
                 return new IsEmptyImpl();
             }
         } catch (IOException fail) {
-            throw Problems.weFucked(fail);
+            throw Exceptions.weFucked(fail);
         }
         return new IsImpl(
             is,
-            Val.isLessThan1(size, "size").get()
+            Val.LessThan1(size, "size").get()
         );
     }
 }

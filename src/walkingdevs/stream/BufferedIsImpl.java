@@ -1,6 +1,6 @@
 package walkingdevs.stream;
 
-import walkingdevs.Problems;
+import walkingdevs.exceptions.Exceptions;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,7 +32,7 @@ class BufferedIsImpl implements BufferedIs {
                 try {
                     read = is.read(buffer);
                 } catch (IOException fail) {
-                    throw Problems.weFucked(fail);
+                    throw Exceptions.weFucked(fail);
                 }
                 if (read > 0) {
                     return Arrays.copyOf(buffer, read);

@@ -1,7 +1,7 @@
 package walkingdevs.http11;
 
-import walkingdevs.Problems;
 import walkingdevs.str.Str;
+import walkingdevs.val.Val;
 
 import java.util.*;
 
@@ -11,10 +11,12 @@ class HeadersImpl implements Headers {
     }
 
     public Header get(String name) {
-        if (has(name)) {
-            return Header.mk(name, map.get(name));
-        }
-        throw Problems.illegalArg("There is no Header with name: " + name);
+        Val.mk(
+            name, "name",
+            (v) -> !has(v),
+            "There is no header with given name"
+        ).crash();
+        return Header.mk(name, map.get(name));
     }
 
     public Headers add(String name, String value) {

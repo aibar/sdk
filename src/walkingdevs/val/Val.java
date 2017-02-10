@@ -1,77 +1,89 @@
 package walkingdevs.val;
 
-import walkingdevs.Problems;
-import walkingdevs.fun.Result;
+import walkingdevs.exceptions.Exceptions;
 import walkingdevs.str.Str;
 
+import java.util.function.Predicate;
+
+// Validator
 public interface Val<T> {
-    void fail();
+    void crash();
+
+    boolean test();
 
     T get();
 
-    String FORMAT = "Arg. <%s> with value <%s>: %s";
-
-    String BANG = "Null check. BANG.";
-
-    String BLANK = "Cannot be Blank.";
-
-    static Val<Integer> isNegative(Integer value, String name) {
+    // Common
+    static <T> Val<T> NULL(T val, String name) {
         return mk(
-            value,
-            name,
-            () -> value < 0,
-            String.format(FORMAT, name, value, "Cannot be negative")
+            val,
+            (v) -> v == null,
+            Exceptions.NULL(name)
         );
     }
 
-    static Val<Integer> isLessThan1(Integer value, String name) {
+    // Int
+    static Val<Integer> Negative(int val, String name) {
         return mk(
-            value,
+            val,
             name,
-            () -> value < 1,
-            String.format(FORMAT, name, value, "Cannot be < 1")
+            (v) -> v < 0,
+            "Can not be negative"
         );
     }
 
-    static <T> Val<T> isNull(T value, String name) {
+    static Val<Integer> LessThan1(int val, String name) {
+        return mk(
+            val,
+            name,
+            (v) -> v < 1,
+            "Can not be < 1"
+        );
+    }
+
+    static Val<Integer> OutSide(int val, String name, int left, int right) {
+        return mk(
+            val,
+            name,
+            (v) -> v < left || v > right,
+            "Can not be < 1"
+        );
+    }
+
+    // String
+    static Val<String> Blank(String val, String name) {
         if (Str.mk(name).isBlank()) {
-            throw Problems.illegalArg(
-                String.format(FORMAT, "name", name, BLANK)
-            );
+            throw Exceptions.Blank("name");
         }
         return mk(
-            value,
-            name,
-            () -> value == null,
-            BANG
+            val,
+            v -> Str.mk(v).isBlank(),
+            Exceptions.Blank(name)
         );
     }
 
-    static Val<String> isBlank(String value, String name) {
+    static <T> Val<T> mk(T val, String name, Predicate<T> predicate, String exp) {
         if (Str.mk(name).isBlank()) {
-            throw Problems.illegalArg(
-                String.format(FORMAT, "name", name, BLANK)
-            );
+            throw Exceptions.Blank("Val.name");
         }
         return mk(
-            value,
-            name,
-            () -> Str.mk(value).isBlank(),
-            BLANK
+            val,
+            predicate,
+            Exceptions.IllegalArgument(
+                name,
+                val,
+                exp
+            )
         );
     }
 
-    static <T> Val<T> mk(T value, String name, Result<Boolean> result, String problem) {
-        if (Str.mk(name).isBlank()) {
-            throw Problems.illegalArg(
-                String.format(FORMAT, "name", name, BLANK)
-            );
+    static <T> Val<T> mk(T val, Predicate<T> predicate, RuntimeException toThrow) {
+        if (predicate == null) {
+            throw Exceptions.NULL("Val.predicate");
         }
-        if (Str.mk(problem).isBlank()) {
-            throw Problems.illegalArg(
-                String.format(FORMAT, "problem", problem, BLANK)
-            );
+        if (toThrow == null) {
+            throw Exceptions.NULL("Val.toThrow");
         }
-        return new ValImpl<>(value, name, result, problem);
+        return new ValImpl<>(val, predicate, toThrow);
     }
 }

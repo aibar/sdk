@@ -2,6 +2,7 @@ package walkingdevs;
 
 import org.junit.Assert;
 import org.junit.Test;
+import walkingdevs.exceptions.Exceptions;
 import walkingdevs.http11.*;
 import walkingdevs.str.Str;
 
@@ -37,7 +38,7 @@ public class ReqTest extends Assert {
                 try {
                     bufferedIs.writeTo(baos);
                 } catch (IOException fail) {
-                    throw Problems.weFucked(fail);
+                    throw Exceptions.weFucked(fail);
                 }
             });
         assertTrue(Str.mk(baos.toByteArray()).get().contains("google"));

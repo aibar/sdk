@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import walkingdevs.bytes.Bytes;
 import walkingdevs.bytes.BytesBuilder;
+import walkingdevs.exceptions.IllegalArgument;
 import walkingdevs.stream.BufferedIs;
 
 import java.io.ByteArrayInputStream;
@@ -56,7 +57,7 @@ public class BufferedIsTest extends Assert {
         );
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgument.class)
     public void shouldNotMkIfSizeIsLessThan1() {
         BufferedIs.mk(new ByteArrayInputStream(new byte[1]), 0);
     }

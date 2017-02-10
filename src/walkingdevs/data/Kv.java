@@ -10,14 +10,14 @@ public interface Kv<K, V> extends NULLSafe {
 
     static <K, V> Kv<K, V> mk(K key, V val) {
         return new KvImpl<>(
-            Val.isNull(key, "key").get(),
+            Val.NULL(key, "key").get(),
             val
         );
     }
 
     static <V> Kv<String, V> mk(String key, V val) {
         return new KvImpl<>(
-            Val.isBlank(key, "key").get(),
+            Val.Blank(key, "key").get(),
             val
         );
     }

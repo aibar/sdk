@@ -1,16 +1,19 @@
 package walkingdevs.http11;
 
-import walkingdevs.val.Val;
+import walkingdevs.vals.Vals;
 
 public enum Scheme {
     Http("http"),
     Https("https");
 
     public static Scheme from(String scheme) {
-        Val.mk(scheme, "scheme",
-            () -> scheme == null || (!scheme.equals("http") && !scheme.equals("https")),
-            "http|https"
-        ).fail();
+        Vals.mk(scheme, "scheme")
+            .cannotBeNULL()
+            .add(
+                (v) -> !(v.equals("http") || v.equals("https")),
+                "http||https"
+            )
+            .crash();
         if ("http".equals(scheme)) {
             return Http;
         } else {

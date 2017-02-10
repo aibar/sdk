@@ -1,7 +1,8 @@
 package walkingdevs.http11;
 
-import walkingdevs.Problems;
+import walkingdevs.exceptions.Exceptions;
 import walkingdevs.bytes.BytesBuilder;
+import walkingdevs.exceptions.NotImplemented;
 import walkingdevs.fun.Handler;
 import walkingdevs.stream.BufferedIs;
 
@@ -51,7 +52,7 @@ class ReqImpl implements Req {
                 getHeaders(connection)
             );
         } catch (Exception fail) {
-            throw Problems.weFucked(
+            throw Exceptions.weFucked(
                 String.format("%s: We tried hard, but Failed to send the request", url),
                 fail
             );
@@ -64,12 +65,12 @@ class ReqImpl implements Req {
 
     // TODO: implement
     public void sendAsync(Handler<Resp> responseHandler) {
-        throw Problems.notImplemented();
+        throw new NotImplemented();
     }
 
     // TODO: implement
     public void sendAsync(Handler<Resp> responseHandler, Handler<BufferedIs> bodyIsHandler) {
-        throw Problems.notImplemented();
+        throw new NotImplemented();
     }
 
     ReqImpl(
@@ -100,13 +101,13 @@ class ReqImpl implements Req {
         try {
             raw = new URL(url.full()).openConnection();
         } catch (IOException fail) {
-            throw Problems.weFucked(
+            throw Exceptions.weFucked(
                 String.format("%s: Failed to connect", url),
                 fail
             );
         }
         if (!(raw instanceof HttpURLConnection)) {
-            throw Problems.WTF(
+            throw Exceptions.WTF(
                 String.format("%s: We are expecting HttpURLConnection, but copy " + raw.getClass(), url)
             );
         }
@@ -118,7 +119,7 @@ class ReqImpl implements Req {
         try {
             connection.setRequestMethod(method.name());
         } catch (ProtocolException fail) {
-            throw Problems.weFucked(fail);
+            throw Exceptions.weFucked(fail);
         }
         connection.setConnectTimeout(connectTimeout);
         connection.setReadTimeout(readTimeout);
@@ -151,7 +152,7 @@ class ReqImpl implements Req {
             try {
                 return connection.getInputStream();
             } catch (IOException fail) {
-                throw Problems.weFucked(
+                throw Exceptions.weFucked(
                     String.format("%s: For reasons unknown we didn't copy the InputStream", url),
                     fail
                 );
@@ -163,7 +164,7 @@ class ReqImpl implements Req {
         try {
             return connection.getResponseCode();
         } catch (IOException fail) {
-            throw Problems.weFucked(
+            throw Exceptions.weFucked(
                 String.format("%s: We Fucked when getting status code", url),
                 fail
             );
@@ -174,7 +175,7 @@ class ReqImpl implements Req {
         try {
             return connection.getResponseMessage();
         } catch (IOException fail) {
-            throw Problems.weFucked(
+            throw Exceptions.weFucked(
                 String.format("%s: We Fucked when getting status message", url),
                 fail
             );
@@ -192,7 +193,7 @@ class ReqImpl implements Req {
             output = connection.getOutputStream();
             BufferedIs.mk(content, 8192).writeTo(output);
         } catch (IOException fail) {
-            throw Problems.weFucked(
+            throw Exceptions.weFucked(
                 String.format("%s: Cannot send body", url),
                 fail
             );

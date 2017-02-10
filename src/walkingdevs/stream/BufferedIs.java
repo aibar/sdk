@@ -1,6 +1,6 @@
 package walkingdevs.stream;
 
-import walkingdevs.Problems;
+import walkingdevs.exceptions.Exceptions;
 import walkingdevs.val.Val;
 
 import java.io.IOException;
@@ -24,11 +24,11 @@ public interface BufferedIs extends Iterable<byte[]> {
                 return new BufferedIsEmptyImpl();
             }
         } catch (IOException fail) {
-            throw Problems.weFucked(fail);
+            throw Exceptions.weFucked(fail);
         }
         return new BufferedIsImpl(
             is,
-            Val.isLessThan1(size, "size").get()
+            Val.LessThan1(size, "size").get()
         );
     }
 }
