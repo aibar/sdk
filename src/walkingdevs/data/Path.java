@@ -1,9 +1,8 @@
 package walkingdevs.data;
 
-import walkingdevs.NULLSafe;
 import walkingdevs.str.Str;
 
-public interface Path<Item> extends NULLSafe {
+public interface Path<Item> {
     Path<Item> add(Item item);
 
     Path<Item> add(Path<Item> other);
@@ -24,6 +23,8 @@ public interface Path<Item> extends NULLSafe {
     Iterable<Item> items();
 
     boolean isAlone();
+
+    boolean isEmpty();
 
     static <T> Path<T> mk() {
         return new PathImpl<>();

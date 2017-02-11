@@ -1,9 +1,8 @@
 package walkingdevs.data;
 
-import walkingdevs.NULLSafe;
 import walkingdevs.val.Val;
 
-public interface Kv<K, V> extends NULLSafe {
+public interface Kv<K, V> {
     K key();
 
     V val();
@@ -20,9 +19,5 @@ public interface Kv<K, V> extends NULLSafe {
             Val.Blank(key, "key").get(),
             val
         );
-    }
-
-    static <K, V> Kv<K, V> mk() {
-        return new EmptyKv<>();
     }
 }
