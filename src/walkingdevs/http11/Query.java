@@ -1,11 +1,9 @@
 package walkingdevs.http11;
 
 import walkingdevs.NULLSafe;
-import walkingdevs.vals.Vals;
 import walkingdevs.data.Kv;
 import walkingdevs.data.Kvs;
-import walkingdevs.data.Tuple;
-import walkingdevs.str.Str;
+import walkingdevs.vals.Vals;
 
 public interface Query extends NULLSafe {
     String queryString();
@@ -21,20 +19,11 @@ public interface Query extends NULLSafe {
     }
 
     static Query mk(String queryString) {
-        Vals.mk(queryString, "queryString",
-            Tuple.mk(
-                (v) -> Str.mk(v).isBlank(),
-                "Cannot be blank"
-            ),
-            Tuple.mk(
-                (v) -> v.startsWith("?"),
-                "Cannot start with '?'"
-            ),
-            Tuple.mk(
-                (v) -> v.endsWith("#"),
-                "Cannot end with '#'"
-            )
-        ).crash();
+        Vals.string(queryString, "queryString")
+            .cannotBeBlank()
+            .cannotStartWith("?")
+            .cannotEndWith("#")
+            .crash();
         Kvs<String, String> kvs = Kvs.mk();
         for (String kvString : queryString.split("&")) {
             String[] kv = kvString.split("=");

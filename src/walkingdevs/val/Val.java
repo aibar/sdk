@@ -28,7 +28,7 @@ public interface Val<T> {
             val,
             name,
             (v) -> v < 0,
-            "Can not be negative"
+            "Can not be Negative"
         );
     }
 
@@ -59,6 +59,21 @@ public interface Val<T> {
             val,
             v -> Str.mk(v).isBlank(),
             Exceptions.Blank(name)
+        );
+    }
+
+    static Val<String> Empty(String val, String name) {
+        if (Str.mk(name).isBlank()) {
+            throw Exceptions.Blank("name");
+        }
+        return mk(
+            val,
+            v -> Str.mk(v).isEmpty(),
+            Exceptions.IllegalArgument(
+                name,
+                val,
+                "Can not be Empty"
+            )
         );
     }
 

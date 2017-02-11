@@ -27,13 +27,26 @@ class ValsImpl<T> implements Vals<T> {
         return val;
     }
 
-    public Vals<T> add(Predicate<T> predicate, String exp) {
+    public T val() {
+        return val;
+    }
+
+    public String name() {
+        return name;
+    }
+
+    public Vals<T> add(String exp, Predicate<T> predicate) {
         validators.add(Val.mk(
             val,
             name,
             predicate,
             exp
         ));
+        return this;
+    }
+
+    public Vals<T> add(Val<T> val) {
+        validators.add(val);
         return this;
     }
 

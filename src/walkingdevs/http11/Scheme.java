@@ -10,8 +10,8 @@ public enum Scheme {
         Vals.mk(scheme, "scheme")
             .cannotBeNULL()
             .add(
-                (v) -> !(v.equals("http") || v.equals("https")),
-                "http||https"
+                "http||https",
+                (v) -> !(v.equals("http") || v.equals("https"))
             )
             .crash();
         if ("http".equals(scheme)) {

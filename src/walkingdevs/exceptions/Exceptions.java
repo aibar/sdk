@@ -11,7 +11,7 @@ public interface Exceptions {
 
     static IllegalArgument Blank(String name) {
         return IllegalArgument(
-            String.format("Argument <%s>: Can not be blank", name)
+            String.format("Argument <%s>: Can not be Blank", name)
         );
     }
 
