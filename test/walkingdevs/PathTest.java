@@ -67,7 +67,7 @@ public class PathTest extends Assert {
     }
 
     @Test
-    public void shouldMkFromString() {
+    public void shouldMakeFromString() {
         assertEquals(
             "/1/2/3",
             Path.mk("/1/2/3").string()
@@ -113,10 +113,10 @@ public class PathTest extends Assert {
     }
 
     @Test
-    public void shouldMkHttpPath() {
+    public void shouldMakeFromHttpPath() {
         assertEquals(
             "/admin/orders",
-            Path.mkHttp("/admin/orders?finished=false").string()
+            Path.mkFromHttpPath("/admin/orders?finished=false").string()
         );
     }
 

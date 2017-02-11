@@ -60,7 +60,7 @@ public interface Path<Item> extends NULLSafe {
         return ret;
     }
 
-    static Path<String> mkHttp(String httpPath) {
+    static Path<String> mkFromHttpPath(String httpPath) {
         // Cut query string
         int i = httpPath.indexOf('?');
         if (i != -1) {
