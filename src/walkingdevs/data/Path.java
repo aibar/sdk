@@ -22,9 +22,9 @@ public interface Path<Item> {
 
     Iterable<Item> items();
 
-    boolean isAlone();
+    int depth();
 
-    boolean isEmpty();
+    boolean isRoot();
 
     static <T> Path<T> mk() {
         return new PathImpl<>();

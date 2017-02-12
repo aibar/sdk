@@ -31,4 +31,12 @@ public class KvTest extends Assert {
     public void shouldNotAllowBlankKeys() {
         Kv.mk(" ", "What?");
     }
+
+    @Test
+    public void shouldToStringWithThisFormat() {
+        assertEquals(
+            "key=val",
+            Kv.mk("key", "val").toString()
+        );
+    }
 }

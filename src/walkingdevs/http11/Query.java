@@ -27,9 +27,9 @@ public interface Query {
         for (String kvString : queryString.split("&")) {
             String[] kv = kvString.split("=");
             if (kv.length == 1) {
-                kvs.add(Kv.mk(kv[0], ""));
+                kvs.put(Kv.mk(kv[0], ""));
             } else if (kv.length == 2) {
-                kvs.add(Kv.mk(kv[0], kv[1]));
+                kvs.put(Kv.mk(kv[0], kv[1]));
             }
         }
         return mk(kvs);

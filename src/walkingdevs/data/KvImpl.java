@@ -9,10 +9,6 @@ class KvImpl<K, V> implements Kv<K, V> {
         return val;
     }
 
-    public boolean isEmpty() {
-        return false;
-    }
-
     @Override
     public String toString() {
         return key() + "=" + val();

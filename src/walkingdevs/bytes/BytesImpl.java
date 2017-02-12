@@ -41,10 +41,20 @@ class BytesImpl implements Bytes {
         return true;
     }
 
-    // TODO: print first 10 bytes
     @Override
     public String toString() {
-        return super.toString() + " length=" + length();
+        if (isEmpty()) {
+            return "";
+        }
+        int to = 10;
+        if (length() < 10) {
+            to = length();
+        }
+        String res = "";
+        for (int i = 0; i < to-1; i++) {
+            res += bytes[i] + ", ";
+        }
+        return res + bytes[to-1];
     }
 
     BytesImpl(byte[] bytes) {

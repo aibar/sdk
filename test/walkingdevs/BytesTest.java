@@ -31,40 +31,66 @@ public class BytesTest extends Assert {
 
     @Test
     public void shouldImplementHashCorrectly() {
-        byte[] bytes = {1, 2, 3};
+        byte[] bytes1 = {1, 2, 3};
+        byte[] bytes2 = {1, 2, 3};
         assertEquals(
-            Bytes.mk(bytes).hashCode(),
-            Bytes.mk(bytes).hashCode()
+            Bytes.mk(bytes1).hashCode(),
+            Bytes.mk(bytes2).hashCode()
         );
     }
 
     @Test
     public void shouldImplementEqualsCorrectly() {
-        byte[] bytes = {1, 2, 3};
+        byte[] bytes1 = {1, 2, 3};
+        byte[] bytes2 = {1, 2, 3};
         assertEquals(
-            Bytes.mk(bytes),
-            Bytes.mk(bytes)
+            Bytes.mk(bytes1),
+            Bytes.mk(bytes2)
         );
     }
 
     @Test
-    public void shouldNotMkEmptyIfDataExists() {
+    public void shouldNotMakeEmptyIfDataExists() {
         assertFalse(
             Bytes.mk(new byte[1]).isEmpty()
         );
     }
 
     @Test
-    public void shouldMkEmptyIfDataNotExists() {
+    public void shouldMakeEmptyIfDataNotExists() {
         assertTrue(
             Bytes.mk(new byte[0]).isEmpty()
         );
     }
 
     @Test
-    public void shouldMkEmptyIfNullPassed() {
+    public void shouldMakeEmptyIfNullPassed() {
         assertTrue(
             Bytes.mk(null).isEmpty()
+        );
+    }
+
+    @Test
+    public void shouldToStringFirst10Bytes() {
+        assertEquals(
+            "1, 2, 3",
+            Bytes.mk(new byte[]{1, 2, 3}).toString()
+        );
+        assertEquals(
+            "1",
+            Bytes.mk(new byte[]{1}).toString()
+        );
+        assertEquals(
+            "1, 2, 3, 4, 5, 6, 7, 8, 9, 10",
+            Bytes.mk(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}).toString()
+        );
+        assertEquals(
+            "",
+            Bytes.mk(new byte[]{}).toString()
+        );
+        assertEquals(
+            "",
+            Bytes.mk(null).toString()
         );
     }
 }

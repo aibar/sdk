@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public interface Iter<T> extends Iterable<T> {
     String join(String with);
 
+    int size();
+
     static <T> Iter<T> mk(Iterable<T> iterable) {
         if (iterable == null) {
             return mk();

@@ -35,10 +35,23 @@ public class BytesBuilderTest extends Assert {
 
     @Test
     public void shouldAdd() {
+        byte[] expected = {1, 2, 3};
+        BytesBuilder bytesBuilder = BytesBuilder.mk(new byte[]{1, 2, 3});
+        assertEquals(
+            Bytes.mk(expected),
+            Bytes.mk(bytesBuilder.get())
+        );
+        // Adding
+        expected = new byte[]{1, 2, 3, 4, 5};
+        bytesBuilder.add(new byte[]{4, 5});
+        assertEquals(
+            Bytes.mk(expected),
+            Bytes.mk(bytesBuilder.get())
+        );
     }
 
     @Test
-    public void shouldMk() {
+    public void shouldMake() {
         assertNotNull(BytesBuilder.mk());
     }
 }

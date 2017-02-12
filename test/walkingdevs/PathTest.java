@@ -108,7 +108,7 @@ public class PathTest extends Assert {
     public void tailShouldBeEmpty() {
         assertEquals(
             true,
-            Path.mk("/1").tail().isEmpty()
+            Path.mk("/1").tail().isRoot()
         );
     }
 
@@ -147,10 +147,10 @@ public class PathTest extends Assert {
     @Test
     public void shouldBeEmpty() {
         assertTrue(
-            Path.mk("/").isEmpty()
+            Path.mk("/").isRoot()
         );
         assertTrue(
-            Path.mk("///").isEmpty()
+            Path.mk("///").isRoot()
         );
     }
 }

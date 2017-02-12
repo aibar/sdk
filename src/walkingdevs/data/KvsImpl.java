@@ -6,15 +6,15 @@ import java.util.*;
 
 // Actually a Map!
 class KvsImpl<K, V> implements Kvs<K, V> {
-    public Kvs<K, V> add(Kv<K, V> kv) {
+    public Kvs<K, V> put(Kv<K, V> kv) {
         if (kv != null) {
             map.put(kv.key(), kv.val());
         }
         return this;
     }
 
-    public Kvs<K, V> add(K key, V val) {
-        return add(Kv.mk(
+    public Kvs<K, V> put(K key, V val) {
+        return put(Kv.mk(
             key,
             val
         ));

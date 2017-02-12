@@ -9,6 +9,10 @@ public interface BytesBuilder {
 
     BytesBuilder add(byte[] bytes);
 
+    static BytesBuilder mk(byte[] bytes) {
+        return mk().add(bytes);
+    }
+
     static BytesBuilder mk() {
         return new BytesBuilderImpl();
     }

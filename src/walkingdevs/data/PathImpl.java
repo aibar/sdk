@@ -25,14 +25,14 @@ class PathImpl<Item> implements Path<Item> {
     }
 
     public Item head() {
-        if (isEmpty()) {
+        if (isRoot()) {
             return null;
         }
         return items.get(0);
     }
 
     public Item last() {
-        if (isEmpty()) {
+        if (isRoot()) {
             return null;
         }
         return items.get(items.size()-1);
@@ -73,11 +73,11 @@ class PathImpl<Item> implements Path<Item> {
         return items;
     }
 
-    public boolean isAlone() {
-        return items.size() == 1;
+    public int depth() {
+        return items.size();
     }
 
-    public boolean isEmpty() {
+    public boolean isRoot() {
         return items.isEmpty();
     }
 

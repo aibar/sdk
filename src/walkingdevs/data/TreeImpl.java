@@ -30,7 +30,7 @@ class TreeImpl<K, V> implements Tree<K, V> {
 
     public Tree<K, V> add(Tree<K, V> child) {
         // TODO: Not good, refactor
-        nodes.add(
+        nodes.put(
             child.key(),
             child
         );
@@ -63,7 +63,7 @@ class TreeImpl<K, V> implements Tree<K, V> {
     public Tree<K, V> walk(Path<K> path) {
         if (path == null || !key().equals(path.head())) {
             return null;
-        } else if (path.isAlone()) {
+        } else if (path.depth() == 1) {
             return this;
         }
         Path<K> tail = path.tail();
