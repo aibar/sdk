@@ -18,7 +18,7 @@ public interface Query {
     }
 
     static Query mk(String queryString) {
-        Vals.string(queryString, "queryString")
+        Vals.string("queryString", queryString)
             .cannotBeBlank()
             .cannotStartWith("?")
             .cannotEndWith("#")

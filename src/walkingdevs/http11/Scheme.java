@@ -7,7 +7,7 @@ public enum Scheme {
     Https("https");
 
     public static Scheme from(String scheme) {
-        Vals.mk(scheme, "scheme")
+        Vals.mk("scheme", scheme)
             .cannotBeNULL()
             .add(
                 "http||https",

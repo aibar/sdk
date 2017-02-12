@@ -12,7 +12,7 @@ class HeadersImpl implements Headers {
 
     public Header get(String name) {
         Val.mk(
-            name, "name",
+            "name", name,
             (v) -> !has(v),
             "There is no header with given name"
         ).crash();

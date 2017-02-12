@@ -9,7 +9,7 @@ class UrlImpl implements Url {
     }
 
     public Url host(String host) {
-        this.host = Val.Blank(host, "host").get();
+        this.host = Val.Blank("host", host).get();
         return this;
     }
 

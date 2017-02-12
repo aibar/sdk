@@ -25,16 +25,16 @@ public interface Vals<T> {
 
     Vals<T> cannotBeNULL();
 
-    static StringVals string(String val, String name) {
+    static StringVals string(String name, String val) {
         return new StringValsImpl(
-            mk(val, name)
+            mk(name, val)
         );
     }
 
-    static <T> Vals<T> mk(T val, String name) {
+    static <T> Vals<T> mk(String name, T val) {
         return new ValsImpl<>(
-            val,
-            Val.Blank(name, "name").get()
+            Val.Blank("name", name).get(),
+            val
         );
     }
 }

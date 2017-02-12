@@ -7,16 +7,16 @@ import java.util.function.Predicate;
 class StringValsImpl implements StringVals {
     public StringVals cannotBeEmpty() {
         vals.add(Val.Empty(
-            val(),
-            name()
+            name(),
+            val()
         ));
         return this;
     }
 
     public StringVals cannotBeBlank() {
         vals.add(Val.Blank(
-            val(),
-            name()
+            name(),
+            val()
         ));
         return this;
     }

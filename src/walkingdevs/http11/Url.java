@@ -24,7 +24,9 @@ public interface Url {
     String full();
 
     static Url parse(String uriString) {
-        URI uri = URI.create(Val.Blank(uriString, "uriString").get());
+        URI uri = URI.create(
+            Val.Blank("uriString", uriString).get()
+        );
         Url url = mk();
         url.scheme(Scheme.from(uri.getScheme()));
         url.host(uri.getHost());

@@ -58,12 +58,12 @@ class ValsImpl<T> implements Vals<T> {
         return this;
     }
 
-    ValsImpl(T val, String name) {
-        this.val = val;
+    ValsImpl(String name, T val) {
         this.name = name;
+        this.val = val;
     }
 
-    private final T val;
     private final String name;
+    private final T val;
     private final List<Val<T>> validators = new ArrayList<>();
 }

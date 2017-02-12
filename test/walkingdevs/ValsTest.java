@@ -11,7 +11,7 @@ public class ValsTest extends Assert {
     public void shouldNotBeInvalid() {
         assertEquals(
             false,
-            Vals.string("Aibar Nurlanov", "myName")
+            Vals.string("myName", "Aibar Nurlanov")
                 .cannotBeNULL()
                 .cannotBeEmpty()
                 .add("Only Aibar, No dogs", s -> !s.startsWith("Aibar"))
@@ -22,7 +22,7 @@ public class ValsTest extends Assert {
     @Test
     public void shouldCrash() {
         try {
-            Vals.string("Reks", "myName")
+            Vals.string("myName", "Reks")
                 .cannotBeNULL()
                 .cannotBeEmpty()
                 .add("Only Aibar, No dogs", s -> !s.startsWith("Aibar"))
