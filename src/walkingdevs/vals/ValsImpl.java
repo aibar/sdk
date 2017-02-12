@@ -37,8 +37,8 @@ class ValsImpl<T> implements Vals<T> {
 
     public Vals<T> add(String exp, Predicate<T> predicate) {
         validators.add(Val.mk(
-            val,
             name,
+            val,
             predicate,
             exp
         ));
@@ -52,8 +52,8 @@ class ValsImpl<T> implements Vals<T> {
 
     public Vals<T> cannotBeNULL() {
         validators.add(Val.NULL(
-            val,
-            name
+            name,
+            val
         ));
         return this;
     }

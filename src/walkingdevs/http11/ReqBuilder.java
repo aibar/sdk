@@ -38,7 +38,7 @@ public interface ReqBuilder {
 
     static ReqBuilder mk(Url uri) {
         return new ReqBuilderImpl(
-            Val.NULL(uri, "uri").get()
+            Val.NULL("uri", uri).get()
         );
     }
 }

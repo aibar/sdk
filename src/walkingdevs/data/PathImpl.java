@@ -8,7 +8,7 @@ import java.util.List;
 class PathImpl<Item> implements Path<Item> {
     public Path<Item> add(Item item) {
         items.add(
-            Val.NULL(item, "item").get()
+            Val.NULL("item", item).get()
         );
         return this;
     }

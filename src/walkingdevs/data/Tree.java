@@ -32,12 +32,13 @@ public interface Tree<K, V> extends Iterable<Tree<K, V>> {
     Tree<K, V> mkPath(Path<K> path);
 
     static <K, V> Tree<K, V> mk(K key, V val, Tree<K, V> parent) {
-        Val.mk(val, "val",
+        Val.mk(
+            "val", val,
             (v) -> parent != null && !parent.has(key),
             "Parent tree hasn't have this val"
         ).crash();
         return new TreeImpl<>(
-            Val.NULL(key, "key").get(),
+            Val.NULL("key", key).get(),
             val,
             parent
         );
@@ -56,7 +57,7 @@ public interface Tree<K, V> extends Iterable<Tree<K, V>> {
     }
 
     static <K, V> Tree<K, V> copy(Tree<K, V> tree, Tree<K, V> parent) {
-        Val.NULL(tree, "tree").crash();
+        Val.NULL("tree", tree).crash();
         Tree<K, V> copy = Tree.mk(tree.key(), tree.val(), parent);
         for (Tree<K, V> child : tree) {
             copy.add(child);

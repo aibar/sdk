@@ -28,7 +28,7 @@ public interface BufferedIs extends Iterable<byte[]> {
         }
         return new BufferedIsImpl(
             is,
-            Val.LessThan1(size, "size").get()
+            Val.LessThan1("size", size).get()
         );
     }
 }

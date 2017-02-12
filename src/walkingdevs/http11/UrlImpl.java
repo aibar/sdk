@@ -19,7 +19,7 @@ class UrlImpl implements Url {
 
     public Url port(int port) {
         this.port = Val.OutSide(
-            port, "port",
+            "port", port,
             1, 65535
         ).get();
         return this;
@@ -42,7 +42,7 @@ class UrlImpl implements Url {
     }
 
     public Url query(Query query) {
-        this.query = Val.NULL(query, "query").get();
+        this.query = Val.NULL("query", query).get();
         return this;
     }
 
@@ -51,7 +51,7 @@ class UrlImpl implements Url {
     }
 
     public Url scheme(Scheme scheme) {
-        this.scheme = Val.NULL(scheme, "scheme").get();
+        this.scheme = Val.NULL("scheme", scheme).get();
         return this;
     }
 

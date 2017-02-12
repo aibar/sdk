@@ -34,7 +34,7 @@ public interface Is {
         }
         return new IsImpl(
             is,
-            Val.LessThan1(size, "size").get()
+            Val.LessThan1("size", size).get()
         );
     }
 }

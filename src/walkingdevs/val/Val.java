@@ -14,7 +14,7 @@ public interface Val<T> {
     T get();
 
     // Common
-    static <T> Val<T> NULL(T val, String name) {
+    static <T> Val<T> NULL(String name, T val) {
         return mk(
             val,
             (v) -> v == null,
@@ -23,35 +23,35 @@ public interface Val<T> {
     }
 
     // Int
-    static Val<Integer> Negative(int val, String name) {
+    static Val<Integer> Negative(String name, int val) {
         return mk(
-            val,
             name,
+            val,
             (v) -> v < 0,
             "Can not be Negative"
         );
     }
 
-    static Val<Integer> LessThan1(int val, String name) {
+    static Val<Integer> LessThan1(String name, int val) {
         return mk(
-            val,
             name,
+            val,
             (v) -> v < 1,
             "Can not be < 1"
         );
     }
 
-    static Val<Integer> OutSide(int val, String name, int left, int right) {
+    static Val<Integer> OutSide(String name, int val, int left, int right) {
         return mk(
-            val,
             name,
+            val,
             (v) -> v < left || v > right,
             "Can not be < 1"
         );
     }
 
     // String
-    static Val<String> Blank(String val, String name) {
+    static Val<String> Blank(String name, String val) {
         if (Str.mk(name).isBlank()) {
             throw Exceptions.Blank("name");
         }
@@ -62,7 +62,7 @@ public interface Val<T> {
         );
     }
 
-    static Val<String> Empty(String val, String name) {
+    static Val<String> Empty(String name, String val) {
         if (Str.mk(name).isBlank()) {
             throw Exceptions.Blank("name");
         }
@@ -77,9 +77,9 @@ public interface Val<T> {
         );
     }
 
-    static <T> Val<T> mk(T val, String name, Predicate<T> predicate, String exp) {
+    static <T> Val<T> mk(String name, T val, Predicate<T> predicate, String exp) {
         if (Str.mk(name).isBlank()) {
-            throw Exceptions.Blank("Val.name");
+            throw Exceptions.Blank("Val.mk:name");
         }
         return mk(
             val,
@@ -94,10 +94,10 @@ public interface Val<T> {
 
     static <T> Val<T> mk(T val, Predicate<T> predicate, RuntimeException toThrow) {
         if (predicate == null) {
-            throw Exceptions.NULL("Val.predicate");
+            throw Exceptions.NULL("Val.mk:predicate");
         }
         if (toThrow == null) {
-            throw Exceptions.NULL("Val.toThrow");
+            throw Exceptions.NULL("Val.mk:toThrow");
         }
         return new ValImpl<>(val, predicate, toThrow);
     }
