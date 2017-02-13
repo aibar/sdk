@@ -1,12 +1,12 @@
 package walkingdevs.data;
 
-public interface Tuple<A, B> {
-    A first();
+public interface Tuple<F, S> {
+    F first();
 
-    B second();
+    S second();
 
     // Ok, you can pass NULLs
-    static <A, B> Tuple<A, B> mk(A first, B second) {
+    static <F, S> Tuple<F, S> mk(F first, S second) {
         return new TupleImpl<>(first, second);
     }
 }

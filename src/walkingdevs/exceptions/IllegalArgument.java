@@ -1,7 +1,10 @@
 package walkingdevs.exceptions;
 
 public class IllegalArgument extends RuntimeException {
-    public IllegalArgument(String msg) {
+    IllegalArgument() {
+    }
+
+    IllegalArgument(String msg) {
         super(msg);
     }
 }

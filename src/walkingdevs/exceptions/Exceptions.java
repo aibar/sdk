@@ -33,6 +33,10 @@ public interface Exceptions {
         return new IllegalArgument(exp);
     }
 
+    static NotImplemented NotImplemented() {
+        return new NotImplemented();
+    }
+
     static RuntimeException WTF(Throwable source) {
         return weFucked("WTF?", source);
     }

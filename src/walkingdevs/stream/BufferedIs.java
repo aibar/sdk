@@ -1,12 +1,12 @@
 package walkingdevs.stream;
 
-import walkingdevs.exceptions.Exceptions;
 import walkingdevs.val.Val;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+// Doesn't keeps bytes, read once and forget
 // For "Big Data"
 public interface BufferedIs extends Iterable<byte[]> {
     boolean isEmpty();
@@ -14,17 +14,17 @@ public interface BufferedIs extends Iterable<byte[]> {
     // Writes all remained bytes
     void writeTo(OutputStream os) throws IOException;
 
+    static BufferedIs mk() {
+        return new EmptyBufferedIs();
+    }
+
     static BufferedIs mk(InputStream is) {
         return mk(is, 8192);
     }
 
     static BufferedIs mk(InputStream is, int size) {
-        try {
-            if (is == null || is.available() < 1) {
-                return new BufferedIsEmptyImpl();
-            }
-        } catch (IOException fail) {
-            throw Exceptions.weFucked(fail);
+        if (is == null) {
+            return mk();
         }
         return new BufferedIsImpl(
             is,

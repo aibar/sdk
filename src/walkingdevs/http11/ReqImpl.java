@@ -1,8 +1,7 @@
 package walkingdevs.http11;
 
-import walkingdevs.exceptions.Exceptions;
 import walkingdevs.bytes.BytesBuilder;
-import walkingdevs.exceptions.NotImplemented;
+import walkingdevs.exceptions.Exceptions;
 import walkingdevs.fun.Handler;
 import walkingdevs.stream.BufferedIs;
 
@@ -65,12 +64,12 @@ class ReqImpl implements Req {
 
     // TODO: implement
     public void sendAsync(Handler<Resp> responseHandler) {
-        throw new NotImplemented();
+        throw Exceptions.NotImplemented();
     }
 
     // TODO: implement
     public void sendAsync(Handler<Resp> responseHandler, Handler<BufferedIs> bodyIsHandler) {
-        throw new NotImplemented();
+        throw Exceptions.NotImplemented();
     }
 
     ReqImpl(

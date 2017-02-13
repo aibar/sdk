@@ -34,23 +34,11 @@ class StrImpl implements Str {
             public boolean hasNext() {
                 return i < str.length();
             }
-
             public Character next() {
                 return str.charAt(i++);
             }
-
             private int i = 0;
         };
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        return str.equals(o);
-    }
-
-    @Override
-    public int hashCode() {
-        return str.hashCode();
     }
 
     @Override

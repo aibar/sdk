@@ -20,13 +20,21 @@
 - Byte, String, Stream ~~utility~~ classes
 
 ## Quick review
-Http client examples:
+**Http client examples:**
 
     RespBody body = ReqBuilder.GET("https://google.com")
         .build()
         .send()
         .body();
     assert body.text().contains("google")
+
+**Handling checked exceptions**
+
+    public int read(InputStream is, byte[] buffer) {
+        return Try.mk(() -> is.read(buffer)).Do();
+    }
+
+For more examples see tests.
 
 TODO: more examples
 

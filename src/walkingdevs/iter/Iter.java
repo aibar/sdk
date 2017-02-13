@@ -19,7 +19,7 @@ public interface Iter<T> extends Iterable<T> {
     }
 
     static <T> Iter<T> mk(T... array) {
-        ArrayList<T> iterable = new ArrayList<T>();
+        ArrayList<T> iterable = new ArrayList<>();
         for (T t : array) {
             iterable.add(t);
         }

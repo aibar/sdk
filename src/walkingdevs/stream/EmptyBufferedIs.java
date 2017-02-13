@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Iterator;
 
-class BufferedIsEmptyImpl implements BufferedIs {
+class EmptyBufferedIs implements BufferedIs {
     public boolean isEmpty() {
         return true;
     }

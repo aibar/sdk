@@ -37,28 +37,28 @@ public class BufferedIsTest extends Assert {
     }
 
     @Test
-    public void shouldMkEmptyIfInputStreamIsNull() {
+    public void shouldMakeEmptyIfInputStreamIsNull() {
         assertTrue(
             BufferedIs.mk(null, 1).isEmpty()
         );
     }
 
     @Test
-    public void shouldMkEmptyIfNoData() {
+    public void shouldMakeEmptyIfNoData() {
         assertTrue(
             BufferedIs.mk(new ByteArrayInputStream(new byte[0]), 1).isEmpty()
         );
     }
 
     @Test
-    public void shouldNotMkEmptyIfDataExists() {
+    public void shouldNotMakeEmptyIfDataExists() {
         assertFalse(
             BufferedIs.mk(new ByteArrayInputStream(new byte[1]), 1).isEmpty()
         );
     }
 
     @Test(expected = IllegalArgument.class)
-    public void shouldNotMkIfSizeIsLessThan1() {
+    public void shouldNotMakeIfSizeIsLessThan1() {
         BufferedIs.mk(new ByteArrayInputStream(new byte[1]), 0);
     }
 }
