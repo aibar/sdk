@@ -20,8 +20,9 @@ public interface Kvs<K, V> extends Iterable<Kv<K, V>> {
     boolean isEmpty();
 
     static <K, V> Kvs<K, V> mk(K key, V val) {
-        Kvs<K, V> kvs = mk();
-        return kvs.put(key, val);
+        return mk(
+            Kv.mk(key, val)
+        );
     }
 
     static <K, V> Kvs<K, V> mk(Kv<K, V>... from) {

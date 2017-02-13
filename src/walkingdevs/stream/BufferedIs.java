@@ -15,7 +15,7 @@ public interface BufferedIs extends Iterable<byte[]> {
     void writeTo(OutputStream os) throws IOException;
 
     static BufferedIs mk() {
-        return new EmptyBufferedIs();
+        return new BufferedIsEmpty();
     }
 
     static BufferedIs mk(InputStream is) {

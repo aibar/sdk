@@ -4,7 +4,7 @@ import walkingdevs.iter.Iter;
 
 import java.util.*;
 
-// Actually a Map!
+// Actually a map
 class KvsImpl<K, V> implements Kvs<K, V> {
     public Kvs<K, V> put(Kv<K, V> kv) {
         if (kv != null) {
@@ -38,10 +38,7 @@ class KvsImpl<K, V> implements Kvs<K, V> {
     }
 
     public V get(K key) {
-        if (has(key)) {
-            return map.get(key);
-        }
-        return null;
+        return map.get(key);
     }
 
     public int size() {
@@ -56,7 +53,10 @@ class KvsImpl<K, V> implements Kvs<K, V> {
     public Iterator<Kv<K, V>> iterator() {
         List<Kv<K, V>> list = new ArrayList<>();
         for (Map.Entry<K, V> entry : map.entrySet()) {
-            list.add(Kv.mk(entry.getKey(), entry.getValue()));
+            list.add(Kv.mk(
+                entry.getKey(),
+                entry.getValue()
+            ));
         }
         return list.iterator();
     }
@@ -66,5 +66,9 @@ class KvsImpl<K, V> implements Kvs<K, V> {
         return Iter.mk(this).join(", ");
     }
 
-    private final Map<K, V> map = new HashMap<>();
+    KvsImpl() {
+        this.map = new HashMap<>();
+    }
+
+    private final Map<K, V> map;
 }

@@ -121,6 +121,18 @@ public class PathTest extends Assert {
     }
 
     @Test
+    public void shouldMakeEmptyFromEmpty() {
+        assertEquals(
+            true,
+            Path.mk("").isRoot()
+        );
+        assertEquals(
+            true,
+            Path.mkFromHttpPath(null).isRoot()
+        );
+    }
+
+    @Test
     public void shouldGetHead() {
         assertEquals(
             "one",

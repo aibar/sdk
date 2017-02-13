@@ -14,6 +14,7 @@ class PathImpl<Item> implements Path<Item> {
     }
 
     public Path<Item> add(Path<Item> other) {
+        Val.NULL("other", other).crash();
         Path<Item> path = Path.mk();
         for (Item item : items) {
             path.add(item);
@@ -96,5 +97,9 @@ class PathImpl<Item> implements Path<Item> {
         return toString().hashCode();
     }
 
-    private final List<Item> items = new ArrayList<>();
+    PathImpl() {
+        this.items = new ArrayList<>();
+    }
+
+    private final List<Item> items;
 }

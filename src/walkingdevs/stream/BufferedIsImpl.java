@@ -1,6 +1,7 @@
 package walkingdevs.stream;
 
 import walkingdevs.exceptions.Try;
+import walkingdevs.val.Val;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,6 +15,7 @@ class BufferedIsImpl implements BufferedIs {
     }
 
     public void writeTo(OutputStream os) throws IOException {
+        Val.NULL("os", os).crash();
         for (byte[] bytes : this) {
             os.write(bytes);
         }

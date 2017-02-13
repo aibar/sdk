@@ -31,6 +31,10 @@ class BytesBuilderImpl implements BytesBuilder {
         return this;
     }
 
-    private final List<byte[]> bytesList = new ArrayList<>();
+    BytesBuilderImpl() {
+        this.bytesList = new ArrayList<>();
+    }
+
+    private final List<byte[]> bytesList;
     private int length = 0;
 }

@@ -1,8 +1,6 @@
 package walkingdevs.stream;
 
-import walkingdevs.exceptions.Exceptions;
-import walkingdevs.val.Val;
-
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -13,28 +11,27 @@ public interface Is {
     // All bytes at once
     byte[] bytes();
 
-    default boolean isEmpty() {
-        return false;
-    }
+    boolean isEmpty();
 
     // Writes fully
     void writeTo(OutputStream os) throws IOException;
+
+    static Is mk() {
+        return new IsEmpty();
+    }
 
     static Is mk(InputStream is) {
         return mk(is, 8192);
     }
 
     static Is mk(InputStream is, int size) {
-        try {
-            if (is == null || is.available() < 1) {
-                return new IsEmptyImpl();
-            }
-        } catch (IOException fail) {
-            throw Exceptions.weFucked(fail);
+        if (is == null) {
+            return mk();
         }
-        return new IsImpl(
-            is,
-            Val.LessThan1("size", size).get()
-        );
+        ByteArrayOutputStream baos = new ByteArrayOutputStream(size);
+        for (byte[] buffer : BufferedIs.mk(is, size)) {
+            baos.write(buffer, 0, buffer.length);
+        }
+        return new IsImpl(baos.toByteArray());
     }
 }
