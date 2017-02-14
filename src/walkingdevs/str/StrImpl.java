@@ -1,6 +1,7 @@
 package walkingdevs.str;
 
 import walkingdevs.chset.Chset;
+import walkingdevs.val.Val;
 
 import java.util.Iterator;
 
@@ -22,10 +23,10 @@ class StrImpl implements Str {
     }
 
     public byte[] bytes(Chset chset) {
-        if (chset == null) {
-            return bytes();
-        }
-        return str.getBytes(chset.get());
+        Val.NULL("chset", chset).crash();
+        return str.getBytes(
+            chset.get()
+        );
     }
 
     @Override

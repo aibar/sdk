@@ -45,7 +45,6 @@ class BufferedIsImpl implements BufferedIs {
 
     private final InputStream is;
     private final byte[] buffer;
-
     private byte[] next;
 
     private byte[] read() {

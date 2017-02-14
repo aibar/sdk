@@ -10,7 +10,22 @@ public class PathTest extends Assert {
     public void shouldAdd() {
         assertEquals(
             "/one/two",
-            Path.mk().add("one").add("two").string()
+            Path.mk()
+                .add("one")
+                .add("two")
+                .string()
+        );
+    }
+
+    @Test
+    public void shouldSkipNullWhenAdding() {
+        assertEquals(
+            "/one/three",
+            Path.mk()
+                .add("one")
+                .add(null)
+                .add("three")
+                .string()
         );
     }
 
@@ -129,6 +144,12 @@ public class PathTest extends Assert {
         assertEquals(
             true,
             Path.mkFromHttpPath(null).isRoot()
+        );
+        Integer nil = null;
+        Path<Integer> path = Path.mk(nil);
+        assertEquals(
+            true,
+            path.isRoot()
         );
     }
 

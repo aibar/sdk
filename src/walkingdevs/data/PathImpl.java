@@ -1,20 +1,20 @@
 package walkingdevs.data;
 
-import walkingdevs.val.Val;
-
 import java.util.ArrayList;
 import java.util.List;
 
 class PathImpl<Item> implements Path<Item> {
     public Path<Item> add(Item item) {
-        items.add(
-            Val.NULL("item", item).get()
-        );
+        if (item != null) {
+            items.add(item);
+        }
         return this;
     }
 
     public Path<Item> add(Path<Item> other) {
-        Val.NULL("other", other).crash();
+        if (other == null) {
+            return this;
+        }
         Path<Item> path = Path.mk();
         for (Item item : items) {
             path.add(item);
@@ -89,6 +89,7 @@ class PathImpl<Item> implements Path<Item> {
 
     @Override
     public boolean equals(Object obj) {
+        // TODO: check for generic type
         return obj instanceof Path && toString().equals(obj.toString());
     }
 

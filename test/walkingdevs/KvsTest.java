@@ -115,4 +115,15 @@ public class KvsTest extends Assert {
             kvs.toString()
         );
     }
+
+    @Test
+    public void shouldIterate() {
+        Kvs<String, String> kvs = Kvs.mk("key1", "val1")
+            .put("key2", "val2")
+            .put("key3", "val3");
+        assertEquals(
+            "key1=val1, key2=val2, key3=val3",
+            Iter.mk(kvs).join(", ")
+        );
+    }
 }

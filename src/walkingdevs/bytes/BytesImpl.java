@@ -51,11 +51,11 @@ class BytesImpl implements Bytes {
         if (length() < 10) {
             to = length();
         }
-        String res = "";
+        String string = "";
         for (int i = 0; i < to-1; i++) {
-            res += bytes[i] + ", ";
+            string += bytes[i] + ", ";
         }
-        return res + bytes[to-1];
+        return string + bytes[to-1];
     }
 
     BytesImpl(byte[] bytes) {

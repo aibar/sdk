@@ -10,4 +10,8 @@ public interface Try<T> {
             Val.NULL("checked", checked).get()
         );
     }
+
+    interface Checked<T> {
+        T run() throws Exception;
+    }
 }

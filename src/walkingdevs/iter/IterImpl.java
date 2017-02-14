@@ -42,6 +42,7 @@ class IterImpl<T> implements Iter<T> {
 
     @Override
     public boolean equals(Object object) {
+        // TODO: check for generic type
         if (object == null || !(object instanceof Iter)) {
             return false;
         }

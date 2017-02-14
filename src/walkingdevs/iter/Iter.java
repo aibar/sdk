@@ -7,13 +7,6 @@ public interface Iter<T> extends Iterable<T> {
 
     int size();
 
-    static <T> Iter<T> mk(Iterable<T> iterable) {
-        if (iterable == null) {
-            return mk();
-        }
-        return new IterImpl<>(iterable);
-    }
-
     static <T> Iter<T> mk() {
         return mk(new ArrayList<T>());
     }
@@ -24,5 +17,12 @@ public interface Iter<T> extends Iterable<T> {
             iterable.add(t);
         }
         return mk(iterable);
+    }
+
+    static <T> Iter<T> mk(Iterable<T> iterable) {
+        if (iterable == null) {
+            return mk();
+        }
+        return new IterImpl<>(iterable);
     }
 }

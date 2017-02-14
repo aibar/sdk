@@ -62,9 +62,6 @@ public interface Path<Item> {
 
     static <T> Path<T> mk(T... items) {
         Path<T> path = mk();
-        if (items.length == 1 && items[0] == null) {
-            return path;
-        }
         for (T item : items) {
             path.add(item);
         }
