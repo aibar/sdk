@@ -3,7 +3,7 @@ package walkingdevs.http11;
 import walkingdevs.data.Kvs;
 import walkingdevs.data.$Kv;
 import walkingdevs.data.$Kvs;
-import walkingdevs.fun.Result;
+import walkingdevs.fun.Predicate;
 import walkingdevs.val.$Val;
 
 public class $Query {
@@ -17,31 +17,33 @@ public class $Query {
     }
 
     public static Query mk(final String queryString) {
-        $Val.isIsBlank(queryString, "queryString").fail();
+        $Val.Blank(queryString, "queryString").crash();
         $Val.mk(queryString, "queryString",
-            new Result<Boolean>() {
-                public Boolean get() {
+            new Predicate<String>() {
+                @Override
+                public boolean test(String s) {
                     return queryString.startsWith("?");
                 }
             },
             "Cannot start with '?'"
-        ).fail();
+        ).crash();
         $Val.mk(queryString, "queryString",
-            new Result<Boolean>() {
-                public Boolean get() {
-                    return queryString.endsWith("#");
-                }
-            },
+                new Predicate<String>() {
+                    @Override
+                    public boolean test(String s) {
+                        return queryString.endsWith("#");
+                    }
+                },
             "Cannot end with '#'"
-        ).fail();
+        ).crash();
 
         Kvs<String, String> kvs = $Kvs.mk();
         for (String kvString : queryString.split("&")) {
             String[] kv = kvString.split("=");
             if (kv.length == 1) {
-                kvs.add($Kv.mk(kv[0], ""));
+                kvs.put($Kv.mk(kv[0], ""));
             } else if (kv.length == 2) {
-                kvs.add($Kv.mk(kv[0], kv[1]));
+                kvs.put($Kv.mk(kv[0], kv[1]));
             }
         }
         return mk(kvs);

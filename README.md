@@ -6,7 +6,11 @@
 ## The artifact (For our lovely JDK 6, mostly because of Android)
     <groupId>walkingdevs</groupId>
     <artifactId>sdk</artifactId>
+<<<<<<< HEAD
     <version>6.5</version>
+=======
+    <version>8.11</version>
+>>>>>>> master
 
 ## Why?
 - Cut down boilerplate code and noise
@@ -19,6 +23,25 @@
 - HTTP client
 - Byte, String, Stream ~~utility~~ classes
 
+## Quick review
+**Http client examples:**
+
+    RespBody body = ReqBuilder.GET("https://google.com")
+        .build()
+        .send()
+        .body();
+    assert body.text().contains("google")
+
+**Handling checked exceptions**
+
+    public int read(InputStream is, byte[] buffer) {
+        return Try.mk(() -> is.read(buffer)).Do();
+    }
+
+For more examples see tests.
+
+TODO: more examples
+
 ## TODO
 - Functional arrays
 - JSON
@@ -30,3 +53,6 @@ Programming isn't an Art, but it does not mean that it can be ugly.
 Man who loves programming will love to write beautiful code too.
 It's hard to write good code with JDK. I hope that this artifact will
 help someone to write a better code.
+
+## WTF-s
+- What the fuck package name is "walkingdevs", not "com.github.walkingdevs.sdk"? - I hate be unnecessarily specific

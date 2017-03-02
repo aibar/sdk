@@ -15,6 +15,10 @@ class QueryImpl implements Query {
         return kvs;
     }
 
+    public boolean isEmpty() {
+        return keyVals().isEmpty();
+    }
+
     @Override
     public String toString() {
         return queryString();

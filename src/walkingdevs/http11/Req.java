@@ -2,6 +2,7 @@ package walkingdevs.http11;
 
 import walkingdevs.fun.Handler;
 import walkingdevs.stream.BufferedIs;
+import walkingdevs.val.$Val;
 
 public interface Req {
     Resp send();

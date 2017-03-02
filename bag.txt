@@ -1,0 +1,94 @@
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building sdk 6.5
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:3.0.0:clean (default-clean) @ sdk ---
+[INFO] Deleting /Users/olzhas/projects/new/sdk/target
+[INFO] 
+[INFO] --- maven-resources-plugin:3.0.1:resources (default-resources) @ sdk ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /Users/olzhas/projects/new/sdk/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ sdk ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 121 source files to /Users/olzhas/projects/new/sdk/target/classes
+[INFO] /Users/olzhas/projects/new/sdk/src/walkingdevs/iter/$Iter.java: Some input files use unchecked or unsafe operations.
+[INFO] /Users/olzhas/projects/new/sdk/src/walkingdevs/iter/$Iter.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] --- maven-resources-plugin:3.0.1:testResources (default-testResources) @ sdk ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /Users/olzhas/projects/new/sdk/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.5.1:testCompile (default-testCompile) @ sdk ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 15 source files to /Users/olzhas/projects/new/sdk/target/test-classes
+[INFO] /Users/olzhas/projects/new/sdk/test/walkingdevs/KvsTest.java: Some input files use unchecked or unsafe operations.
+[INFO] /Users/olzhas/projects/new/sdk/test/walkingdevs/KvsTest.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.19.1:test (default-test) @ sdk ---
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running walkingdevs.BufferedIsTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.108 sec - in walkingdevs.BufferedIsTest
+Running walkingdevs.BytesBuilderTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec - in walkingdevs.BytesBuilderTest
+Running walkingdevs.BytesTest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec - in walkingdevs.BytesTest
+Running walkingdevs.ExoServerTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec - in walkingdevs.ExoServerTest
+Running walkingdevs.IsTest
+Started
+Tests run: 4, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.012 sec <<< FAILURE! - in walkingdevs.IsTest
+shouldMkEmptyIfNoData(walkingdevs.IsTest)  Time elapsed: 0.011 sec  <<< FAILURE!
+java.lang.AssertionError
+	at walkingdevs.IsTest.shouldMkEmptyIfNoData(IsTest.java:33)
+
+Running walkingdevs.IterTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec - in walkingdevs.IterTest
+Running walkingdevs.KvsTest
+Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 sec - in walkingdevs.KvsTest
+Running walkingdevs.KvTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.006 sec - in walkingdevs.KvTest
+Running walkingdevs.PathTest
+Tests run: 17, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 sec - in walkingdevs.PathTest
+Running walkingdevs.QueryTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 sec - in walkingdevs.QueryTest
+Running walkingdevs.ReqTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.582 sec - in walkingdevs.ReqTest
+Running walkingdevs.StrTest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 sec - in walkingdevs.StrTest
+Running walkingdevs.TreeTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 sec - in walkingdevs.TreeTest
+Running walkingdevs.TupleTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec - in walkingdevs.TupleTest
+Running walkingdevs.ValsTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 sec - in walkingdevs.ValsTest
+
+Results :
+
+Failed tests: 
+  IsTest.shouldMkEmptyIfNoData:33->Assert.assertTrue:52->Assert.assertTrue:41->Assert.fail:86
+
+Tests run: 91, Failures: 1, Errors: 0, Skipped: 0
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 8.899 s
+[INFO] Finished at: 2017-03-02T07:31:46+06:00
+[INFO] Final Memory: 16M/166M
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.19.1:test (default-test) on project sdk: There are test failures.
+[ERROR] 
+[ERROR] Please refer to /Users/olzhas/projects/new/sdk/target/surefire-reports for the individual test results.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

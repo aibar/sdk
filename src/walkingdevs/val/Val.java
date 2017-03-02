@@ -1,13 +1,13 @@
 package walkingdevs.val;
 
+
+// Validator
 public interface Val<T> {
-    void fail();
+    void crash();
+
+    boolean test();
 
     T get();
 
-    String FORMAT = "Arg. <%s> with value <%s>: %s";
-
-    String BANG = "Null check. BANG.";
-
-    String BLANK = "Cannot be Blank.";
+    // Common
 }

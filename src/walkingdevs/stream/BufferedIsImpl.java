@@ -1,6 +1,9 @@
 package walkingdevs.stream;
 
-import walkingdevs.Problems;
+import walkingdevs.exceptions.$Try;
+import walkingdevs.exceptions.Try;
+import walkingdevs.val.$Val;
+import walkingdevs.val.Val;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,17 +13,11 @@ import java.util.Iterator;
 
 class BufferedIsImpl implements BufferedIs {
     public boolean isEmpty() {
-        try {
-            if (is.available() > 0) {
-                return false;
-            }
-        } catch (IOException fail) {
-            throw Problems.weFucked(fail);
-        }
-        return true;
+        return next == null;
     }
 
     public void writeTo(OutputStream os) throws IOException {
+        $Val.NULL("os", os).crash();
         for (byte[] bytes : this) {
             os.write(bytes);
         }
@@ -30,22 +27,12 @@ class BufferedIsImpl implements BufferedIs {
     public Iterator<byte[]> iterator() {
         return new Iterator<byte[]>() {
             public boolean hasNext() {
-                return !isEmpty();
+                return next != null || read() != null;
             }
-
             public byte[] next() {
-                int read;
-                byte[] buffer = new byte[size];
-                try {
-                    read = is.read(buffer);
-                } catch (IOException fail) {
-                    throw Problems.weFucked(fail);
-                }
-                if (read > 0) {
-                    return Arrays.copyOf(buffer, read);
-                } else {
-                    return new byte[0];
-                }
+                byte[] nextRef = next;
+                next = null;
+                return nextRef;
             }
 
             public void remove() {
@@ -55,9 +42,22 @@ class BufferedIsImpl implements BufferedIs {
 
     BufferedIsImpl(InputStream is, int size) {
         this.is = is;
-        this.size = size;
+        this.buffer = new byte[size];
+
+        // Hack, because InputStream.available() doesn't works as expected and should
+        read();
     }
 
     private final InputStream is;
-    private final int size;
+    private final byte[] buffer;
+    private byte[] next;
+
+    private byte[] read() {
+        next = null;
+        int read = $Try.mk(() -> is.read(buffer)).Do();
+        if (read > 0) {
+            next = Arrays.copyOf(buffer, read);
+        }
+        return next;
+    }
 }

@@ -3,27 +3,29 @@ package walkingdevs.stream;
 import walkingdevs.Problems;
 import walkingdevs.val.$Val;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 // Keeps bytes in memory
 // For acceptable small inputs
 public class $Is {
+    public static Is mk() {
+        return new IsEmpty();
+    }
+
     public static Is mk(InputStream is) {
         return mk(is, 8192);
     }
 
     public static Is mk(InputStream is, int size) {
-        try {
-            if (is == null || is.available() < 1) {
-                return new IsEmptyImpl();
-            }
-        } catch (IOException fail) {
-            throw Problems.weFucked(fail);
+        if (is == null) {
+            return mk();
         }
-        return new IsImpl(
-            is,
-            $Val.isLessThan1(size, "size").get()
-        );
+        ByteArrayOutputStream baos = new ByteArrayOutputStream(size);
+        for (byte[] buffer : $BufferedIs.mk(is, size)) {
+            baos.write(buffer, 0, buffer.length);
+        }
+        return new IsImpl(baos.toByteArray());
     }
 }

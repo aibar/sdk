@@ -10,8 +10,7 @@
 
     <groupId>walkingdevs</groupId>
     <artifactId>sdk</artifactId>
-    <version>6.5</version>
-
+        <version>6.5</version>
     <build>
         <sourceDirectory>src</sourceDirectory>
         <testSourceDirectory>test</testSourceDirectory>

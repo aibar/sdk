@@ -8,4 +8,5 @@ public interface BytesBuilder {
     boolean isEmpty();
 
     BytesBuilder add(byte[] bytes);
+
 }

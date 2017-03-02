@@ -10,7 +10,7 @@ class UrlImpl implements Url {
     }
 
     public Url host(String host) {
-        this.host = $Val.isIsBlank(host, "host").get();
+        this.host = $Val.Blank("host", host).get();
         return this;
     }
 
@@ -18,16 +18,10 @@ class UrlImpl implements Url {
         return port;
     }
 
-    public Url port(final int port) {
-        this.port = $Val.mk(
-            port,
-            "port",
-            new Result<Boolean>() {
-                public Boolean get() {
-                    return port < 1 || port > 65535;
-                }
-            },
-            "Just Invalid"
+    public Url port(int port) {
+        this.port = $Val.OutSide(
+            "port", port,
+            1, 65535
         ).get();
         return this;
     }
@@ -49,7 +43,7 @@ class UrlImpl implements Url {
     }
 
     public Url query(Query query) {
-        this.query = $Val.isIsNull(query, "query").get();
+        this.query = $Val.NULL("query", query).get();
         return this;
     }
 
@@ -58,7 +52,7 @@ class UrlImpl implements Url {
     }
 
     public Url scheme(Scheme scheme) {
-        this.scheme = $Val.isIsNull(scheme, "scheme").get();
+        this.scheme = $Val.NULL("scheme", scheme).get();
         return this;
     }
 

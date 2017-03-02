@@ -1,12 +1,22 @@
 package walkingdevs.http11;
 
 import walkingdevs.str.$Str;
+import walkingdevs.val.$Val;
 
 import java.util.*;
 
 class HeadersImpl implements Headers {
     public boolean has(String header) {
         return map.containsKey(header);
+    }
+
+    public Header get(String name) {
+        $Val.mk(
+            "name", name,
+            (v) -> !has(v),
+            "There is no header with given name"
+        ).crash();
+        return $Header.mk(name, map.get(name));
     }
 
     public Headers add(String name, String value) {

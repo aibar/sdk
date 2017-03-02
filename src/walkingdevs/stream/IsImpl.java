@@ -16,16 +16,22 @@ class IsImpl implements Is {
         return false;
     }
 
-    public void writeTo(OutputStream os) throws IOException {
-        $Val.isIsNull(os, "os").get().write(bytes);
-    }
-
     IsImpl(InputStream is, int size) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream(size);
         for (byte[] buffer : $BufferedIs.mk(is, size)) {
             baos.write(buffer, 0, buffer.length);
         }
         bytes = baos.toByteArray();
+    }
+
+    public void writeTo(OutputStream os) throws IOException {
+        $Val.NULL("os", os)
+            .get()
+            .write(bytes);
+    }
+
+    IsImpl(byte[] bytes) {
+        this.bytes = bytes;
     }
 
     private final byte[] bytes;

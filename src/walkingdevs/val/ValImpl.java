@@ -1,31 +1,31 @@
 package walkingdevs.val;
 
-import walkingdevs.Problems;
-import walkingdevs.fun.Result;
+
+import walkingdevs.fun.Predicate;
 
 class ValImpl<T> implements Val<T> {
-    public void fail() {
-        if (result.get()) {
-            throw Problems.illegalArg(
-                String.format(FORMAT, name, value, problem)
-            );
+    public void crash() {
+        if (predicate.test(val)) {
+            throw toThrow;
         }
     }
 
+    public boolean test() {
+        return predicate.test(val);
+    }
+
     public T get() {
-        fail();
-        return value;
+        crash();
+        return val;
     }
 
-    ValImpl(T value, String name, Result<Boolean> result, String problem) {
-        this.value = value;
-        this.name = name;
-        this.result = result;
-        this.problem = problem;
+    ValImpl(T val, Predicate<T> predicate, RuntimeException toThrow) {
+        this.val = val;
+        this.predicate = predicate;
+        this.toThrow = toThrow;
     }
 
-    private final T value;
-    private final String name;
-    private final Result<Boolean> result;
-    private final String problem;
+    private final T val;
+    private final Predicate<T> predicate;
+    private final RuntimeException toThrow;
 }

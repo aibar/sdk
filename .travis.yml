@@ -7,10 +7,15 @@ cache:
     - $HOME/.m2
 
 script:
-  - mvn test
+  - mvn test -B
 
 deploy:
   provider: script
-  script: mvn deploy -s settings.xml -DskipTests -DBintrayKey=$BintrayKey
+  script: mvn deploy -s settings.xml -DskipTests -DBintrayKey=$BintrayKey -B
   on:
+    branch: master
     tags: true
+
+notifications:
+  email:
+    - aibar.nurlanov@gmail.com

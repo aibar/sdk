@@ -47,4 +47,9 @@ public class ReqTest extends Assert {
             });
         assertTrue($Str.mk(baos.toByteArray()).get().contains("google"));
     }
+
+    // TODO
+    @Test
+    public void shouldGetAllData() {
+    }
 }
