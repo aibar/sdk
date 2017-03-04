@@ -31,7 +31,12 @@
 **Handling checked exceptions**
 
     public int read(InputStream is, byte[] buffer) {
-        return Try.mk(() -> is.read(buffer)).Do();
+        return $Try.mk(new Try.Checked<Integer>() {
+                               @Override
+                               public Integer run() throws Exception {
+                                   return is.read(buffer);
+                               }
+                           }).Do();
     }
 
 For more examples see tests.

@@ -3,7 +3,6 @@ package walkingdevs.stream;
 import walkingdevs.exceptions.$Try;
 import walkingdevs.exceptions.Try;
 import walkingdevs.val.$Val;
-import walkingdevs.val.Val;
 
 import java.io.IOException;
 import java.io.InputStream;
