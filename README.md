@@ -6,11 +6,7 @@
 ## The artifact (For our lovely JDK 6, mostly because of Android)
     <groupId>walkingdevs</groupId>
     <artifactId>sdk</artifactId>
-<<<<<<< HEAD
-    <version>6.5</version>
-=======
-    <version>8.11</version>
->>>>>>> master
+    <version>6.11</version>
 
 ## Why?
 - Cut down boilerplate code and noise
