@@ -54,7 +54,12 @@ class BufferedIsImpl implements BufferedIs {
 
     private byte[] read() {
         next = null;
-        int read = $Try.mk(() -> is.read(buffer)).Do();
+        int read = $Try.mk(new Try.Checked<Integer>() {
+            @Override
+            public Integer run() throws Exception {
+                return is.read(buffer);
+            }
+        }).Do();
         if (read > 0) {
             next = Arrays.copyOf(buffer, read);
         }

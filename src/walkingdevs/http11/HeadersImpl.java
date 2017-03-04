@@ -1,5 +1,6 @@
 package walkingdevs.http11;
 
+import walkingdevs.fun.Predicate;
 import walkingdevs.str.$Str;
 import walkingdevs.val.$Val;
 
@@ -10,10 +11,15 @@ class HeadersImpl implements Headers {
         return map.containsKey(header);
     }
 
-    public Header get(String name) {
+    public Header get(final String name) {
         $Val.mk(
-            "name", name,
-            (v) -> !has(v),
+                "name", name,
+                new Predicate<String>() {
+                    @Override
+                    public boolean test(String s) {
+                        return !has(name);
+                    }
+                },
             "There is no header with given name"
         ).crash();
         return $Header.mk(name, map.get(name));

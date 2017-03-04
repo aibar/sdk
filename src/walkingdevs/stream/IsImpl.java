@@ -13,7 +13,7 @@ class IsImpl implements Is {
     }
 
     public boolean isEmpty() {
-        return false;
+        return bytes.length == 0;
     }
 
     IsImpl(InputStream is, int size) {

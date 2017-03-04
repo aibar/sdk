@@ -21,13 +21,23 @@ class StringValsImpl implements StringVals {
         return this;
     }
 
-    public StringVals cannotStartWith(String string) {
-        vals.add("Can not start with <" + string + ">", s -> s.startsWith(string));
+    public StringVals cannotStartWith(final String string) {
+        vals.add("Can not start with <" + string + ">", new Predicate<String>() {
+            @Override
+            public boolean test(String s) {
+                return s.startsWith(string);
+            }
+        });
         return this;
     }
 
-    public StringVals cannotEndWith(String string) {
-        vals.add("Can not end with <" + string + ">", s -> s.endsWith(string));
+    public StringVals cannotEndWith(final String string) {
+        vals.add("Can not end with <" + string + ">", new Predicate<String>() {
+            @Override
+            public boolean test(String s) {
+                return s.endsWith(string);
+            }
+        });
         return this;
     }
 

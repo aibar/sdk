@@ -1,10 +1,7 @@
 package walkingdevs.stream;
 
-import walkingdevs.Problems;
-import walkingdevs.val.$Val;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 
 // Keeps bytes in memory

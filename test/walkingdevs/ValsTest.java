@@ -5,6 +5,7 @@ import org.junit.Test;
 import walkingdevs.exceptions.$Exceptions;
 import walkingdevs.exceptions.Exceptions;
 import walkingdevs.exceptions.IllegalArgument;
+import walkingdevs.fun.Predicate;
 import walkingdevs.vals.$Vals;
 import walkingdevs.vals.Vals;
 
@@ -16,7 +17,13 @@ public class ValsTest extends Assert {
             $Vals.string("myName", "Aibar Nurlanov")
                 .cannotBeNULL()
                 .cannotBeEmpty()
-                .add("Only Aibar, No dogs", s -> !s.startsWith("Aibar"))
+                .add("Only Aibar, No dogs", new Predicate<String>(){
+
+                    @Override
+                    public boolean test(String s) {
+                        return !s.startsWith("Aibar");
+                    }
+                })
                 .test()
         );
     }
@@ -27,7 +34,12 @@ public class ValsTest extends Assert {
             $Vals.string("myName", "Reks")
                 .cannotBeNULL()
                 .cannotBeEmpty()
-                .add("Only Aibar, No dogs", s -> !s.startsWith("Aibar"))
+                .add("Only Aibar, No dogs", new Predicate<String>() {
+                    @Override
+                    public boolean test(String s) {
+                        return !s.startsWith("Aibar");
+                    }
+                })
                 .crash();
         } catch (Exception e) {
             assertEquals(

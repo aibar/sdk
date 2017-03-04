@@ -6,61 +6,91 @@ import walkingdevs.str.$Str;
 
 
 public class $Val {
-    public static <T> Val<T> NULL(String name, T val) {
+    public static <T> Val<T> NULL(String name, final T val) {
         return mk(
                 val,
-                (v) -> v == null,
+                new Predicate<T>() {
+                    @Override
+                    public boolean test(T t) {
+                        return val == null;
+                    }
+                },
                 $Exceptions.NULL(name)
         );
     }
 
     // Int
-    public static Val<Integer> Negative(String name, int val) {
+    public static Val<Integer> Negative(String name, final int val) {
         return mk(
                 name,
                 val,
-                (v) -> v < 0,
+                new Predicate<Integer>() {
+                    @Override
+                    public boolean test(Integer integer) {
+                        return val < 0;
+                    }
+                },
                 "Can not be Negative"
         );
     }
 
-    public static Val<Integer> LessThan1(String name, int val) {
+    public static Val<Integer> LessThan1(String name, final int val) {
         return mk(
                 name,
                 val,
-                (v) -> v < 1,
+                new Predicate<Integer>() {
+                    @Override
+                    public boolean test(Integer integer) {
+                        return val < 1;
+                    }
+                },
                 "Can not be < 1"
         );
     }
 
-    public static Val<Integer> OutSide(String name, int val, int left, int right) {
+    public static Val<Integer> OutSide(String name, final int val, final int left, final int right) {
         return mk(
                 name,
                 val,
-                (v) -> v < left || v > right,
+                new Predicate<Integer>() {
+                    @Override
+                    public boolean test(Integer integer) {
+                        return (val < left || val > right);
+                    }
+                },
                 "Can not be < 1"
         );
     }
 
     // String
-    public static Val<String> Blank(String name, String val) {
+    public static Val<String> Blank(String name, final String val) {
         if ($Str.mk(name).isBlank()) {
             throw $Exceptions.Blank("name");
         }
         return mk(
                 val,
-                v -> $Str.mk(v).isBlank(),
+                new Predicate<String>() {
+                    @Override
+                    public boolean test(String s) {
+                        return $Str.mk(val).isBlank();
+                    }
+                },
                 $Exceptions.Blank(name)
         );
     }
 
-    public static Val<String> Empty(String name, String val) {
+    public static Val<String> Empty(String name, final String val) {
         if ($Str.mk(name).isBlank()) {
             throw $Exceptions.Blank("name");
         }
         return mk(
                 val,
-                v -> $Str.mk(v).isEmpty(),
+                new Predicate<String>() {
+                    @Override
+                    public boolean test(String s) {
+                        return $Str.mk(val).isEmpty();
+                    }
+                },
                 $Exceptions.IllegalArgument(
                         name,
                         val,
@@ -91,6 +121,6 @@ public class $Val {
         if (toThrow == null) {
             throw $Exceptions.NULL("Val.mk:toThrow");
         }
-        return new ValImpl<>(val, predicate, toThrow);
+        return new ValImpl<T>(val, predicate, toThrow);
     }
 }

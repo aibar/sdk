@@ -84,7 +84,7 @@ public class IterTest extends Assert {
     }
 
     private <T> List<T> mkTestList(T... items) {
-        List<T> res = new ArrayList<>();
+        List<T> res = new ArrayList<T>();
         for (T item : items) {
             res.add(item);
         }

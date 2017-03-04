@@ -16,6 +16,6 @@ public class $Kvs {
         return kvs;
     }
     public static <K, V> Kvs<K, V> mk() {
-        return new KvsImpl<>();
+        return new KvsImpl<K, V>();
     }
 }

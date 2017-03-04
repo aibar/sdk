@@ -1,5 +1,6 @@
 package walkingdevs.http11.exo;
 
+import com.sun.net.httpserver.HttpServer;
 import walkingdevs.http11.IP;
 import walkingdevs.http11.Port;
 
@@ -9,29 +10,33 @@ import java.net.Socket;
 
 class ExoServerImpl implements ExoServer {
     public ExoServer start(boolean await) {
-        loopThread = new Thread(() -> {
-            ServerSocket server = null;
-            try {
-                server = new ServerSocket(8080);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            System.out.println("Started");
-            while (!loopThread.isInterrupted()) {
-                try (Socket socket = server.accept()) {
-                    try {
-                        System.out.println("Sleeping");
-                        Thread.sleep(15000);
-                        System.out.println("Sleeping end");
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    socket.getOutputStream().write("HTTP/1.1 200 OK\r\n\r\nHello, world!".getBytes());
+        loopThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ServerSocket server = null;
+                try {
+                    server = new ServerSocket(8080);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                System.out.println("Started");
+                while (!loopThread.isInterrupted()) {
+                    try {
+                        Socket socket = server.accept();
+                        try {
+                            System.out.println("Sleeping");
+                            Thread.sleep(15000);
+                            System.out.println("Sleeping end");
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        socket.getOutputStream().write("HTTP/1.1 200 OK\r\n\r\nHello, world!".getBytes());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                System.out.println("Stopped");
             }
-            System.out.println("Stopped");
         });
         loopThread.setDaemon(!await);
         loopThread.start();
