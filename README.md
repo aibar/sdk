@@ -22,7 +22,7 @@
 ## Quick review
 **Http client examples:**
 
-    RespBody body = ReqBuilder.GET("https://google.com")
+    RespBody body = $ReqBuilder.GET("https://google.com")
         .build()
         .send()
         .body();
