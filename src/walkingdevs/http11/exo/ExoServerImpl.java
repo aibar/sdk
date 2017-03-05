@@ -1,6 +1,5 @@
 package walkingdevs.http11.exo;
 
-import com.sun.net.httpserver.HttpServer;
 import walkingdevs.http11.IP;
 import walkingdevs.http11.Port;
 
