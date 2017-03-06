@@ -6,7 +6,6 @@ import walkingdevs.fun.Handler;
 import walkingdevs.http11.*;
 import walkingdevs.str.$Str;
 import walkingdevs.stream.BufferedIs;
-import walkingdevs.val.$Val;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -16,9 +15,7 @@ public class ReqTest extends Assert {
 
     @Test
     public void isBodySending(){
-        System.out.println($Val.Blank("uriString", "https://google.com").get());
-        System.out.println($ReqBuilder.GET("https://google.com")
-                .build().send());
+
     }
 
     @Test

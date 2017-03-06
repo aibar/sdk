@@ -1,6 +1,5 @@
 package walkingdevs.http11;
 
-import walkingdevs.fun.Result;
 import walkingdevs.str.$Str;
 import walkingdevs.val.$Val;
 

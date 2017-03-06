@@ -48,25 +48,11 @@ class ReqBuilderImpl implements ReqBuilder {
         return this;
     }
 
-    public Body body() {
-        return body;
-    }
-
-    public ReqBuilder body(Body body) {
-        this.body = $Val.NULL("body", body).get();
-        return this;
-    }
-
-    public ReqBuilder body(Form form) {
-        return body($Body.mk(form));
-    }
-
     public Req build() {
         return $Req.mk(
             uri(),
             method(),
             headers(),
-            body(),
             readTimeout(),
             connectTimeout()
         );
@@ -86,5 +72,4 @@ class ReqBuilderImpl implements ReqBuilder {
 
     private Method method = Method.GET;
     private Headers headers = $Headers.mk();
-    private Body body = $Body.mk();
 }

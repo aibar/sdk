@@ -8,7 +8,7 @@ public class $ReqBuilder {
     }
 
     public static ReqBuilder mk(String uriString) {
-        return mk($Url.parse(uriString));
+        return GET($Url.parse(uriString));
     }
 
     public static ReqBuilder GET(Url url) {
