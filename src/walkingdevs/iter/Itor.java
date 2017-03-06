@@ -6,7 +6,7 @@ public interface Itor<T> {
     Iterator<T> get();
 
     static <T> Itor<T> mk() {
-        return new EmptyItor<>();
+        return new ItorEmpty<>();
     }
 
     static <T> Itor<T> mk(T... array) {

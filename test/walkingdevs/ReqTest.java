@@ -11,6 +11,13 @@ import java.io.IOException;
 
 // TODO: more tests
 public class ReqTest extends Assert {
+
+    @Test
+    public void bodyIsSending(){
+        Resp resp = ReqBuilder.GET("https://google.com").body(Body.mk("google")).build().send();
+        assertTrue(resp.body().text().contains("google"));
+    }
+
     @Test
     public void shouldCheckThatThereIsNoApocalypse() {
         ReqBuilder.GET("https://google.com")
