@@ -42,6 +42,7 @@ class ReqImpl implements Req {
 
             tryToSetConnectionProps(connection);
             setHeaders(connection);
+            tryToSendBody(connection);
 
             InputStream is = tryToGetInputStream(connection);
             if (is != null) {
@@ -85,12 +86,14 @@ class ReqImpl implements Req {
         Url url,
         Method method,
         Headers headers,
+        Body body,
         int readTimeout,
         int connectTimeout
     ) {
         this.url = url;
         this.method = method;
         this.headers = headers;
+        this.body = body;
         this.readTimeout = readTimeout;
         this.connectTimeout = connectTimeout;
     }
@@ -98,6 +101,7 @@ class ReqImpl implements Req {
     private final Url url;
     private final Method method;
     private final Headers headers;
+    private final Body body;
     private final int readTimeout;
     private final int connectTimeout;
 
@@ -184,6 +188,31 @@ class ReqImpl implements Req {
                 String.format("%s: We Fucked when getting status message", url),
                 fail
             );
+        }
+    }
+
+    private void tryToSendBody(HttpURLConnection connection) {
+        if (body.isEmpty()) {
+            return;
+        }
+        connection.setDoOutput(true);
+        OutputStream output = null;
+        try {
+            output = connection.getOutputStream();
+            body.writeTo(output);
+        } catch (IOException fail) {
+            throw $Exceptions.weFucked(
+                String.format("%s: Cannot send body", url),
+                fail
+            );
+        } finally {
+            try {
+                if (output != null) {
+                    output.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

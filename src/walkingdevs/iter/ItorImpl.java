@@ -5,10 +5,6 @@ import java.util.Iterator;
 class ItorImpl<T> implements Itor<T> {
     public Iterator<T> get() {
         return new Iterator<T>() {
-            @Override
-            public void remove() {
-                //TODO:
-            }
             public boolean hasNext() {
                 return i < array.length;
             }

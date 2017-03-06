@@ -16,5 +16,9 @@ public interface ReqBuilder {
     ReqBuilder headers(Headers headers);
     ReqBuilder header(String name, String value);
 
+    Body body();
+    ReqBuilder body(Body body);
+    ReqBuilder body(Form form);
+
     Req build();
 }
