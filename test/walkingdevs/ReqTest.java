@@ -1,5 +1,6 @@
 package walkingdevs;
 
+import fi.iki.elonen.NanoHTTPD;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingdevs.exceptions.Exceptions;
@@ -8,19 +9,53 @@ import walkingdevs.str.Str;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 // TODO: more tests
 public class ReqTest extends Assert {
 
+    static class App extends NanoHTTPD {
+
+        public App() throws IOException {
+            super(8081);
+            start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
+            System.out.println("nRunning! Point your browsers to http://localhost:8081/ \\n");
+        }
+
+        @Override
+        public Response serve(IHTTPSession session) {
+
+            Map <String, String> files = new HashMap<String, String>();
+            Method method = session.getMethod();
+            if (Method.PUT.equals(method) || Method.POST.equals(method)) {
+                try {
+                    session.parseBody(files);
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                } catch (ResponseException re) {
+                    re.printStackTrace();
+                }
+            }
+            String postBody = session.getQueryParameterString();
+            return newFixedLengthResponse(postBody);
+        }
+    }
+
     @Test
     public void bodyIsSending(){
-        Resp resp = ReqBuilder.GET("https://google.com").body(Body.mk("google")).build().send();
-        assertTrue(resp.body().text().contains("google"));
+        try {
+            new App();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        RespBody respBody = ReqBuilder.GET("http://localhost:8081").body(Body.mk("test")).build().send().body();
+        assertTrue(respBody.text().contains("test"));
     }
 
     @Test
     public void shouldCheckThatThereIsNoApocalypse() {
-        ReqBuilder.GET("https://google.com")
+        ReqBuilder.GET("http://localhost:8081")
             .build()
             .send();
     }
