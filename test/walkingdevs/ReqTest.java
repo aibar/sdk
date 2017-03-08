@@ -26,19 +26,19 @@ public class ReqTest extends Assert {
         @Override
         public Response serve(IHTTPSession session) {
 
-            Map <String, String> files = new HashMap<String, String>();
+            Map <String, String> map = new HashMap<String, String>();
             Method method = session.getMethod();
             if (Method.PUT.equals(method) || Method.POST.equals(method)) {
                 try {
-                    session.parseBody(files);
+                    session.parseBody(map);
                 } catch (IOException ioe) {
                     ioe.printStackTrace();
                 } catch (ResponseException re) {
                     re.printStackTrace();
                 }
             }
-            String postBody = session.getQueryParameterString();
-            return newFixedLengthResponse(postBody);
+            System.out.println(map.get("postData"));
+            return newFixedLengthResponse(map.get("postData"));
         }
     }
 
@@ -55,7 +55,7 @@ public class ReqTest extends Assert {
 
     @Test
     public void shouldCheckThatThereIsNoApocalypse() {
-        ReqBuilder.GET("http://localhost:8081")
+        ReqBuilder.GET("https://google.com")
             .build()
             .send();
     }
