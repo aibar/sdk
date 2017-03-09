@@ -3,6 +3,7 @@ package walkingdevs;
 import fi.iki.elonen.NanoHTTPD;
 import org.junit.Assert;
 import org.junit.Test;
+import walkingdevs.chset.Chset;
 import walkingdevs.exceptions.Exceptions;
 import walkingdevs.http11.*;
 import walkingdevs.str.Str;
@@ -37,7 +38,6 @@ public class ReqTest extends Assert {
                     re.printStackTrace();
                 }
             }
-            System.out.println(map.get("postData"));
             return newFixedLengthResponse(map.get("postData"));
         }
     }
@@ -49,7 +49,8 @@ public class ReqTest extends Assert {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        RespBody respBody = ReqBuilder.GET("http://localhost:8081").body(Body.mk("test")).build().send().body();
+        RespBody respBody = ReqBuilder.POST("http://localhost:8081").body(Body.mk("test"))
+                .build().send().body();
         assertTrue(respBody.text().contains("test"));
     }
 
