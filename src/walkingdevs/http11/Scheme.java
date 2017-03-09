@@ -1,6 +1,6 @@
 package walkingdevs.http11;
 
-import walkingdevs.fun.Result;
+import walkingdevs.fun.Predicate;
 import walkingdevs.val.$Val;
 
 public enum Scheme {
@@ -9,13 +9,14 @@ public enum Scheme {
 
     public static Scheme from(final String scheme) {
         $Val.mk(scheme, "scheme",
-            new Result<Boolean>() {
-                public Boolean get() {
+            new Predicate<String>() {
+                @Override
+                public boolean test(String s) {
                     return scheme == null || (!scheme.equals("http") && !scheme.equals("https"));
                 }
             },
             "http|https"
-        ).fail();
+        ).crash();
         if ("http".equals(scheme)) {
             return Http;
         } else {

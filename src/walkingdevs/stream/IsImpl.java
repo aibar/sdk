@@ -13,11 +13,7 @@ class IsImpl implements Is {
     }
 
     public boolean isEmpty() {
-        return false;
-    }
-
-    public void writeTo(OutputStream os) throws IOException {
-        $Val.isNull(os, "os").get().write(bytes);
+        return bytes.length == 0;
     }
 
     IsImpl(InputStream is, int size) {
@@ -26,6 +22,16 @@ class IsImpl implements Is {
             baos.write(buffer, 0, buffer.length);
         }
         bytes = baos.toByteArray();
+    }
+
+    public void writeTo(OutputStream os) throws IOException {
+        $Val.NULL("os", os)
+            .get()
+            .write(bytes);
+    }
+
+    IsImpl(byte[] bytes) {
+        this.bytes = bytes;
     }
 
     private final byte[] bytes;

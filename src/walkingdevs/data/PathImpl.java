@@ -1,34 +1,42 @@
 package walkingdevs.data;
 
-import walkingdevs.val.$Val;
-
 import java.util.ArrayList;
 import java.util.List;
 
 class PathImpl<Item> implements Path<Item> {
     public Path<Item> add(Item item) {
-        items.add(
-            $Val.isNull(item, "item").get()
-        );
+        if (item != null) {
+            items.add(item);
+        }
         return this;
     }
 
+    public Path<Item> add(Path<Item> other) {
+        if (other == null) {
+            return this;
+        }
+        Path<Item> path = $Path.mk();
+        for (Item item : items) {
+            path.add(item);
+        }
+        for (Item item : other.items()) {
+            path.add(item);
+        }
+        return path;
+    }
+
     public Item head() {
-        if (isEmpty()) {
+        if (isRoot()) {
             return null;
         }
         return items.get(0);
     }
 
     public Item last() {
-        if (isEmpty()) {
+        if (isRoot()) {
             return null;
         }
         return items.get(items.size()-1);
-    }
-
-    public Path<Item> root() {
-        return $Path.mk(head());
     }
 
     public Path<Item> parent() {
@@ -66,7 +74,11 @@ class PathImpl<Item> implements Path<Item> {
         return items;
     }
 
-    public boolean isEmpty() {
+    public int depth() {
+        return items.size();
+    }
+
+    public boolean isRoot() {
         return items.isEmpty();
     }
 
@@ -77,6 +89,7 @@ class PathImpl<Item> implements Path<Item> {
 
     @Override
     public boolean equals(Object obj) {
+        // TODO: check for generic type
         return obj instanceof Path && toString().equals(obj.toString());
     }
 
@@ -85,5 +98,9 @@ class PathImpl<Item> implements Path<Item> {
         return toString().hashCode();
     }
 
-    private final List<Item> items = new ArrayList<Item>();
+    PathImpl() {
+        this.items = new ArrayList<Item>();
+    }
+
+    private final List<Item> items;
 }

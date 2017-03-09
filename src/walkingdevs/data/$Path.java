@@ -2,26 +2,25 @@ package walkingdevs.data;
 
 import walkingdevs.str.$Str;
 
-public class  $Path<Item> {
-    public static <T> Path<T> mk() {
-        return new PathImpl<T>();
+public class $Path {
+    // httpPath should start with "/"
+    public static Path<String> mkFromHttpPath(String httpPath) {
+        if ($Str.mk(httpPath).isBlank() || httpPath.length() == 1) {
+            return mk();
+        }
+        // Cut query string
+        int i = httpPath.indexOf('?');
+        if (i != -1) {
+            httpPath = httpPath.substring(0, i);
+        }
+        return mk(httpPath);
     }
 
-    public static <T> Path<T> mk(T... items) {
-        Path<T> res = mk();
-        if (items.length == 1 && items[0] == null) {
-            return res;
-        }
-        for (T item : items) {
-            res.add(item);
-        }
-        return res;
-    }
-
+    // pathString should start with delimiter
     public static Path<String> mk(String pathString) {
-        Path<String> ret = mk();
+        Path<String> path = mk();
         if ($Str.mk(pathString).isBlank() || pathString.length() == 1) {
-            return ret;
+            return path;
         }
         char delimiter = pathString.charAt(0);
         int i = 0;
@@ -29,21 +28,24 @@ public class  $Path<Item> {
             if (pathString.charAt(i) != delimiter) {
                 int end = pathString.indexOf(delimiter, i);
                 if (end == -1) {
-                    return ret.add(pathString.substring(i));
+                    return path.add(pathString.substring(i));
                 }
-                ret.add(pathString.substring(i, end));
+                path.add(pathString.substring(i, end));
                 i = end;
             }
         }
-        return ret;
+        return path;
     }
 
-    public static Path<String> mkHttp(String httpPath) {
-        // Cut query string
-        int i = httpPath.indexOf('?');
-        if (i != -1) {
-            httpPath = httpPath.substring(0, i);
+    public static <T> Path<T> mk(T... items) {
+        Path<T> path = mk();
+        for (T item : items) {
+            path.add(item);
         }
-        return mk(httpPath);
+        return path;
+    }
+
+    public static <T> Path<T> mk() {
+        return new PathImpl<T>();
     }
 }

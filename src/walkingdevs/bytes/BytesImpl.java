@@ -3,6 +3,10 @@ package walkingdevs.bytes;
 import java.util.Arrays;
 
 class BytesImpl implements Bytes {
+    public byte[] get() {
+        return bytes;
+    }
+
     public byte[] copy() {
         return Arrays.copyOf(bytes, length());
     }
@@ -25,26 +29,33 @@ class BytesImpl implements Bytes {
         if (object == null || !(object instanceof Bytes)) {
             return false;
         }
-
         Bytes other = (Bytes) object;
-        if (other.length() != bytes.length) {
+        if (other.length() != length()) {
             return false;
         }
-
-        byte[] otherBytes = other.copy();
+        byte[] otherBytes = other.get();
         for (int i = 0; i < otherBytes.length; i++) {
             if (otherBytes[i] != bytes[i]) {
                 return false;
             }
         }
-
         return true;
     }
 
-    // TODO: print first 10 bytes
     @Override
     public String toString() {
-        return super.toString() + " length=" + length();
+        if (isEmpty()) {
+            return "";
+        }
+        int to = 10;
+        if (length() < 10) {
+            to = length();
+        }
+        String string = "";
+        for (int i = 0; i < to-1; i++) {
+            string += bytes[i] + ", ";
+        }
+        return string + bytes[to-1];
     }
 
     BytesImpl(byte[] bytes) {

@@ -1,77 +1,125 @@
 package walkingdevs.val;
 
-import walkingdevs.Problems;
-import walkingdevs.fun.Result;
+import walkingdevs.exceptions.$Exceptions;
+import walkingdevs.fun.Predicate;
 import walkingdevs.str.$Str;
 
-import static walkingdevs.val.Val.BANG;
-import static walkingdevs.val.Val.BLANK;
-import static walkingdevs.val.Val.FORMAT;
-
 public class $Val {
-    public static Val<Integer> isNegative(final Integer value, String name) {
+    public static <T> Val<T> NULL(String name, final T val) {
         return mk(
-            value,
-            name,
-            new Result<Boolean>() {
-                public Boolean get() {
-                    return value < 0;
+            val,
+            new Predicate<T>() {
+                @Override
+                public boolean test(T t) {
+                    return val == null;
                 }
             },
-            String.format(FORMAT, name, value, "Cannot be negative")
+            $Exceptions.NULL(name)
         );
     }
 
-    public static Val<Integer> isLessThan1(final Integer value, String name) {
+    // Int
+    public static Val<Integer> Negative(String name, final int val) {
         return mk(
-            value,
             name,
-            new Result<Boolean>() {
-                public Boolean get() {
-                    return value < 1;
+            val,
+            new Predicate<Integer>() {
+                @Override
+                public boolean test(Integer integer) {
+                    return val < 0;
                 }
             },
-            String.format(FORMAT, name, value, "Cannot be < 1")
+            "Can not be Negative"
         );
     }
 
-    public static <T> Val<T> isNull(final T value, String name) {
+    public static Val<Integer> LessThan1(String name, final int val) {
         return mk(
-            value,
             name,
-            new Result<Boolean>() {
-                public Boolean get() {
-                    return value == null;
+            val,
+            new Predicate<Integer>() {
+                @Override
+                public boolean test(Integer integer) {
+                    return val < 1;
                 }
             },
-            BANG
+            "Can not be < 1"
         );
     }
 
-    public static Val<String> isIsBlank(final String value, String name) {
+    public static Val<Integer> OutSide(String name, final int val, final int left, final int right) {
         return mk(
-            value,
             name,
-            new Result<Boolean>() {
-                public Boolean get() {
-                    return $Str.mk(value).isBlank();
+            val,
+            new Predicate<Integer>() {
+                @Override
+                public boolean test(Integer integer) {
+                    return (val < left || val > right);
                 }
             },
-            BLANK
+            "Can not be < 1"
         );
     }
 
-    public static <T> Val<T> mk(T value, String name, Result<Boolean> result, String problem) {
+    // String
+    public static Val<String> Blank(String name, final String val) {
         if ($Str.mk(name).isBlank()) {
-            throw Problems.illegalArg(
-                String.format(FORMAT, "name", name, BLANK)
-            );
+            throw $Exceptions.Blank("name");
         }
-        if ($Str.mk(problem).isBlank()) {
-            throw Problems.illegalArg(
-                String.format(FORMAT, "problem", problem, BLANK)
-            );
+        return mk(
+            val,
+            new Predicate<String>() {
+                @Override
+                public boolean test(String s) {
+                    return $Str.mk(val).isBlank();
+                }
+            },
+            $Exceptions.Blank(name)
+        );
+    }
+
+    public static Val<String> Empty(String name, final String val) {
+        if ($Str.mk(name).isBlank()) {
+            throw $Exceptions.Blank("name");
         }
-        return new ValImpl<T>(value, name, result, problem);
+        return mk(
+            val,
+            new Predicate<String>() {
+                @Override
+                public boolean test(String s) {
+                    return $Str.mk(val).isEmpty();
+                }
+            },
+            $Exceptions.IllegalArgument(
+                name,
+                val,
+                "Can not be Empty"
+            )
+        );
+    }
+
+    public static <T> Val<T> mk(String name, T val, Predicate<T> predicate, String exp) {
+        if ($Str.mk(name).isBlank()) {
+            throw $Exceptions.Blank("Val.mk:name");
+        }
+        return mk(
+            val,
+            predicate,
+            $Exceptions.IllegalArgument(
+                name,
+                val,
+                exp
+            )
+        );
+    }
+
+    public static <T> Val<T> mk(T val, Predicate<T> predicate, RuntimeException toThrow) {
+        if (predicate == null) {
+            throw $Exceptions.NULL("Val.mk:predicate");
+        }
+        if (toThrow == null) {
+            throw $Exceptions.NULL("Val.mk:toThrow");
+        }
+        return new ValImpl<T>(val, predicate, toThrow);
     }
 }

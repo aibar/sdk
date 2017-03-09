@@ -1,5 +1,6 @@
 package walkingdevs.http11;
 
+import walkingdevs.fun.Predicate;
 import walkingdevs.fun.Result;
 import walkingdevs.val.$Val;
 
@@ -12,21 +13,22 @@ public class $Req {
         int readTimeout,
         int connectTimeout
     ) {
-        $Val.isNull(method, "method").fail();
-        $Val.isNull(body, "body").fail();
-        $Val.mk(method, "method", new Result<Boolean>() {
-            public Boolean get() {
+        $Val.NULL("method",method).crash();
+        $Val.NULL("body", body).crash();
+        $Val.mk("method", method, new Predicate<Method>() {
+            @Override
+            public boolean test(Method method) {
                 return method == Method.GET && !body.isEmpty();
-            }},
-            "For reasons unknown Http Method will be forced to change to POST. Thank you! HttpUrlConnection."
-        ).fail();
+            }
+        },  "For reasons unknown Http Method will be forced to change to POST. Thank you! HttpUrlConnection."
+        ).crash();
         return new ReqImpl(
-            $Val.isNull(url, "url").get(),
+            $Val.NULL("url", url).get(),
             method,
-            $Val.isNull(headers, "headers").get(),
+            $Val.NULL("headers", headers).get(),
             body,
-            $Val.isNegative(readTimeout, "readTimeout").get(),
-            $Val.isNegative(connectTimeout, "connectTimeout").get()
+            $Val.Negative("readTimeout", readTimeout).get(),
+            $Val.Negative("connectTimeout", connectTimeout).get()
         );
     }
 }

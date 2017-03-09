@@ -5,14 +5,14 @@ import java.util.List;
 
 class BytesBuilderImpl implements BytesBuilder {
     public byte[] get() {
-        byte[] result = new byte[length];
+        byte[] all = new byte[length];
         int i = 0;
         for (byte[] bytes : bytesList) {
             for (byte b : bytes) {
-                result[i++] = b;
+                all[i++] = b;
             }
         }
-        return result;
+        return all;
     }
 
     public int length() {
@@ -31,6 +31,11 @@ class BytesBuilderImpl implements BytesBuilder {
         return this;
     }
 
-    private final List<byte[]> bytesList = new ArrayList<byte[]>();
+    BytesBuilderImpl() {
+        this.bytesList = new ArrayList<byte[]>();
+    }
+
+    private final List<byte[]> bytesList;
+
     private int length = 0;
 }

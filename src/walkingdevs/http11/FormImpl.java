@@ -11,7 +11,7 @@ class FormImpl implements Form {
     }
 
     public Form add(Kv<String, String> kv) {
-        kvs.add(kv);
+        kvs.put(kv);
         return this;
     }
 

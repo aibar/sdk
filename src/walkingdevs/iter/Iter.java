@@ -1,7 +1,7 @@
 package walkingdevs.iter;
 
-import walkingdevs.NULLSafe;
-
-public interface Iter<T> extends Iterable<T>, NULLSafe {
+public interface Iter<T> extends Iterable<T> {
     String join(String with);
+
+    int size();
 }

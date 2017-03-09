@@ -4,12 +4,20 @@ import java.util.Iterator;
 
 class ItorImpl<T> implements Itor<T> {
     public Iterator<T> get() {
-        return iterator;
+        return new Iterator<T>() {
+            public boolean hasNext() {
+                return i < array.length;
+            }
+            public T next() {
+                return array[i++];
+            }
+            private int i = 0;
+        };
     }
 
-    ItorImpl(Iterator<T> iterator) {
-        this.iterator = iterator;
+    ItorImpl(T[] array) {
+        this.array = array;
     }
 
-    private final Iterator<T> iterator;
+    private final T[] array;
 }

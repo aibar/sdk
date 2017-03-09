@@ -1,7 +1,8 @@
 package walkingdevs.http11;
 
-import walkingdevs.Problems;
+import walkingdevs.fun.Predicate;
 import walkingdevs.str.$Str;
+import walkingdevs.val.$Val;
 
 import java.util.*;
 
@@ -10,11 +11,18 @@ class HeadersImpl implements Headers {
         return map.containsKey(header);
     }
 
-    public Header get(String name) {
-        if (has(name)) {
-            return $Header.mk(name, map.get(name));
-        }
-        throw Problems.illegalArg("There is no Header with name: " + name);
+    public Header get(final String name) {
+        $Val.mk(
+            "name", name,
+            new Predicate<String>() {
+                @Override
+                public boolean test(String s) {
+                    return !has(name);
+                }
+            },
+            "There is no header with given name"
+        ).crash();
+        return $Header.mk(name, map.get(name));
     }
 
     public Headers add(String name, String value) {

@@ -8,7 +8,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder readTimeout(int readTimeout) {
-        this.readTimeout = $Val.isNegative(readTimeout, "readTimeout").get();
+        this.readTimeout = $Val.Negative("readTimeout", readTimeout).get();
         return this;
     }
 
@@ -17,7 +17,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder connectTimeout(int connectTimeout) {
-        this.connectTimeout = $Val.isNegative(connectTimeout, "connectTimeout").get();
+        this.connectTimeout = $Val.Negative("connectTimeout", connectTimeout).get();
         return this;
     }
 
@@ -30,7 +30,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder method(Method method) {
-        this.method = $Val.isNull(method, "method").get();
+        this.method = $Val.NULL("method", method).get();
         return this;
     }
 
@@ -39,7 +39,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder headers(Headers headers) {
-        this.headers = $Val.isNull(headers, "headers").get();
+        this.headers = $Val.NULL("headers", headers).get();
         return this;
     }
 
@@ -53,7 +53,7 @@ class ReqBuilderImpl implements ReqBuilder {
     }
 
     public ReqBuilder body(Body body) {
-        this.body = $Val.isNull(body, "body").get();
+        this.body = $Val.NULL("body", body).get();
         return this;
     }
 

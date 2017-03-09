@@ -14,14 +14,14 @@ public class $BufferedIs {
     public static BufferedIs mk(InputStream is, int size) {
         try {
             if (is == null || is.available() < 1) {
-                return new BufferedIsEmptyImpl();
+                return new BufferedIsEmpty();
             }
         } catch (IOException fail) {
             throw Problems.weFucked(fail);
         }
         return new BufferedIsImpl(
             is,
-            $Val.isLessThan1(size, "size").get()
+            $Val.LessThan1("size", size).get()
         );
     }
 }

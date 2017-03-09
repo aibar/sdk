@@ -1,15 +1,13 @@
 package walkingdevs.data;
 
-import walkingdevs.NULLSafe;
-
-public interface Path<Item> extends NULLSafe {
+public interface Path<Item> {
     Path<Item> add(Item item);
+
+    Path<Item> add(Path<Item> other);
 
     Item head();
 
     Item last();
-
-    Path<Item> root();
 
     Path<Item> parent();
 
@@ -21,4 +19,8 @@ public interface Path<Item> extends NULLSafe {
     String string(char delimiter);
 
     Iterable<Item> items();
+
+    int depth();
+
+    boolean isRoot();
 }

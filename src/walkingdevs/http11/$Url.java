@@ -7,7 +7,7 @@ import java.net.URI;
 
 public class $Url {
     public static Url parse(String uriString) {
-        URI uri = URI.create($Val.isIsBlank(uriString, "uriString").get());
+        URI uri = URI.create($Val.Blank("uriString", uriString).get());
         Url httpURI = mk();
         httpURI.scheme(Scheme.from(uri.getScheme()));
         httpURI.host(uri.getHost());

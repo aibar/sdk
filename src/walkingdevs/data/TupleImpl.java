@@ -1,19 +1,19 @@
 package walkingdevs.data;
 
-class TupleImpl<A, B> implements Tuple<A, B> {
-    public A first() {
+class TupleImpl<F, S> implements Tuple<F, S> {
+    public F first() {
         return first;
     }
 
-    public B second() {
+    public S second() {
         return second;
     }
 
-    TupleImpl(A first, B second) {
+    TupleImpl(F first, S second) {
         this.first = first;
         this.second = second;
     }
 
-    private final A first;
-    private final B second;
+    private final F first;
+    private final S second;
 }

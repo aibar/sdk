@@ -1,8 +1,6 @@
 package walkingdevs.data;
 
-import walkingdevs.NULLSafe;
-
-public interface Kv<K, V> extends NULLSafe {
+public interface Kv<K, V> {
     K key();
 
     V val();

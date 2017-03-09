@@ -1,15 +1,22 @@
 package walkingdevs.data;
 
 public interface Kvs<K, V> extends Iterable<Kv<K, V>> {
-    Kvs<K, V> add(Kv<K, V> kv);
+    V get(K key);
+
+    Kvs<K, V> put(Kv<K, V> kv);
+
+    Kvs<K, V> put(K key, V val);
 
     Kvs<K, V> del(K key);
 
     boolean has(K key);
 
-    Kv<K, V> get(K key);
+    Iterable<K> keys();
+
+    Iterable<V> vals();
 
     int size();
 
     boolean isEmpty();
+
 }

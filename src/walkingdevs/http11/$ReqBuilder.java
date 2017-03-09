@@ -17,7 +17,7 @@ public class $ReqBuilder {
 
     public static ReqBuilder mk(Url url) {
         return new ReqBuilderImpl(
-            $Val.isNull(url, "url").get()
+            $Val.NULL("url", url).get()
         );
     }
 }

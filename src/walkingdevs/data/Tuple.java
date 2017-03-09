@@ -1,7 +1,8 @@
 package walkingdevs.data;
 
-public interface Tuple<A, B> {
-    A first();
+public interface Tuple<F, S> {
+    F first();
+    S second();
 
-    B second();
+    // Ok, you can pass NULLs
 }

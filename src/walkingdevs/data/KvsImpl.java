@@ -4,13 +4,25 @@ import walkingdevs.iter.$Iter;
 
 import java.util.*;
 
-// Actually a Map!
+// Actually a map
 class KvsImpl<K, V> implements Kvs<K, V> {
-    public Kvs<K, V> add(Kv<K, V> kv) {
+
+    public V get(K key) {
+        return map.get(key);
+    }
+
+    public Kvs<K, V> put(Kv<K, V> kv) {
         if (kv != null) {
             map.put(kv.key(), kv.val());
         }
         return this;
+    }
+
+    public Kvs<K, V> put(K key, V val) {
+        return put($Kv.mk(
+            key,
+            val
+        ));
     }
 
     public Kvs<K, V> del(K key) {
@@ -18,15 +30,16 @@ class KvsImpl<K, V> implements Kvs<K, V> {
         return this;
     }
 
-    public boolean has(K key) {
-        return map.containsKey(key);
+    public Iterable<K> keys() {
+        return map.keySet();
     }
 
-    public Kv<K, V> get(K key) {
-        if (has(key)) {
-            return $Kv.mk(key, map.get(key));
-        }
-        return $Kv.mk();
+    public Iterable<V> vals() {
+        return map.values();
+    }
+
+    public boolean has(K key) {
+        return map.containsKey(key);
     }
 
     public int size() {
@@ -41,7 +54,10 @@ class KvsImpl<K, V> implements Kvs<K, V> {
     public Iterator<Kv<K, V>> iterator() {
         List<Kv<K, V>> list = new ArrayList<Kv<K, V>>();
         for (Map.Entry<K, V> entry : map.entrySet()) {
-            list.add($Kv.mk(entry.getKey(), entry.getValue()));
+            list.add($Kv.mk(
+                    entry.getKey(),
+                    entry.getValue()
+            ));
         }
         return list.iterator();
     }
@@ -51,5 +67,9 @@ class KvsImpl<K, V> implements Kvs<K, V> {
         return $Iter.mk(this).join(", ");
     }
 
-    private final Map<K, V> map = new HashMap<K, V>();
+    KvsImpl() {
+        this.map = new HashMap<K, V>();
+    }
+
+    private final Map<K, V> map;
 }
