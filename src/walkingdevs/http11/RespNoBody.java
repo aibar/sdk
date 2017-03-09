@@ -12,6 +12,9 @@ public interface RespNoBody {
         String statusMsg,
         Headers headers
     ) {
+        System.out.println(status);
+        System.out.println(statusMsg);
+        System.out.println(headers);
         return new RespNoBodyImpl(
             status,
             statusMsg,

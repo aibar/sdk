@@ -36,11 +36,8 @@ class ReqImpl implements Req {
         HttpURLConnection connection = null;
         try {
             connection = tryToGetConnection();
-
             tryToSetConnectionProps(connection);
-            setHeaders(connection);
             tryToSendBody(connection);
-
             try (InputStream is = tryToGetInputStream(connection)) {
                 bufferedIsHandler.handle(BufferedIs.mk(is));
             }
@@ -189,8 +186,8 @@ class ReqImpl implements Req {
         connection.setDoOutput(true);
         OutputStream output = null;
         try {
-            body.writeTo(output);
             output = connection.getOutputStream();
+            body.writeTo(output);
             BufferedIs.mk(content, 8192).writeTo(output);
         } catch (IOException fail) {
             throw Exceptions.weFucked(
