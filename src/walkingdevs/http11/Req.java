@@ -29,7 +29,7 @@ public interface Req {
         if (!body.isEmpty()) {
             Val.mk(
                 "method", method,
-                (v) -> false,
+                (v) -> v == Method.GET,
                 "For reasons unknown HTTP Method will be forced to change to POST. Thank you! HttpUrlConnection."
             ).crash();
         }
