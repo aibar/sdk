@@ -189,6 +189,7 @@ class ReqImpl implements Req {
         connection.setDoOutput(true);
         OutputStream output = null;
         try {
+            body.writeTo(output);
             output = connection.getOutputStream();
             BufferedIs.mk(content, 8192).writeTo(output);
         } catch (IOException fail) {
