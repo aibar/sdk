@@ -5,7 +5,6 @@ import walkingdevs.exceptions.Exceptions;
 import walkingdevs.fun.Handler;
 import walkingdevs.stream.BufferedIs;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -36,15 +35,12 @@ class ReqImpl implements Req {
         HttpURLConnection connection = null;
         try {
             connection = tryToGetConnection();
-
             tryToSetConnectionProps(connection);
             setHeaders(connection);
             tryToSendBody(connection);
-
             try (InputStream is = tryToGetInputStream(connection)) {
                 bufferedIsHandler.handle(BufferedIs.mk(is));
             }
-
             return RespNoBody.mk(
                 tryToGetStatus(connection),
                 tryToGetStatusMsg(connection),
@@ -185,26 +181,14 @@ class ReqImpl implements Req {
         if (body.isEmpty()) {
             return;
         }
-        InputStream content = new ByteArrayInputStream(new byte[]{});
         connection.setDoOutput(true);
-        OutputStream output = null;
-        try {
-            output = connection.getOutputStream();
-            BufferedIs.mk(content, 8192).writeTo(output);
+        try (OutputStream output = connection.getOutputStream()) {
+            body.writeTo(output);
         } catch (IOException fail) {
             throw Exceptions.weFucked(
                 String.format("%s: Cannot send body", url),
                 fail
             );
-        } finally {
-            try {
-                content.close();
-                if (output != null) {
-                    output.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 }

@@ -28,8 +28,12 @@ public interface ReqBuilder {
         return mk(uriString).method(Method.GET);
     }
 
+    static ReqBuilder POST(String uriString){
+        return mk(uriString).method(Method.POST);
+    }
+
     static ReqBuilder mk(String uriString) {
-        return mk(Url.parse(uriString));
+        return GET(Url.parse(uriString));
     }
 
     static ReqBuilder GET(Url uri) {
