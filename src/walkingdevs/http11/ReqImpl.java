@@ -36,11 +36,11 @@ class ReqImpl implements Req {
         try {
             connection = tryToGetConnection();
             tryToSetConnectionProps(connection);
+            setHeaders(connection);
             tryToSendBody(connection);
             try (InputStream is = tryToGetInputStream(connection)) {
                 bufferedIsHandler.handle(BufferedIs.mk(is));
             }
-
             return RespNoBody.mk(
                 tryToGetStatus(connection),
                 tryToGetStatusMsg(connection),
