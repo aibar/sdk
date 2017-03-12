@@ -3,9 +3,7 @@ package walkingdevs.req;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingdevs.exceptions.Exceptions;
-import walkingdevs.http11.Body;
-import walkingdevs.http11.ReqBuilder;
-import walkingdevs.http11.RespBody;
+import walkingdevs.http11.*;
 import walkingdevs.str.Str;
 
 import java.io.ByteArrayOutputStream;
@@ -13,6 +11,17 @@ import java.io.IOException;
 
 // TODO: more tests
 public class ReqTest extends Assert {
+
+    @Test
+    public void shouldPutBody(){
+        new FakeServerForPut();
+        Resp resp = ReqBuilder.PUT("http://localhost:5675")
+            .body(Body.mk("test"))
+            .build()
+            .send();
+        assertEquals(Method.PUT.name(), resp.body().text());
+    }
+
     @Test
     public void shouldSendBody() {
         new FakeServer();
