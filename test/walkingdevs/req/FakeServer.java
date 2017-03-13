@@ -30,7 +30,7 @@ class FakeServer extends NanoHTTPD {
             return newFixedLengthResponse(
                 Str.mk(bodyBytes).get()
             );
-        }
+        } 
         return newFixedLengthResponse("404");
     }
 

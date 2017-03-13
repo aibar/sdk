@@ -13,18 +13,7 @@ import java.io.IOException;
 public class ReqTest extends Assert {
 
     @Test
-    public void shouldPutBody(){
-        new FakeServerForPut();
-        Resp resp = ReqBuilder.PUT("http://localhost:5675")
-            .body(Body.mk("test"))
-            .build()
-            .send();
-        assertEquals(Method.PUT.name(), resp.body().text());
-    }
-
-    @Test
     public void shouldSendBody() {
-        new FakeServer();
         RespBody body = ReqBuilder.POST("http://localhost:5674/shouldSendBody")
             .body(Body.mk("test"))
             .build()
@@ -34,6 +23,16 @@ public class ReqTest extends Assert {
             "test",
             body.text()
         );
+    }
+
+    @Test
+    public void shouldPutBody(){
+        new FakeServer();
+        Resp resp = ReqBuilder.PUT("http://localhost:5674/shouldSendBody")
+            .body(Body.mk("tets"))
+            .build()
+            .send();
+        assertEquals("tets", resp.body().text());
     }
 
     @Test
