@@ -40,6 +40,10 @@ public interface ReqBuilder {
         return mk(uri).method(Method.GET);
     }
 
+    static ReqBuilder PUT(String uriString) {
+        return mk(uriString).method(Method.PUT);
+    }
+
     static ReqBuilder mk(Url uri) {
         return new ReqBuilderImpl(
             Val.NULL("uri", uri).get()
