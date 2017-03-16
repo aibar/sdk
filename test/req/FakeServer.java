@@ -1,4 +1,4 @@
-package walkingdevs.req;
+package req;
 
 import fi.iki.elonen.NanoHTTPD;
 import walkingdevs.str.Str;

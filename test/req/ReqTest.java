@@ -1,4 +1,4 @@
-package walkingdevs.req;
+package req;
 
 import org.junit.Assert;
 import org.junit.Test;
