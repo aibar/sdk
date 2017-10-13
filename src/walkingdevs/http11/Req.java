@@ -4,6 +4,10 @@ import walkingdevs.fun.Handler;
 import walkingdevs.stream.BufferedIs;
 import walkingdevs.val.Val;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 public interface Req {
     Resp send();
 
@@ -15,6 +19,18 @@ public interface Req {
     void sendAsync(Handler<Resp> responseHandler);
 
     void sendAsync(Handler<Resp> respHandler, Handler<BufferedIs> bufferedIsHandler);
+
+    static String check(InputStream is) throws Exception {
+        String line = new BufferedReader(new InputStreamReader(is)).readLine();
+        String[] cmd = line.split("\\s");
+        if (cmd[0].equals( "GET") || cmd[0].equals("POST") || cmd[0].equals("PUT") || cmd[0].equals("HEAD")) {
+            if (cmd[2] == "HTTP/1.1" || cmd[2] == "HTTP/1.0" || cmd[2] == "HTTP/2.0")
+                return line;
+            throw new Exception();
+        } else {
+            throw new Exception();
+        }
+    }
 
     static Req mk(
         Url url,
