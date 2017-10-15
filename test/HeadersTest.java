@@ -3,12 +3,11 @@ import org.junit.Test;
 import walkingdevs.http11.Headers;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 
 public class HeadersTest extends Assert {
     @Test
-    public void shouldParseHeadersFromRequest() throws IOException {
+    public void shouldParseHeadersFromRequest() {
         Headers headers = Headers.parseFromRequest(
             fakeHttpIs()
         );
