@@ -1,5 +1,6 @@
 package walkingdevs.http11;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 public interface Headers extends Iterable<Header> {
@@ -11,7 +12,7 @@ public interface Headers extends Iterable<Header> {
 
     Headers del(String name);
 
-    static Headers parseFromRequest(InputStream is) {
+    static Headers parseFromRequest(InputStream is) throws IOException {
         return new HeadersFromRequest(is);
     }
 

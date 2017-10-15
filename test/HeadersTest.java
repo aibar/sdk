@@ -3,11 +3,12 @@ import org.junit.Test;
 import walkingdevs.http11.Headers;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 public class HeadersTest extends Assert {
     @Test
-    public void shouldParseHeadersFromRequest() {
+    public void shouldParseHeadersFromRequest() throws IOException {
         Headers headers = Headers.parseFromRequest(
             fakeHttpIs()
         );
@@ -66,7 +67,7 @@ public class HeadersTest extends Assert {
     }
 
     @Test
-    public void shouldParseHeadersFromRequestWith1MbLength() {
+    public void shouldParseHeadersFromRequestWith1MbLength() throws IOException {
         Headers headers = Headers.parseFromRequest(
             fakeHttpIsWithLength1Mb()
         );
