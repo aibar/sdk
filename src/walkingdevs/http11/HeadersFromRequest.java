@@ -1,14 +1,13 @@
 package walkingdevs.http11;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.stream.Stream;
 
 class HeadersFromRequest extends HeadersImpl {
     int headerSize = 0;
-    HeadersFromRequest(InputStream is) throws IOException {
+    HeadersFromRequest(InputStream is) {
         stream(is).anyMatch(s -> {
             if(s.indexOf(':')!=-1){
                 headerSize =+ s.getBytes().length;
@@ -21,7 +20,7 @@ class HeadersFromRequest extends HeadersImpl {
             return s.getBytes().length==0;
         });
     }
-    private static Stream<String> stream(InputStream is) throws IOException{
+    private static Stream<String> stream(InputStream is){
         return new BufferedReader(new InputStreamReader(is)).lines();
     }
 }

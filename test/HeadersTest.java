@@ -67,7 +67,7 @@ public class HeadersTest extends Assert {
     }
 
     @Test
-    public void shouldParseHeadersFromRequestWith1MbLength() throws IOException {
+    public void shouldParseHeadersFromRequestWith1MbLength() {
         Headers headers = Headers.parseFromRequest(
             fakeHttpIsWithLength1Mb()
         );
