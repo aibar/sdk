@@ -1,11 +1,11 @@
 package walkingdevs.http11.exo;
 
-import walkingdevs.http11.IP;
+import walkingdevs.http11.Host;
 import walkingdevs.http11.Port;
 
 class ExoImpl implements Exo {
-    public Exo bind(IP bindIP) {
-        this.bindIP = bindIP;
+    public Exo bind(Host bindHost) {
+        this.bindHost = bindHost;
         return this;
     }
 
@@ -14,15 +14,14 @@ class ExoImpl implements Exo {
         return this;
     }
 
-    @Override
     public Exo GET(ExoHandler exoHandler) {
         return null;
     }
 
     public ExoServer build() {
-        return ExoServer.mk(bindIP, bindPort);
+        return ExoServer.mk(bindHost, bindPort);
     }
 
-    private IP bindIP;
+    private Host bindHost;
     private Port bindPort;
 }

@@ -1,6 +1,6 @@
 package walkingdevs.http11.exo;
 
-import walkingdevs.http11.IP;
+import walkingdevs.http11.Host;
 import walkingdevs.http11.Port;
 
 public interface ExoServer {
@@ -15,7 +15,7 @@ public interface ExoServer {
     // All current requests will be ignored
     ExoServer kill();
 
-    static ExoServer mk(IP ip, Port port) {
-        return new ExoServerImpl(ip, port);
+    static ExoServer mk(Host host, Port port) {
+        return new ExoServerImpl(host, port);
     }
 }

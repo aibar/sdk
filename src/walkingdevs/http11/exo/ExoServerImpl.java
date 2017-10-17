@@ -1,6 +1,6 @@
 package walkingdevs.http11.exo;
 
-import walkingdevs.http11.IP;
+import walkingdevs.http11.Host;
 import walkingdevs.http11.Port;
 
 import java.io.IOException;
@@ -51,12 +51,12 @@ class ExoServerImpl implements ExoServer {
         return this;
     }
 
-    ExoServerImpl(IP bindIP, Port bindPort) {
-        this.bindIP = bindIP;
+    ExoServerImpl(Host bindHost, Port bindPort) {
+        this.bindHost = bindHost;
         this.bindPort = bindPort;
     }
 
-    private final IP bindIP;
+    private final Host bindHost;
     private final Port bindPort;
     private ServerSocket serverSocket;
     private Thread loopThread;

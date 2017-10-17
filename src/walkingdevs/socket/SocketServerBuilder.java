@@ -1,6 +1,6 @@
 package walkingdevs.socket;
 
-import walkingdevs.http11.IP;
+import walkingdevs.http11.Host;
 import walkingdevs.http11.Port;
 import walkingdevs.http11.exo.ExoServer;
 
@@ -9,7 +9,7 @@ public interface SocketServerBuilder {
 
     ExoServer build();
 
-    static SocketServerBuilder mk(IP listenIP, Port listenPort) {
+    static SocketServerBuilder mk(Host listenHost, Port listenPort) {
         return new SocketServerBuilderImpl();
     }
 }
