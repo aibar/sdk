@@ -32,6 +32,10 @@ public interface Tcp {
         Client write(String data);
 
         interface Builder {
+            Builder host(Host host);
+
+            Builder port(Port port);
+
             Client build();
 
             default void build(Handler<Client> clientHandler) {

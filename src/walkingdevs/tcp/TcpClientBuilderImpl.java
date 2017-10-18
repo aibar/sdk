@@ -1,14 +1,28 @@
 package walkingdevs.tcp;
 
+import walkingdevs.http11.Host;
+import walkingdevs.http11.Port;
+
 class TcpClientBuilderImpl implements Tcp.Client.Builder {
-    public Tcp.Client build() {
-        return new TcpClientImpl();
+    public Tcp.Client.Builder host(Host host) {
+        return this;
     }
 
-    public TcpReq req(String data) {
-        return null;
+    public Tcp.Client.Builder port(Port port) {
+        return this;
+    }
+
+    public Tcp.Client build() {
+        return new TcpClientImpl(
+            host,
+            port
+        );
     }
 
     TcpClientBuilderImpl() {
+        host = Host.local();
+        port = Port.mk(4000);
     }
+    private Host host;
+    private Port port;
 }
