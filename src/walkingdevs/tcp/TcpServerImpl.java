@@ -6,7 +6,10 @@ import walkingdevs.http11.Port;
 
 import java.net.Socket;
 
-class TcpServerImpl implements TcpServer {
+class TcpServerImpl implements Tcp.Server {
+    public void start() {
+    }
+
     public void kill() {
     }
 

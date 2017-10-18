@@ -1,5 +1,6 @@
 package walkingdevs.tcp;
 
+import walkingdevs.fun.Action;
 import walkingdevs.fun.Handler;
 import walkingdevs.http11.Host;
 import walkingdevs.http11.Port;
@@ -7,36 +8,45 @@ import walkingdevs.http11.Port;
 import java.net.Socket;
 
 public interface Tcp {
-    static TcpServer server(Host host, Port port, Handler<Socket> socketHandler) {
-        return new TcpServerImpl(
-            host,
-            port,
-            socketHandler
-        );
+    interface Server {
+        void start();
+
+        void kill();
+
+        interface Builder {
+            Builder handler(Handler<Socket> socketHandler);
+
+            Builder host(Host host);
+
+            Builder port(Port port);
+
+            Builder success(Action action);
+
+            Builder await(boolean await);
+
+            Server build();
+        }
     }
 
-    static TcpServer server(Port port, Handler<Socket> socketHandler) {
-        return server(
-            Host.all(),
-            port,
-            socketHandler
-        );
+    interface Client {
+        Client write(String data);
+
+        interface Builder {
+            Client build();
+
+            default void build(Handler<Client> clientHandler) {
+                clientHandler.handle(
+                    build()
+                );
+            }
+        }
     }
 
-    static void client(Host host, Port port, Handler<TcpClient> handler) {
-        handler.handle(
-            new TcpClientImpl(
-                host,
-                port
-            )
-        );
+    static Server.Builder server() {
+        return new TcpServerBuilderImpl();
     }
 
-    static void client(Port port, Handler<TcpClient> handler) {
-        client(
-            Host.all(),
-            port,
-            handler
-        );
+    static Client.Builder client() {
+        return new TcpClientBuilderImpl();
     }
 }
