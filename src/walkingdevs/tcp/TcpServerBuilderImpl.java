@@ -24,6 +24,7 @@ class TcpServerBuilderImpl implements Tcp.Server.Builder {
     }
 
     public Tcp.Server.Builder success(Action action) {
+        successAction = action;
         return this;
     }
 
@@ -35,7 +36,9 @@ class TcpServerBuilderImpl implements Tcp.Server.Builder {
         return new TcpServerImpl(
             host,
             port,
-            socketHandler
+            socketHandler,
+            successAction,
+            await
         );
     }
 
@@ -52,9 +55,14 @@ class TcpServerBuilderImpl implements Tcp.Server.Builder {
                 return Void.TYPE;
             });
         };
+        successAction = () -> {
+            // Do nothing
+        };
+        await = true;
     }
-
     private Host host;
     private Port port;
     private Handler<Socket> socketHandler;
+    private Action successAction;
+    private boolean await;
 }
