@@ -6,7 +6,7 @@ public interface Host {
     InetAddress inet();
 
     static Host mk(String host) {
-        return new HostImpl();
+        return new HostImpl(host);
     }
 
     static Host all() {
