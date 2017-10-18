@@ -9,9 +9,8 @@ class HostImpl implements Host {
         return inetAddress;
     }
 
-    public HostImpl(String host) {
+    HostImpl(String host) {
         inetAddress = Try.mk(() -> InetAddress.getByName(host)).Do();
     }
-
-    InetAddress inetAddress;
+    private final InetAddress inetAddress;
 }
