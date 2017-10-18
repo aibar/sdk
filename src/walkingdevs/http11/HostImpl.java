@@ -6,6 +6,12 @@ import java.net.InetAddress;
 
 class HostImpl implements Host {
     public InetAddress inet() {
-        return Try.mk(() -> InetAddress.getLocalHost()).Do();
+        return inetAddress;
     }
+
+    public HostImpl(String host) {
+        inetAddress = Try.mk(() -> InetAddress.getByName(host)).Do();
+    }
+
+    InetAddress inetAddress;
 }
