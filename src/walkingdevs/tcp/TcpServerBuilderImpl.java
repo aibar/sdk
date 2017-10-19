@@ -12,14 +12,17 @@ import java.net.Socket;
 
 class TcpServerBuilderImpl implements Tcp.Server.Builder {
     public Tcp.Server.Builder handler(Handler<Socket> socketHandler) {
+        this.socketHandler = socketHandler;
         return this;
     }
 
     public Tcp.Server.Builder host(Host host) {
+        this.host = host;
         return this;
     }
 
     public Tcp.Server.Builder port(Port port) {
+        this.port = port;
         return this;
     }
 
@@ -29,6 +32,7 @@ class TcpServerBuilderImpl implements Tcp.Server.Builder {
     }
 
     public Tcp.Server.Builder await(boolean await) {
+        this.await = await;
         return this;
     }
 

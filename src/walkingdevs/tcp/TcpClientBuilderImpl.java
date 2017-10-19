@@ -5,10 +5,12 @@ import walkingdevs.http11.Port;
 
 class TcpClientBuilderImpl implements Tcp.Client.Builder {
     public Tcp.Client.Builder host(Host host) {
+        this.host = host;
         return this;
     }
 
     public Tcp.Client.Builder port(Port port) {
+        this.port = port;
         return this;
     }
 
