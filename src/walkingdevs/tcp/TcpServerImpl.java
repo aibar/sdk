@@ -6,53 +6,51 @@ import walkingdevs.http11.Host;
 import walkingdevs.http11.Port;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 class TcpServerImpl implements Tcp.Server {
     public void start() {
-        loopThread = new Thread(() -> {
-            ServerSocket serverSocket = null;
-            try {
-                serverSocket = new ServerSocket(port.get());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            System.out.println("Started");
-            while (!loopThread.isInterrupted()){
-                try(Socket socket = serverSocket.accept()) {
-                    try {
-                        System.out.println("Sleeping");
-                        Thread.sleep(10000);
-                        System.out.println("Sleeping end");
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    socketHandler.handle(socket);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
         loopThread.setDaemon(!await);
         loopThread.start();
         successAction.run();
     }
 
     public void kill() {
+        loopThread.interrupt();
     }
 
     TcpServerImpl(Host host, Port port, Handler<Socket> socketHandler, Action successAction, boolean await) {
-        this.host = host;
-        this.port = port;
-        this.socketHandler = socketHandler;
         this.successAction = successAction;
         this.await = await;
+        loopThread = new Thread(() -> {
+            ServerSocket serverSocket;
+            try {
+                serverSocket = new ServerSocket();
+                serverSocket.bind(
+                    new InetSocketAddress(
+                        host.inet(),
+                        port.get()
+                    )
+                );
+            } catch (IOException e) {
+                throw new RuntimeException(
+                    e
+                );
+            }
+            while (!Thread.currentThread().isInterrupted()) {
+                try (Socket socket = serverSocket.accept()) {
+                    socketHandler.handle(socket);
+                } catch (IOException e) {
+                    throw new RuntimeException(
+                        e
+                    );
+                }
+            }
+        });
     }
-    private final Host host;
-    private final Port port;
-    private final Handler<Socket> socketHandler;
     private final Action successAction;
     private final boolean await;
-    private Thread loopThread;
+    private final Thread loopThread;
 }

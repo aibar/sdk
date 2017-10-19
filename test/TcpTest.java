@@ -1,9 +1,9 @@
 import org.junit.Assert;
 import org.junit.Test;
-import walkingdevs.exceptions.Try;
-import walkingdevs.str.Str;
-import walkingdevs.stream.Is;
 import walkingdevs.tcp.Tcp;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class TcpTest extends Assert {
     @Test
@@ -11,14 +11,19 @@ public class TcpTest extends Assert {
         StringBuilder sb = new StringBuilder();
         Tcp.server()
             .handler(socket -> {
-                Try.mk(() -> {
-                    sb.append(
-                        Str.mk(
-                            Is.mk(socket.getInputStream()).bytes()
-                        )
+                try (InputStream is = socket.getInputStream()) {
+                    byte[] buffer = new byte[1024];
+                    int read;
+                    while ((read = is.read(buffer)) != -1) {
+                        sb.append(
+                            new String(buffer, 0, read)
+                        );
+                    }
+                } catch (IOException exception) {
+                    throw new RuntimeException(
+                        exception
                     );
-                    return Void.TYPE;
-                });
+                }
             })
             .success(() -> {
                 Tcp.client().build(client -> {
@@ -28,13 +33,19 @@ public class TcpTest extends Assert {
                         .write("l")
                         .write("o")
                         .write(", world!");
-                    assertEquals(
-                        "hello, world!",
-                        sb.toString()
-                    );
+                    // TODO: hack
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 });
+                assertEquals(
+                    "hello, world!",
+                    sb.toString()
+                );
             })
-            .await(false)
+            .await(true)
             .build()
             .start();
     }

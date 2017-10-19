@@ -21,10 +21,6 @@ class TcpClientBuilderImpl implements Tcp.Client.Builder {
         );
     }
 
-    TcpClientBuilderImpl() {
-        host = Host.local();
-        port = Port.mk(4000);
-    }
     private Host host;
     private Port port;
 }
