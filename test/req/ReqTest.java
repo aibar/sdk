@@ -3,7 +3,7 @@ package req;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingdevs.exceptions.Exceptions;
-import walkingdevs.http11.*;
+import walkingdevs.http.*;
 import walkingdevs.str.Str;
 
 import java.io.ByteArrayOutputStream;

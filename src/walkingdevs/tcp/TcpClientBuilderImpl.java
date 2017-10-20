@@ -1,7 +1,7 @@
 package walkingdevs.tcp;
 
-import walkingdevs.http11.Host;
-import walkingdevs.http11.Port;
+import walkingdevs.http.Host;
+import walkingdevs.http.Port;
 
 class TcpClientBuilderImpl implements Tcp.Client.Builder {
     public Tcp.Client.Builder host(Host host) {

@@ -3,8 +3,8 @@ package walkingdevs.tcp;
 import walkingdevs.exceptions.Try;
 import walkingdevs.fun.Action;
 import walkingdevs.fun.Handler;
-import walkingdevs.http11.Host;
-import walkingdevs.http11.Port;
+import walkingdevs.http.Host;
+import walkingdevs.http.Port;
 import walkingdevs.str.Str;
 import walkingdevs.stream.BufferedIs;
 

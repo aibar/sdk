@@ -1,6 +1,6 @@
 import org.junit.Assert;
 import org.junit.Test;
-import walkingdevs.http11.Headers;
+import walkingdevs.http.Headers;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;

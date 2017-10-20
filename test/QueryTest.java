@@ -1,7 +1,7 @@
 import org.junit.Assert;
 import org.junit.Test;
 import walkingdevs.exceptions.IllegalArgument;
-import walkingdevs.http11.Query;
+import walkingdevs.http.Query;
 
 public class QueryTest extends Assert {
     @Test(expected = IllegalArgument.class)

@@ -2,8 +2,8 @@ package walkingdevs.tcp;
 
 import walkingdevs.fun.Action;
 import walkingdevs.fun.Handler;
-import walkingdevs.http11.Host;
-import walkingdevs.http11.Port;
+import walkingdevs.http.Host;
+import walkingdevs.http.Port;
 
 import java.net.Socket;
 

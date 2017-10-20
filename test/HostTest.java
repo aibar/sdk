@@ -1,7 +1,7 @@
 import org.junit.Assert;
 import org.junit.Test;
 import walkingdevs.bytes.Bytes;
-import walkingdevs.http11.Host;
+import walkingdevs.http.Host;
 
 public class HostTest extends Assert {
     @Test
