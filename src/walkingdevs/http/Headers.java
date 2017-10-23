@@ -34,4 +34,6 @@ public interface Headers extends Iterable<Header> {
         }
         return headers;
     }
+
+    String getString();
 }

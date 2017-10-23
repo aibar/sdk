@@ -11,4 +11,9 @@ class BodyEmptyImpl implements Body {
     public void writeTo(OutputStream os) throws IOException {
         // Do nothing
     }
+
+    @Override
+    public String getString() {
+        return null;
+    }
 }

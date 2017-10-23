@@ -57,4 +57,10 @@ public interface Body {
         }
         return new BodyBufferedIsImpl(bufferedIs);
     }
+
+    String getString();
+
+    static Body parseFromRequest(InputStream is) {
+        return null;
+    }
 }

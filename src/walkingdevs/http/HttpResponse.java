@@ -1,5 +1,8 @@
 package walkingdevs.http;
 
+import java.io.IOException;
+import java.io.OutputStream;
+
 public interface HttpResponse {
     Status status();
 
@@ -14,4 +17,7 @@ public interface HttpResponse {
             body
         );
     }
+
+    void writeTo(OutputStream outputStream) throws IOException;
+
 }

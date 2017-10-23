@@ -8,6 +8,10 @@ class BodyBytesImpl implements Body {
         os.write(bytes);
     }
 
+    public String getString() {
+        return null;
+    }
+
     BodyBytesImpl(byte[] bytes) {
         this.bytes = bytes;
     }

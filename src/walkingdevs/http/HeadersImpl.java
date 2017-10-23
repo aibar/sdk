@@ -31,6 +31,11 @@ class HeadersImpl implements Headers {
         return this;
     }
 
+    public String getString() {
+        return null;
+    }
+
+
     public Iterator<Header> iterator() {
         List<Header> list = new ArrayList<>();
         for (Map.Entry<String, String> entry : map.entrySet()) {

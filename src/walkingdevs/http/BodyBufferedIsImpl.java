@@ -12,6 +12,10 @@ class BodyBufferedIsImpl implements Body {
         }
     }
 
+    public String getString() {
+        return null;
+    }
+
     BodyBufferedIsImpl(BufferedIs bufferedIs) {
         this.bufferedIs = bufferedIs;
     }
