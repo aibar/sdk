@@ -3,6 +3,7 @@ package walkingdevs.http;
 import walkingdevs.str.Str;
 import walkingdevs.val.Val;
 
+import java.io.OutputStream;
 import java.util.*;
 
 class HeadersImpl implements Headers {
@@ -31,6 +32,9 @@ class HeadersImpl implements Headers {
         return this;
     }
 
+    public void writeFormattedTo(OutputStream os) {
+    }
+
     public Iterator<Header> iterator() {
         List<Header> list = new ArrayList<>();
         for (Map.Entry<String, String> entry : map.entrySet()) {
@@ -38,6 +42,5 @@ class HeadersImpl implements Headers {
         }
         return list.iterator();
     }
-
     private final Map<String, String> map = new HashMap<>();
 }

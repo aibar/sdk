@@ -1,5 +1,7 @@
 package walkingdevs.http;
 
+import java.io.InputStream;
+
 public interface Status {
     int code();
 
@@ -13,6 +15,10 @@ public interface Status {
     }
 
     static Status ok() {
+        return mk(200, "Ok");
+    }
+
+    static Status parseFromRequest(InputStream is) {
         return null;
     }
 }

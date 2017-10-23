@@ -11,6 +11,8 @@ import java.io.OutputStream;
 
 // Req body
 public interface Body {
+    String string();
+
     // Otherwise it doesn't make sense
     default boolean isEmpty() {
         return false;

@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 class BodyBytesImpl implements Body {
+    public String string() {
+        return null;
+    }
+
     public void writeTo(OutputStream os) throws IOException {
         os.write(bytes);
     }
@@ -11,6 +15,5 @@ class BodyBytesImpl implements Body {
     BodyBytesImpl(byte[] bytes) {
         this.bytes = bytes;
     }
-
     private final byte[] bytes;
 }

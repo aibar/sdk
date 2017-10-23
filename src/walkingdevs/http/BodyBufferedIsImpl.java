@@ -6,6 +6,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 class BodyBufferedIsImpl implements Body {
+    public String string() {
+        return null;
+    }
+
     public void writeTo(OutputStream os) throws IOException {
         for (byte[] bytes : bufferedIs) {
             os.write(bytes);
@@ -15,6 +19,5 @@ class BodyBufferedIsImpl implements Body {
     BodyBufferedIsImpl(BufferedIs bufferedIs) {
         this.bufferedIs = bufferedIs;
     }
-
     private final BufferedIs bufferedIs;
 }
