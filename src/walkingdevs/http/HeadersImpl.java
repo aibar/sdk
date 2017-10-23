@@ -3,6 +3,8 @@ package walkingdevs.http;
 import walkingdevs.str.Str;
 import walkingdevs.val.Val;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.*;
 
 class HeadersImpl implements Headers {
@@ -31,18 +33,13 @@ class HeadersImpl implements Headers {
         return this;
     }
 
-    public String getString() {
-        String line1 = "";
-        List<String> list = new ArrayList<>();
-        iterator().forEachRemaining(s->{
-            list.add(s.toString());
-        });
-        for (String s: list){
-            line1 = line1 + s+'\n';
-        }
-        return line1;
+    public void writeFormattedTo(OutputStream os) throws IOException {
+        os.write(
+            Str.mk(
+                formatted()
+            ).bytes()
+        );
     }
-
 
     public Iterator<Header> iterator() {
         List<Header> list = new ArrayList<>();
@@ -51,6 +48,17 @@ class HeadersImpl implements Headers {
         }
         return list.iterator();
     }
-
     private final Map<String, String> map = new HashMap<>();
+
+    private String formatted() {
+        String line1 = "";
+        List<String> list = new ArrayList<>();
+        iterator().forEachRemaining(s -> {
+            list.add(s.toString());
+        });
+        for (String s : list) {
+            line1 = line1 + s + '\n';
+        }
+        return line1;
+    }
 }

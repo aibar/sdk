@@ -15,7 +15,7 @@ public interface Status {
     }
 
     static Status ok() {
-        return mk(200, "OK");
+        return mk(200, "Ok");
     }
 
     static Status parseFromRequest(InputStream is) {

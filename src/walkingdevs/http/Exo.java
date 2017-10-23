@@ -44,7 +44,9 @@ class Exo implements Http.Server {
             }
             while (!Thread.currentThread().isInterrupted()) {
                 try (Socket client = server.accept()) {
-                    handler.run(HttpRequest.mk()).writeTo(client.getOutputStream());
+                    handler.run(HttpRequest.mk()).writeFormattedTo(
+                        client.getOutputStream()
+                    );
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

@@ -1,6 +1,5 @@
 package walkingdevs.http;
 
-import walkingdevs.chset.Chset;
 import walkingdevs.str.Str;
 
 import java.io.IOException;
@@ -19,14 +18,22 @@ class HttpResponseImpl implements HttpResponse {
         return body;
     }
 
-    public void writeTo(OutputStream os) throws IOException {
-        os.write(Str.mk("HTTP/1.1 "
-            + status.code()
-            + " "
-            + status.message()
-            + headers.getString()
-            + "\r\n\r\n"
-            + body.getString()).bytes(Chset.UTF8()));
+    public void writeFormattedTo(OutputStream os) throws IOException {
+        os.write(
+            Str.mk("" +
+                "HTTP/1.1 " +
+                status.code() +
+                " " +
+                status.message()
+            ).bytes()
+        );
+        headers.writeFormattedTo(os);
+        os.write(
+            Str.mk(
+                "\r\n\r\n"
+            ).bytes()
+        );
+        body.writeTo(os);
     }
 
     HttpResponseImpl(Status status, Headers headers, Body body) {

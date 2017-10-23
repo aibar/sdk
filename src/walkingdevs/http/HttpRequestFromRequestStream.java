@@ -8,7 +8,7 @@ class HttpRequestFromRequestStream extends HttpRequestImpl {
             Version.parseFromRequest(is),
             Status.parseFromRequest(is),
             Headers.parseFromRequest(is),
-            Body.parseFromRequest(is)
+            Body.mk(is)
         );
     }
 }

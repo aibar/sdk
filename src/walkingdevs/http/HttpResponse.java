@@ -10,6 +10,8 @@ public interface HttpResponse {
 
     Body body();
 
+    void writeFormattedTo(OutputStream outputStream) throws IOException;
+
     static HttpResponse mk(Status status, Headers headers, Body body) {
         return new HttpResponseImpl(
             status,
@@ -17,7 +19,4 @@ public interface HttpResponse {
             body
         );
     }
-
-    void writeTo(OutputStream outputStream) throws IOException;
-
 }
