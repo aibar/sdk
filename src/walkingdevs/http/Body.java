@@ -11,6 +11,8 @@ import java.io.OutputStream;
 
 // Req body
 public interface Body {
+    String string();
+
     // Otherwise it doesn't make sense
     default boolean isEmpty() {
         return false;
@@ -56,11 +58,5 @@ public interface Body {
             return mk();
         }
         return new BodyBufferedIsImpl(bufferedIs);
-    }
-
-    String getString();
-
-    static Body parseFromRequest(InputStream is) {
-        return null;
     }
 }

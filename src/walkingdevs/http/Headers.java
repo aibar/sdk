@@ -1,6 +1,8 @@
 package walkingdevs.http;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 public interface Headers extends Iterable<Header> {
     boolean has(String header);
@@ -10,6 +12,8 @@ public interface Headers extends Iterable<Header> {
     Headers add(String name, String value);
 
     Headers del(String name);
+
+    void writeFormattedTo(OutputStream os) throws IOException;
 
     static Headers parseFromRequest(InputStream is) {
         return new HeadersFromRequest(is);
@@ -34,6 +38,4 @@ public interface Headers extends Iterable<Header> {
         }
         return headers;
     }
-
-    String getString();
 }

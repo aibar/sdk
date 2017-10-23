@@ -16,9 +16,7 @@ class HttpResponseImpl implements HttpResponse {
         return null;
     }
 
-    @Override
-    public void writeTo(OutputStream outputStream) throws IOException {
-
+    public void writeFormattedTo(OutputStream outputStream) throws IOException {
     }
 
     HttpResponseImpl(Status status, Headers headers, Body body) {
