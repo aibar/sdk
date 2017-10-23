@@ -5,10 +5,10 @@ import java.io.InputStream;
 class HttpRequestFromRequestStream extends HttpRequestImpl {
     HttpRequestFromRequestStream(InputStream is) {
         super(
-            null,
-            null,
-            null,
-            null
+            Version.parseFromRequest(is),
+            Status.parseFromRequest(is),
+            Headers.parseFromRequest(is),
+            Body.parseFromRequest(is)
         );
     }
 }

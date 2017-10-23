@@ -4,66 +4,75 @@ import walkingdevs.data.Path;
 
 class HttpRequestBuilderImpl implements HttpRequest.Builder {
     public Builder host(Host host) {
-        return null;
+        return this;
     }
 
     public Host host() {
-        return null;
+        return host;
     }
 
     public Builder port(Port port) {
-        return null;
+        return this;
     }
 
     public Port port() {
-        return null;
+        return port;
     }
 
     public Builder method(Method method) {
-        return null;
+        return this;
     }
 
     public Method method() {
-        return null;
+        return method;
     }
 
     public Builder path(Path<String> path) {
-        return null;
+        return this;
     }
 
     public Path<String> path() {
-        return null;
+        return path;
     }
 
     public Builder version(Version version) {
-        return null;
+        return this;
     }
 
     public Version version() {
-        return null;
+        return version;
     }
 
     public Builder status(Status status) {
-        return null;
+        return this;
     }
 
     public Status status() {
-        return null;
+        return status;
     }
 
     public Builder headers(Headers headers) {
-        return null;
+        return this;
     }
 
     public Headers headers() {
-        return null;
+        return headers;
     }
 
     public Builder body(Body body) {
-        return null;
+        return this;
     }
 
     public Body body() {
-        return null;
+        return body;
     }
+
+    Host host;
+    Port port;
+    Method method;
+    Path<String> path;
+    Version version;
+    Status status;
+    Headers headers;
+    Body body;
 }

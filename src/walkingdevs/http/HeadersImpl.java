@@ -32,7 +32,15 @@ class HeadersImpl implements Headers {
     }
 
     public String getString() {
-        return null;
+        String line1 = "";
+        List<String> list = new ArrayList<>();
+        iterator().forEachRemaining(s->{
+            list.add(s.toString());
+        });
+        for (String s: list){
+            line1 = line1 + s+'\n';
+        }
+        return line1;
     }
 
 
