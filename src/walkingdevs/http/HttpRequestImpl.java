@@ -4,37 +4,50 @@ import walkingdevs.data.Path;
 
 class HttpRequestImpl implements HttpRequest {
     public Host host() {
-        return null;
+        return host;
     }
 
     public Port port() {
-        return null;
+        return port;
     }
 
     public Method method() {
-        return null;
+        return method;
     }
 
     public Path<String> path() {
-        return null;
+        return path;
     }
 
     public Version version() {
-        return null;
+        return version;
     }
 
     public Status status() {
-        return null;
+        return status;
     }
 
     public Headers headers() {
-        return null;
+        return headers;
     }
 
     public Body body() {
-        return null;
+        return body;
     }
 
     HttpRequestImpl(Version version, Status status, Headers headers, Body body) {
+        this.version = version;
+        this.status = status;
+        this.headers = headers;
+        this.body = body;
     }
+
+    private Host host;
+    private Port port;
+    private Method method;
+    private Path<String> path;
+    private Version version;
+    private Status status;
+    private Headers headers;
+    private Body body;
 }
