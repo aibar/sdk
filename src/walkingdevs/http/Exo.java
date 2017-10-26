@@ -45,7 +45,7 @@ class Exo implements Http.Server {
             while (!Thread.currentThread().isInterrupted()) {
                 try (Socket client = server.accept()) {
                     try {
-                        Thread.sleep(2000);
+                        Thread.currentThread().sleep(2000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
