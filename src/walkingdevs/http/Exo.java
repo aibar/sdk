@@ -31,6 +31,7 @@ class Exo implements Http.Server {
             ServerSocket server;
             try {
                 server = new ServerSocket();
+                server.setReuseAddress(true);
                 server.bind(
                     new InetSocketAddress(
                         host.inet(),
@@ -45,7 +46,7 @@ class Exo implements Http.Server {
             while (!Thread.currentThread().isInterrupted()) {
                 try (Socket client = server.accept()) {
                     try {
-                        Thread.currentThread().sleep(2000);
+                        Thread.sleep(10L);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
