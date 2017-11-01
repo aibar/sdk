@@ -40,6 +40,7 @@ class Exo implements Http.Server {
             ServerSocket server;
             try {
                 server = new ServerSocket();
+                server.setReuseAddress(true);
                 server.bind(
                     new InetSocketAddress(
                         host.inet(),
