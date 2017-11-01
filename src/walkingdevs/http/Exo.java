@@ -13,6 +13,14 @@ class Exo implements Http.Server {
     public void start() {
         loopThread.setDaemon(await);
         loopThread.start();
+        while (loopThread.isInterrupted())
+        {
+            try {
+                Thread.sleep(10L);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         success.run();
     }
 
@@ -27,6 +35,7 @@ class Exo implements Http.Server {
     Exo(Host host, Port port, Function<HttpResponse, HttpRequest> handler, Action success, boolean await) {
         this.success = success;
         this.await = await;
+        int i = 0;
         loopThread = new Thread(() -> {
             ServerSocket server;
             try {
@@ -37,26 +46,28 @@ class Exo implements Http.Server {
                         port.get()
                     )
                 );
+                System.out.println("Exo started...");
             } catch (IOException e) {
                 throw new RuntimeException(
                     e
                 );
             }
-            while (!Thread.currentThread().isInterrupted()) {
+            do {
                 try (Socket client = server.accept()) {
-                    handler.run(HttpRequest.mk()).writeFormattedTo(
-                        client.getOutputStream()
+                    asyncRunner.exec(
+                        new ClientHandler(handler, client)
                     );
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
+            } while (!server.isClosed());
         });
     }
 
     private final Action success;
     private boolean await;
     private final Thread loopThread;
+    protected AsyncRunner asyncRunner;
 
     public static void main(String[] args) {
         Tcp.server().build().start();
