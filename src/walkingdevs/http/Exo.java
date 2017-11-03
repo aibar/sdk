@@ -13,6 +13,7 @@ class Exo implements Http.Server {
     public void start() {
         loopThread.setDaemon(!await);
         loopThread.start();
+        loopThread.setName("Exo main listener.");
         success.run();
     }
 
@@ -34,20 +35,19 @@ class Exo implements Http.Server {
                 server.bind(new InetSocketAddress(
                     host.inet(),
                     port.get()
-                ));
+                ), 10000);
                 System.out.println("Server started....");
                 while (!server.isClosed()){
                     Socket client = server.accept();
+                    Thread.sleep(10L);
                     new Thread(()->{
                         try{
                             OutputStream os = client.getOutputStream();
                             handler.run(HttpRequest.mk()).writeFormattedTo(os);
-                            Thread.sleep(15000);
                             os.flush();
+                            os.close();
                             client.close();
                         } catch (IOException e) {
-                            e.printStackTrace();
-                        } catch (InterruptedException e) {
                             e.printStackTrace();
                         } finally {
                             try {
@@ -59,6 +59,8 @@ class Exo implements Http.Server {
                     }).start();
                 }
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         });
