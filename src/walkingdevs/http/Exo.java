@@ -11,6 +11,7 @@ import java.net.Socket;
 
 class Exo implements Http.Server {
     public void start() {
+        loopThread.setDaemon(await);
         loopThread.start();
         success.run();
     }
@@ -41,7 +42,7 @@ class Exo implements Http.Server {
                         try{
                             OutputStream os = client.getOutputStream();
                             handler.run(HttpRequest.mk()).writeFormattedTo(os);
-                            Thread.sleep(1000);
+                            Thread.sleep(15000);
                             os.flush();
                             client.close();
                         } catch (IOException e) {
