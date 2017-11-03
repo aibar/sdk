@@ -10,7 +10,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 class Exo implements Http.Server {
-    public synchronized void start() {
+    public void start() {
         loopThread.setDaemon(!await);
         loopThread.start();
         loopThread.setName("Exo main listener.");
@@ -39,7 +39,7 @@ class Exo implements Http.Server {
                 System.out.println("Server started....");
                 while (!server.isClosed()){
                     Socket client = server.accept();
-                    Thread.sleep(1000);
+                    loopThread.sleep(1000);
                     new Thread(()->{
                         try{
                             OutputStream os = client.getOutputStream();
@@ -69,7 +69,7 @@ class Exo implements Http.Server {
     private final Action success;
     private boolean await;
     private ServerSocket server;
-    private final Thread loopThread;
+    private Thread loopThread;
 
     public static void main(String[] args) {
         Http.server().build().start();
