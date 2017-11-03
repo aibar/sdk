@@ -39,7 +39,7 @@ class Exo implements Http.Server {
                 System.out.println("Server started....");
                 while (!server.isClosed()){
                     Socket client = server.accept();
-                    Thread.sleep(10L);
+                    Thread.sleep(1000);
                     new Thread(()->{
                         try{
                             OutputStream os = client.getOutputStream();
