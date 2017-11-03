@@ -1,12 +1,11 @@
 import org.junit.Assert;
-import org.junit.Test;
 import walkingdevs.tcp.Tcp;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 public class TcpTest extends Assert {
-    @Test
+//    @Test
     public void shouldTransmitAndReceive() {
         StringBuilder sb = new StringBuilder();
         Tcp.server()

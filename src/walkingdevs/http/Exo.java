@@ -10,7 +10,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 class Exo implements Http.Server {
-    public void start() {
+    public synchronized void start() {
         loopThread.setDaemon(!await);
         loopThread.start();
         loopThread.setName("Exo main listener.");
@@ -35,7 +35,7 @@ class Exo implements Http.Server {
                 server.bind(new InetSocketAddress(
                     host.inet(),
                     port.get()
-                ), 10000);
+                ));
                 System.out.println("Server started....");
                 while (!server.isClosed()){
                     Socket client = server.accept();
