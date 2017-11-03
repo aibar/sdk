@@ -11,7 +11,7 @@ import java.net.Socket;
 
 class Exo implements Http.Server {
     public void start() {
-        loopThread.setDaemon(await);
+        loopThread.setDaemon(!await);
         loopThread.start();
         success.run();
     }
