@@ -12,8 +12,13 @@ import java.net.Socket;
 class Exo implements Http.Server {
     public void start() {
         loopThread.setDaemon(!await);
-        loopThread.start();
         loopThread.setName("Exo main listener.");
+        loopThread.start();
+        try {
+            loopThread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         success.run();
     }
 
@@ -36,17 +41,13 @@ class Exo implements Http.Server {
                     host.inet(),
                     port.get()
                 ));
-                System.out.println("Server started....");
+                System.out.println("Exo started....");
                 while (!server.isClosed()){
-                    Socket client = server.accept();
-                    loopThread.sleep(1000);
+                    final Socket client = server.accept();
                     new Thread(()->{
                         try{
                             OutputStream os = client.getOutputStream();
                             handler.run(HttpRequest.mk()).writeFormattedTo(os);
-                            os.flush();
-                            os.close();
-                            client.close();
                         } catch (IOException e) {
                             e.printStackTrace();
                         } finally {
@@ -59,8 +60,6 @@ class Exo implements Http.Server {
                     }).start();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         });
