@@ -7,64 +7,55 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 class Exo implements Http.Server {
     public void start() {
-        loopThread.setDaemon(!await);
-        loopThread.setName("Exo main listener.");
-        loopThread.start();
         success.run();
-
     }
 
     public boolean isAlive() {
-        return loopThread.isAlive();
+        return threadPool.isShutdown();
     }
 
     public void kill() {
-        loopThread.interrupt();
+        threadPool.shutdown();
     }
 
     Exo(Host host, Port port, Function<HttpResponse, HttpRequest> handler, Action success, boolean await) {
         this.success = success;
         this.await = await;
-        loopThread = new Thread(()->{
-            ServerSocket server;
-            try {
-                server = new ServerSocket();
-                server.bind(new InetSocketAddress(host.inet(), port.get()));
-                System.out.println("Exo started...");
-                while (!loopThread.isInterrupted()){
+        try {
+            server = new ServerSocket();
+            server.bind(new InetSocketAddress(host.inet(), port.get()));
+            System.out.println("Server started....");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        threadPool = Executors.newCachedThreadPool();
+        try {
+            while (!Thread.currentThread().isInterrupted()){
+                Socket client = server.accept();
+                threadPool.submit(()->{
                     try {
-                        Socket client = server.accept();
-                        try {
-                            new Thread(()->{
-                                try {
-                                    handler.run(HttpRequest.mk()).writeFormattedTo(client.getOutputStream());
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            }).start();
-                        } catch (Exception e){
-                            System.out.println("Fucking thread...");
-                        } finally {
-                            Thread.sleep(100);
-                            client.close();
-                        }
-                    } catch (Exception e){
+                        handler.run(HttpRequest.mk()).writeFormattedTo(client.getOutputStream());
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+                });
             }
-        });
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            threadPool.shutdown();
+        }
     }
 
     private final Action success;
     private boolean await;
-    private Thread loopThread;
-
+    private ServerSocket server;
+    private ExecutorService threadPool;
     public static void main(String[] args) {
         Http.server().build().start();
     }
