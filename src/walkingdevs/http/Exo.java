@@ -14,6 +14,7 @@ class Exo implements Http.Server {
         loopThread.setName("Exo main listener.");
         loopThread.start();
         success.run();
+
     }
 
     public boolean isAlive() {
@@ -33,17 +34,23 @@ class Exo implements Http.Server {
                 server = new ServerSocket();
                 server.bind(new InetSocketAddress(host.inet(), port.get()));
                 System.out.println("Exo started...");
-                while (!server.isClosed()){
+                while (!loopThread.isInterrupted()){
                     try {
                         Socket client = server.accept();
-                        new Thread(()->{
-                            try {
-                                handler.run(HttpRequest.mk()).writeFormattedTo(client.getOutputStream());
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }).start();
-                        Thread.sleep(10L);
+                        try {
+                            new Thread(()->{
+                                try {
+                                    handler.run(HttpRequest.mk()).writeFormattedTo(client.getOutputStream());
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }).start();
+                        } catch (Exception e){
+                            System.out.println("Fucking thread...");
+                        } finally {
+                            Thread.sleep(10L);
+                            client.close();
+                        }
                     } catch (Exception e){
                         e.printStackTrace();
                     }
