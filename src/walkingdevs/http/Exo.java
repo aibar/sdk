@@ -48,7 +48,7 @@ class Exo implements Http.Server {
                         } catch (Exception e){
                             System.out.println("Fucking thread...");
                         } finally {
-                            Thread.sleep(10L);
+                            Thread.sleep(1000);
                             client.close();
                         }
                     } catch (Exception e){
