@@ -23,6 +23,11 @@ class ReqImpl implements Req {
                 bytesBuilder.add(bytes);
             }
         });
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return Resp.mk(
             resp.status(),
             resp.statusMsg(),
