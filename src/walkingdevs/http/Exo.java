@@ -40,18 +40,24 @@ class Exo implements Http.Server {
                 threadPool.submit(()->{
                     try {
                         handler.run(HttpRequest.mk()).writeFormattedTo(client.getOutputStream());
+                        Thread.sleep(10L);
+                        client.close();
                     } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 });
+                Thread.sleep(10L);
             }
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
             threadPool.shutdown();
         }
     }
-
     private final Action success;
     private boolean await;
     private ServerSocket server;
