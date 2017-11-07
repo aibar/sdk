@@ -14,18 +14,14 @@ public class ReqTest extends Assert {
 
     @Test
     public void shouldSendBody() {
-//        RespBody body = ReqBuilder.POST("http://localhost:5674/shouldSendBody")
-//            .body(Body.mk("test"))
-//            .build()
-//            .send()
-//            .body();
+        RespBody body = ReqBuilder.POST("http://localhost:5674/shouldSendBody")
+            .body(Body.mk("test"))
+            .build()
+            .send()
+            .body();
         assertEquals(
             "test",
-            ReqBuilder.POST("http://localhost:5674/shouldSendBody")
-                .body(Body.mk("test"))
-                .build()
-                .send()
-                .body().text()
+            body.text()
         );
     }
 
