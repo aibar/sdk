@@ -4,7 +4,6 @@ import walkingdevs.fun.Action;
 import walkingdevs.fun.Function;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -14,11 +13,6 @@ class Exo implements Http.Server {
         loopThread.setDaemon(!await);
         loopThread.setName("Exo main listener.");
         loopThread.start();
-        try {
-            loopThread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         success.run();
     }
 
@@ -34,30 +28,25 @@ class Exo implements Http.Server {
         this.success = success;
         this.await = await;
         loopThread = new Thread(()->{
+            ServerSocket server;
             try {
                 server = new ServerSocket();
-                server.setReuseAddress(true);
-                server.bind(new InetSocketAddress(
-                    host.inet(),
-                    port.get()
-                ));
-                System.out.println("Exo started....");
+                server.bind(new InetSocketAddress(host.inet(), port.get()));
+                System.out.println("Exo started...");
                 while (!server.isClosed()){
-                    final Socket client = server.accept();
-                    new Thread(()->{
-                        try{
-                            OutputStream os = client.getOutputStream();
-                            handler.run(HttpRequest.mk()).writeFormattedTo(os);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } finally {
+                    try {
+                        Socket client = server.accept();
+                        new Thread(()->{
                             try {
-                                client.close();
+                                handler.run(HttpRequest.mk()).writeFormattedTo(client.getOutputStream());
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                        }
-                    }).start();
+                        }).start();
+                        Thread.sleep(10L);
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -67,7 +56,6 @@ class Exo implements Http.Server {
 
     private final Action success;
     private boolean await;
-    private ServerSocket server;
     private Thread loopThread;
 
     public static void main(String[] args) {
