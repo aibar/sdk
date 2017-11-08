@@ -5,14 +5,17 @@ import walkingdevs.fun.Function;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.nio.channels.AsynchronousServerSocketChannel;
+import java.nio.channels.AsynchronousSocketChannel;
+import java.nio.channels.Channels;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 class Exo implements Http.Server {
     public void start() {
-        loopThread.setDaemon(!await);
+        loopThread.setDaemon(await);
         loopThread.setName("Server thread");
         loopThread.start();
         try {
@@ -34,19 +37,20 @@ class Exo implements Http.Server {
     Exo(Host host, Port port, Function<HttpResponse, HttpRequest> handler, Action success, boolean await) {
         loopThread = new Thread(()->{
             try {
-                server = new ServerSocket();
-                server.bind(new InetSocketAddress(host.inet(), port.get()));
-                System.out.println("Server started....");
+                server = AsynchronousServerSocketChannel.open().bind(
+                    new InetSocketAddress(host.inet(), port.get())
+                );
             } catch (IOException e) {
                 e.printStackTrace();
             }
             threadPool = Executors.newCachedThreadPool();
             try {
                 while (!Thread.currentThread().isInterrupted()){
-                    Socket client = server.accept();
+                    Future<AsynchronousSocketChannel> future= server.accept();
+                    final AsynchronousSocketChannel client= future.get();
                     threadPool.execute(()->{
                         try {
-                            handler.run(HttpRequest.mk()).writeFormattedTo(client.getOutputStream());
+                            handler.run(HttpRequest.mk()).writeFormattedTo(Channels.newOutputStream(client));
                             Thread.sleep(10L);
                             client.close();
                         } catch (IOException e) {
@@ -57,9 +61,9 @@ class Exo implements Http.Server {
                     });
                     Thread.sleep(10L);
                 }
-            }catch (IOException e) {
-                e.printStackTrace();
             } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
                 e.printStackTrace();
             }
         });
@@ -69,7 +73,7 @@ class Exo implements Http.Server {
     private final Action success;
     private boolean await;
     private Thread loopThread;
-    private ServerSocket server;
+    private AsynchronousServerSocketChannel server;
     private  ExecutorService threadPool;
 
 
