@@ -14,6 +14,11 @@ class Exo implements Http.Server {
     public void start() {
         loopThread.setDaemon(!await);
         loopThread.start();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         success.run();
     }
 
