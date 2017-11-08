@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
 
 class Exo implements Http.Server {
     public void start() {
-        loopThread.setDaemon(!await);
+//        loopThread.setDaemon(!await);
         loopThread.setName("Server thread");
         loopThread.start();
         try {
