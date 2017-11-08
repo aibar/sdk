@@ -12,9 +12,9 @@ import java.util.concurrent.Executors;
 
 class Exo implements Http.Server {
     public void start() {
-//        loopThread.setDaemon(!await);
-        loopThread.setName("Server thread");
-        loopThread.start();
+//        loopThread.setDaemon(await);
+//        loopThread.setName("Server thread");
+//        loopThread.start();
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -24,15 +24,17 @@ class Exo implements Http.Server {
     }
 
     public boolean isAlive() {
-        return loopThread.isAlive();
+//        return loopThread.isAlive();
+        return true;
     }
 
     public void kill() {
-        loopThread.interrupt();
+//        loopThread.interrupt();
     }
 
     Exo(Host host, Port port, Function<HttpResponse, HttpRequest> handler, Action success, boolean await) {
-        loopThread = new Thread(()->{
+        loopThread = Executors.newFixedThreadPool(1);
+        loopThread.submit(()->{
             try {
                 server = new ServerSocket();
                 server.bind(new InetSocketAddress(host.inet(), port.get()));
@@ -69,7 +71,7 @@ class Exo implements Http.Server {
     }
     private final Action success;
     private boolean await;
-    private final Thread loopThread;
+    private ExecutorService loopThread;
     private ServerSocket server;
     private  ExecutorService threadPool;
 
