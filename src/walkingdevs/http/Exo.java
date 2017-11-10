@@ -3,7 +3,7 @@ package walkingdevs.http;
 import walkingdevs.fun.Action;
 import walkingdevs.fun.Function;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.InetSocketAddress;
 import java.nio.channels.AsynchronousServerSocketChannel;
 import java.nio.channels.AsynchronousSocketChannel;
@@ -45,7 +45,10 @@ class Exo implements Http.Server {
                     final AsynchronousSocketChannel client= future.get();
                     threadPool.execute(()->{
                         try {
-                            handler.run(HttpRequest.mk()).writeFormattedTo(Channels.newOutputStream(client));
+                            is = Channels.newInputStream(client);
+                            os = Channels.newOutputStream(client);
+                            getURIFromHeader(readHeader());
+                            handler.run(HttpRequest.mk()).writeFormattedTo(os);
                             Thread.sleep(10L);
                             client.close();
                         } catch (IOException e) {
@@ -70,7 +73,33 @@ class Exo implements Http.Server {
     private Thread loopThread;
     private AsynchronousServerSocketChannel server;
     private  ExecutorService threadPool;
+    private OutputStream os;
+    private InputStream is;
 
+    private String readHeader() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder builder = new StringBuilder();
+        String ln;
+        while (true) {
+            ln = reader.readLine();
+            if (ln == null || ln.isEmpty()) {
+                break;
+            }
+            builder.append(ln + System.getProperty("line.separator"));
+        }
+        return builder.toString();
+    }
+
+    private String getURIFromHeader(String header) {
+        int from = header.indexOf(" ") + 1;
+        int to = header.indexOf(" ", from);
+        String uri = header.substring(from, to);
+        int paramIndex = uri.indexOf("?");
+        if (paramIndex != -1) {
+            uri = uri.substring(0, paramIndex);
+        }
+        return "wwww/" + uri;
+    }
 
     public static void main(String[] args) {
         Http.server().build().start();
