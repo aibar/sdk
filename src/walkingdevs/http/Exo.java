@@ -4,9 +4,8 @@ import walkingdevs.fun.Action;
 import walkingdevs.fun.Function;
 
 import javax.net.ServerSocketFactory;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -30,7 +29,8 @@ class Exo implements Http.Server {
         serverThread = new Thread(()->{
             ServerSocket serverSocket = null;
             try {
-                serverSocket = ServerSocketFactory.getDefault().createServerSocket(port.get());
+                serverSocket = ServerSocketFactory.getDefault().createServerSocket();
+                serverSocket.bind(new InetSocketAddress(host.inet(), port.get()));
                 System.out.println("Server started on port: " + serverSocket.getLocalPort() + "\n");
             } catch (IOException e) {
                 e.printStackTrace();
