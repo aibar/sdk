@@ -10,22 +10,22 @@ import java.net.Socket;
 
 class Exo implements Http.Server {
     public void start() {
-        loopThread.setDaemon(await);
-        loopThread.setName("Server thread");
-        loopThread.start();
+        serverThread.setDaemon(await);
+        serverThread.setName("Server thread");
+        serverThread.start();
         success.run();
     }
 
     public boolean isAlive() {
-        return loopThread.isAlive();
+        return serverThread.isAlive();
     }
 
     public void kill() {
-        loopThread.interrupt();
+        serverThread.interrupt();
     }
 
     Exo(Host host, Port port, Function<HttpResponse, HttpRequest> handler, Action success, boolean await) {
-        loopThread = new Thread(()->{
+        serverThread = new Thread(()->{
             ServerSocket serverSocket = null;
             try {
                 serverSocket = new ServerSocket();
@@ -34,15 +34,25 @@ class Exo implements Http.Server {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            while (!loopThread.isInterrupted()){
+            while (!serverThread.isInterrupted()){
                 try {
                     Socket clientSocket = serverSocket.accept();
-                    ClientSession session = new ClientSession(clientSocket, handler);
-                    new Thread(session).start();
+                    clientThread = new Thread(()->{
+                        try {
+                            handler.run(HttpRequest.mk()).writeFormattedTo(clientSocket.getOutputStream());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } finally {
+                            try {
+                                clientSocket.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    clientThread.start();
                 } catch (IOException e) {
                     System.out.println("Failed to establish connection.");
-                    System.out.println(e.getMessage());
-                    System.exit(-1);
                 }
             }
         });
@@ -51,7 +61,8 @@ class Exo implements Http.Server {
     }
     private final Action success;
     private boolean await;
-    private Thread loopThread;
+    private Thread serverThread;
+    private Thread clientThread;
 
     public static void main(String[] args) {
         Http.server().build().start();
