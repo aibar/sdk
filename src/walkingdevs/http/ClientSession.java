@@ -1,10 +1,25 @@
-package req;
+package walkingdevs.http;
+
+import walkingdevs.fun.Function;
 
 import java.io.*;
 import java.net.Socket;
 
-public class ClientSession implements Runnable{
-
+public class ClientSession implements Runnable {
+    public ClientSession(Socket clientSocket, Function<HttpResponse, HttpRequest> handler) {
+        this.socket  = clientSocket;
+        this.handler = handler;
+        try {
+            this.in = clientSocket.getInputStream();
+            this.out = clientSocket.getOutputStream();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private final Socket socket;
+    private final Function<HttpResponse, HttpRequest> handler;
+    private InputStream in;
+    private OutputStream out;
     @Override
     public void run() {
         try {
@@ -14,7 +29,7 @@ public class ClientSession implements Runnable{
             String url = getURIFromHeader(header);
             System.out.println("Resource: " + url + "\n");
          /* Отправляем содержимое ресурса клиенту */
-            send();
+            handler.run(HttpRequest.mk()).writeFormattedTo(out);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -25,13 +40,6 @@ public class ClientSession implements Runnable{
             }
         }
     }
-
-    public ClientSession(Socket socket) throws IOException {
-        this.socket = socket;
-        in = socket.getInputStream();
-        out = socket.getOutputStream();
-    }
-
     private String readHeader() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         StringBuilder builder = new StringBuilder();
@@ -56,16 +64,6 @@ public class ClientSession implements Runnable{
         }
         return DEFAULT_FILES_DIR + uri;
     }
-
-    private void send() throws IOException {
-        String header = "HTTP1/1 200 OK\n\nExo server is up and running.";
-        PrintStream answer = new PrintStream(out, true, "UTF-8");
-        answer.print(header);
-    }
-
-    private Socket socket;
-    private InputStream in = null;
-    private OutputStream out = null;
-
     private static final String DEFAULT_FILES_DIR = "/www";
+
 }
