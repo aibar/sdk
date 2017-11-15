@@ -15,7 +15,6 @@ class Exo implements Http.Server {
         serverThread.setDaemon(await);
         serverThread.setName("Server thread");
         serverThread.start();
-        success.run();
     }
 
     public boolean isAlive() {
@@ -33,6 +32,7 @@ class Exo implements Http.Server {
                 serverSocket = new ServerSocket();
                 serverSocket.bind(new InetSocketAddress(host.inet(), port.get()));
                 System.out.println("Server started on port: " + serverSocket.getLocalPort() + "\n");
+                success.run();
             } catch (IOException e) {
                 e.printStackTrace();
             }
