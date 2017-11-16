@@ -28,6 +28,9 @@ class Exo implements Http.Server {
             .host(host)
             .port(port)
             .await(!await)
+            .success(()->{
+                success.run();
+            })
             .handler(socket->{
                     new Thread(()->{
                         try {
@@ -43,18 +46,15 @@ class Exo implements Http.Server {
                         } catch (IOException e) {
                             e.printStackTrace();
                         } finally {
+                            try {
+                                socket.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }).start();
-                    try {
-                        Thread.sleep(100L);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
                 }
             )
-            .success(()->{
-                success.run();
-            })
             .build();
     }
     private final Tcp.Server server;
