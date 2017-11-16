@@ -4,7 +4,9 @@ import walkingdevs.fun.Action;
 import walkingdevs.fun.Function;
 import walkingdevs.tcp.Tcp;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 class Exo implements Http.Server {
     public void start() {
@@ -30,6 +32,14 @@ class Exo implements Http.Server {
             .handler(socket->{
                     new Thread(()->{
                         try {
+                            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                            String s;
+                            while ((s=in.readLine())!=null){
+                                System.out.println(s);
+                                if (s.isEmpty()){
+                                    break;
+                                }
+                            }
                             handler.run(HttpRequest.mk()).writeFormattedTo(socket.getOutputStream());
                         } catch (IOException e) {
                             e.printStackTrace();
