@@ -21,6 +21,10 @@ class TcpServerImpl implements Tcp.Server {
         loopThread.interrupt();
     }
 
+    public boolean isAlive() {
+        return loopThread.isAlive();
+    }
+
     TcpServerImpl(Host host, Port port, Handler<Socket> socketHandler, Action successAction, boolean await) {
         this.successAction = successAction;
         this.await = await;

@@ -14,8 +14,7 @@ class Exo implements Http.Server {
     }
 
     public boolean isAlive() {
-
-        return false;
+        return server.isAlive();
     }
 
     public void kill() {
