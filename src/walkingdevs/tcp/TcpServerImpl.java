@@ -14,7 +14,6 @@ class TcpServerImpl implements Tcp.Server {
     public void start() {
         loopThread.setDaemon(!await);
         loopThread.start();
-        successAction.run();
     }
 
     public void kill() {
@@ -38,6 +37,7 @@ class TcpServerImpl implements Tcp.Server {
                         port.get()
                     )
                 );
+                successAction.run();
             } catch (IOException e) {
                 throw new RuntimeException(
                     e
