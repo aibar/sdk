@@ -2,77 +2,53 @@ package walkingdevs.http;
 
 import walkingdevs.fun.Action;
 import walkingdevs.fun.Function;
+import walkingdevs.tcp.Tcp;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.InetSocketAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
 
 class Exo implements Http.Server {
     public void start() {
-        serverThread.setDaemon(await);
-        serverThread.setName("Server thread");
-        serverThread.start();
+        server.start();
     }
 
     public boolean isAlive() {
-        return serverThread.isAlive();
+
+        return false;
     }
 
     public void kill() {
-        serverThread.interrupt();
+        server.kill();
     }
 
     Exo(Host host, Port port, Function<HttpResponse, HttpRequest> handler, Action success, boolean await) {
-        serverThread = new Thread(()->{
-            ServerSocket serverSocket = null;
-            try {
-                serverSocket = new ServerSocket();
-                serverSocket.bind(new InetSocketAddress(host.inet(), port.get()));
-                System.out.println("Server started on port: " + serverSocket.getLocalPort() + "\n");
-                success.run();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            while (!serverThread.isInterrupted()){
-                try {
-                    Socket clientSocket = serverSocket.accept();
-                    clientThread = new Thread(()->{
+        System.out.println("Server started on port: " + port.get());
+        server = Tcp
+            .server()
+            .host(host)
+            .port(port)
+            .await(!await)
+            .handler(socket->{
+                    new Thread(()->{
                         try {
-                            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                            String s;
-                            while ((s=in.readLine())!=null){
-                                System.out.println(s);
-                                if (s.isEmpty()){
-                                    break;
-                                }
-                            }
-                            handler.run(HttpRequest.mk()).writeFormattedTo(clientSocket.getOutputStream());
+                            handler.run(HttpRequest.mk()).writeFormattedTo(socket.getOutputStream());
                         } catch (IOException e) {
                             e.printStackTrace();
                         } finally {
-                            try {
-                                clientSocket.close();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
                         }
-                    });
-                    clientThread.start();
-                } catch (IOException e) {
-                    System.out.println("Failed to establish connection.");
+                    }).start();
+                    try {
+                        Thread.sleep(100L);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-        });
-        this.success = success;
-        this.await = await;
+            )
+            .success(()->{
+                success.run();
+            })
+            .build();
     }
-    private final Action success;
-    private boolean await;
-    private Thread serverThread;
-    private Thread clientThread;
+    private final Tcp.Server server;
 
     public static void main(String[] args) {
         Http.server().build().start();
