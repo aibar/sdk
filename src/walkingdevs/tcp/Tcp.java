@@ -16,6 +16,8 @@ public interface Tcp {
 
         void kill();
 
+        boolean isAlive();
+
         interface Builder {
             Builder handler(Handler<Socket> socketHandler);
 
