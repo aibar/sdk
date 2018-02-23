@@ -5,6 +5,7 @@ import walkingdevs.exceptions.Exceptions;
 import walkingdevs.fun.Handler;
 import walkingdevs.stream.BufferedIs;
 
+import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -48,8 +49,7 @@ class ReqImpl implements Req {
             );
         } catch (Exception fail) {
             throw Exceptions.weFucked(
-                String.format("%s: We tried hard, but Failed to send the request", url),
-                fail
+                fail.getMessage()
             );
         } finally {
             if (connection != null) {
@@ -120,6 +120,11 @@ class ReqImpl implements Req {
         connection.setReadTimeout(readTimeout);
         connection.setUseCaches(false);
         connection.setInstanceFollowRedirects(false);
+        if (url.scheme() == Scheme.Https) {
+            ((HttpsURLConnection) connection).setHostnameVerifier((host, session) -> {
+                return true;
+            });
+        }
     }
 
     private void setHeaders(HttpURLConnection connection) {
@@ -186,8 +191,7 @@ class ReqImpl implements Req {
             body.writeTo(output);
         } catch (IOException fail) {
             throw Exceptions.weFucked(
-                String.format("%s: Cannot send body", url),
-                fail
+                fail.getMessage()
             );
         }
     }
