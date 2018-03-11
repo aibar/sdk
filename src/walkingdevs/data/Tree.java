@@ -7,6 +7,8 @@ public interface Tree<K, V> extends Iterable<Tree<K, V>> {
 
     V val();
 
+    int size();
+
     Tree<K, V> get(K key);
 
     boolean has(K val);

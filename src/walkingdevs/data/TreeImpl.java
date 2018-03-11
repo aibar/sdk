@@ -11,6 +11,10 @@ class TreeImpl<K, V> implements Tree<K, V> {
         return val;
     }
 
+    public int size() {
+        return nodes.size();
+    }
+
     public Tree<K, V> get(K val) {
         return nodes.get(val);
     }

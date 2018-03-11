@@ -28,6 +28,10 @@ public class TreeTest extends Assert {
                 )
             );
         assertEquals(
+            2,
+            tree.size()
+        );
+        assertEquals(
             "222",
             tree.walk(Path.mk("/0/2/22/222/Stop!")).key()
         );
